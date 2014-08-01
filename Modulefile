@@ -1,0 +1,12 @@
+name    'ghoneycutt-yum'
+version '0.1.0'
+source 'https://github.com/ghoneycutt/puppet-module-yum.git'
+author 'ghoneycutt'
+license 'Apache License, Version 2.0'
+summary 'Puppet module to manage yum (client, server, and key management)'
+description 'Puppet module to manage yum (client, server, and key management)'
+project_page 'https://github.com/ghoneycutt/puppet-module-yum'
+
+dependency 'ghoneycutt/common', '>= 1.0.2'
+dependency 'puppetlabs/apache', '>= 0.4.0'
+dependency 'puppetlabs/stdlib', '>= 3.2.0'

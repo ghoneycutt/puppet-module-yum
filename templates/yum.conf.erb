@@ -1,0 +1,21 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+
+[main]
+cachedir=/var/cache/yum/$basearch/$releasever
+keepcache=0
+debuglevel=2
+logfile=/var/log/yum.log
+distroverpkg=<%= @operatingsystem.downcase %>-release
+tolerant=1
+exactarch=1
+obsoletes=1
+gpgcheck=1
+plugins=1
+pkgpolicy=newest
+
+# Note: yum-RHN-plugin doesn't honor this.
+metadata_expire=1h
+
+# Default.
+# installonly_limit = 3
