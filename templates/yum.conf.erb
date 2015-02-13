@@ -6,16 +6,13 @@ cachedir=/var/cache/yum/$basearch/$releasever
 keepcache=0
 debuglevel=2
 logfile=/var/log/yum.log
-distroverpkg=<%= @operatingsystem.downcase %>-release
+<% if @distroverpkg != nil -%>distroverpkg=<%= @operatingsystem.downcase %>-release<% end -%>
 tolerant=1
 exactarch=1
 obsoletes=1
 gpgcheck=1
 plugins=1
-pkgpolicy=newest
+<% if @pkgpolicy != nil -%>pkgpolicy=<%= @pkgpolicy %><% end -%>
 
 # Note: yum-RHN-plugin doesn't honor this.
 metadata_expire=1h
-
-# Default.
-# installonly_limit = 3

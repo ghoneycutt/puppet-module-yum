@@ -54,8 +54,8 @@ class yum::server (
   common::mkdir_p { $docroot: }
 
   apache::vhost { 'yumrepo':
-    port     => '80',
     docroot  => $docroot,
+    port     => '80',
     template => 'yum/yumrepo.conf.erb',
     require  => Common::Mkdir_p[$docroot],
   }

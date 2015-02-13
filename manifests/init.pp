@@ -3,14 +3,18 @@
 # Manages yum
 #
 class yum (
-  $config_path   = '/etc/yum.conf',
-  $config_owner  = 'root',
-  $config_group  = 'root',
-  $config_mode   = '0644',
-  $manage_repos  = false,
-  $repos_d_owner = 'root',
-  $repos_d_group = 'root',
-  $repos_d_mode  = '0755',
+  $config_path       = '/etc/yum.conf',
+  $config_owner      = 'root',
+  $config_group      = 'root',
+  $config_mode       = '0644',
+  $manage_repos      = false,
+  $repos_d_owner     = 'root',
+  $repos_d_group     = 'root',
+  $repos_d_mode      = '0755',
+  $repos_hiera_merge = true,
+  $repos             = undef,
+  $distroverpkg      = undef,
+  $pkgpolicy         = undef,
 ) {
 
   include yum::updatesd
@@ -45,6 +49,23 @@ class yum (
     default: {
       fail("yum::manage_repos must be true or false and is ${manage_repos}")
     }
+  }
+
+  if type($repos_hiera_merge) == 'string' {
+    $repos_hiera_merge_real = str2bool($repos_hiera_merge)
+  } else {
+    $repos_hiera_merge_real = $repos_hiera_merge
+  }
+  validate_bool($repos_hiera_merge_real)
+
+  if $repos != undef {
+    if $repos_hiera_merge_real == true {
+      $repos_real = hiera_hash('yum::repos')
+    } else {
+      $repos_real = $repos
+    }
+    validate_hash($repos_real)
+    create_resources('yum::repo',$repos_real)
   }
 
   package { 'yum':
