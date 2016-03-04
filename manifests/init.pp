@@ -30,7 +30,7 @@ class yum (
   validate_re($repos_d_mode, '^[0-7]{4}$',
     "yum::repos_d_mode is <${repos_d_mode}> and must be a valid four digit mode in octal notation.")
 
-  if type($manage_repos) == 'string' {
+  if type3x($manage_repos) == 'string' {
     $manage_repos_bool = str2bool($manage_repos)
   } else {
     $manage_repos_bool = $manage_repos
@@ -51,7 +51,7 @@ class yum (
     }
   }
 
-  if type($repos_hiera_merge) == 'string' {
+  if type3x($repos_hiera_merge) == 'string' {
     $repos_hiera_merge_real = str2bool($repos_hiera_merge)
   } else {
     $repos_hiera_merge_real = $repos_hiera_merge
