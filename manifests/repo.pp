@@ -15,7 +15,7 @@ define yum::repo (
   $enabled              = '1',
   $gpgcheck             = '1',
   $gpgkey               = 'UNSET',
-  $use_gpgkey_uri       = 'true',
+  $use_gpgkey_uri       = true,
   $yum_repos_d_path     = 'UNSET',
   $gpgkey_local_path    = 'UNSET',
   $priority             = 'UNSET',
@@ -62,7 +62,7 @@ define yum::repo (
   # URL of gpgkey used in template and takes a form such as
   # http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5
   if $gpgkey == 'UNSET' {
-    if $use_gpgkey_uri == 'true' {
+    if $use_gpgkey_uri == true {
       $my_gpgkey = "${gpgkey_url_proto}://${gpgkey_url_server}/${gpgkey_url_path}/${gpgkey_file_prefix}-${upcase_name}-${::lsbmajdistrelease}"
     } else {
       $my_gpgkey = $gpgkey
@@ -89,7 +89,7 @@ define yum::repo (
   }
 
   # Only need to deal with importing GPG keys, if we have gpgcheck enabled
-  if ($gpgcheck == '1') and ($use_gpgkey_uri == 'true') {
+  if ($gpgcheck == '1') and ($use_gpgkey_uri == true) {
 
     # Where to place GPG keys
     if $gpgkey_local_path == 'UNSET' {
