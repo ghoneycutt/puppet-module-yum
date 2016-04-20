@@ -2,17 +2,27 @@
 # DO NOT EDIT
 
 [main]
+<% if @proxy != nil -%>
+proxy=<%= @proxy %>
+<% end -%>
 cachedir=/var/cache/yum/$basearch/$releasever
 keepcache=0
 debuglevel=2
 logfile=/var/log/yum.log
-<% if @distroverpkg != nil -%>distroverpkg=<%= @operatingsystem.downcase %>-release<% end -%>
+<% if @distroverpkg != nil -%>
+distroverpkg=<%= @operatingsystem.downcase %>-release
+<% end -%>
 tolerant=1
 exactarch=1
 obsoletes=1
 gpgcheck=1
 plugins=1
-<% if @pkgpolicy != nil -%>pkgpolicy=<%= @pkgpolicy %><% end -%>
+<% if @pkgpolicy != nil -%>
+pkgpolicy=<%= @pkgpolicy %>
+<% end -%>
+<% if @installonly_limit != nil -%>
+installonly_limit=<%= @installonly_limit %>
+<% end -%>
 
 # Note: yum-RHN-plugin doesn't honor this.
 metadata_expire=1h

@@ -1,3 +1,3 @@
-include yum
-yum::repo { 'test':
-}
+include ::yum
+
+yum::repo { 'test': }

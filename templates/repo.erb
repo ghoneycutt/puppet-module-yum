@@ -6,5 +6,5 @@ name=<%= @description_real %>
 baseurl=<%= @my_baseurl %>
 enabled=<%= @enabled %>
 gpgcheck=<%= @gpgcheck %>
-<% if @use_gpgkey_uri == 'true' %>gpgkey=<%= @my_gpgkey %><% end %>
+<% if @use_gpgkey_uri == true %>gpgkey=<%= @my_gpgkey %><% end %>
 <% if @priority != 'UNSET' %>priority=<%= @priority %><% end %>
