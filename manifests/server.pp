@@ -13,8 +13,7 @@ class yum::server (
   $yum_server_http_listen_ip = 'UNSET',
 ) {
 
-  include apache
-  include common
+  include ::apache
 
   # validate contact_email
   validate_absolute_path($docroot)
