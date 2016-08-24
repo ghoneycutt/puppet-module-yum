@@ -31,6 +31,8 @@ define yum::repo (
   $password             = undef,
   $description          = undef,
   $environment          = $::environment,
+  $mirrorlist           = undef,
+  $failovermethod       = undef,
 ) {
 
   validate_string($username)
@@ -45,7 +47,9 @@ define yum::repo (
   # $baseurl is used in template and takes a form such as
   # http://yum.domain.tld/customrepo/5/8/dev/x86_64
   if $baseurl == 'UNSET' {
-    if $username != undef and $password != undef {
+    if $mirrorlist != undef {
+      $my_baseurl = undef
+    } elsif $username != undef and $password != undef {
       $my_baseurl = "${repo_server_protocol}://${username}:${password}@${repo_server}/${repo_server_basedir}/${name}/${::lsbmajdistrelease}/${::lsbminordistrelease}/${environment}/\$basearch"
     } else {
       $my_baseurl = "${repo_server_protocol}://${repo_server}/${repo_server_basedir}/${name}/${::lsbmajdistrelease}/${::lsbminordistrelease}/${environment}/\$basearch"
