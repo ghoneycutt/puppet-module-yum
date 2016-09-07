@@ -1,0 +1,4 @@
+---
+yum::repos:
+  'from_hiera_fqdn':
+    'gpgkey_url_server': 'yum.rspec.local'
