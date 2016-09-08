@@ -131,11 +131,9 @@ describe 'yum' do
         :repos => {
           'rspec' => {
             'gpgcheck'          => '1',
-            'gpgkey_url_server' => 'workaround.issue.#6', # https://github.com/ghoneycutt/puppet-module-yum/issues/6
           },
           'test' => {
             'repo_file_mode'    => '0242',
-            'gpgkey_url_server' => 'workaround.issue.#6', # https://github.com/ghoneycutt/puppet-module-yum/issues/6
           }
         }
       }
