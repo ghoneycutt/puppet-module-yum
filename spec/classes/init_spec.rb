@@ -229,18 +229,24 @@ describe 'yum' do
       'integer and stringified' => {
         :name    => %w(installonly_limit),
         :valid   => [242, '242'],
-        :invalid => [2.42, %w(array), true, false], # /!\ enhancement: validate and convert stringified integers
-        :message => 'must be a string or an integer',
+        :invalid => ['string', 2.42, %w(array), { 'ha' => 'sh' }, true, false, nil],
+        :message => '(is not an integer nor stringified integer|floor\(\): Wrong argument type)',
       },
       'regex for mode' => {
         :name    => %w(config_mode repos_d_mode),
         :valid   => %w(0644 0755 0640 0740),
-        :invalid => ['644', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        :message => 'must be a valid four digit mode in octal notation\.',
+        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
+        :message => 'is not a file mode in octal notation',
+      },
+      'regex for pkgpolicy' => {
+        :name    => %w(pkgpolicy),
+        :valid   => %w(newest last),
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
+        :message => 'must be <newest> or <last>',
       },
       # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
       'string' => {
-        :name    => %w(config_owner config_group repos_d_owner repos_d_group proxy),
+        :name    => %w(config_owner config_group repos_d_owner repos_d_group distroverpkg proxy),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
         :message => 'is not a string',

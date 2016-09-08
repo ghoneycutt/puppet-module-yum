@@ -20,8 +20,8 @@ plugins=1
 <% if @pkgpolicy != nil -%>
 pkgpolicy=<%= @pkgpolicy %>
 <% end -%>
-<% if @installonly_limit != nil -%>
-installonly_limit=<%= @installonly_limit %>
+<% if @installonly_limit_int != nil -%>
+installonly_limit=<%= @installonly_limit_int %>
 <% end -%>
 
 # Note: yum-RHN-plugin doesn't honor this.
