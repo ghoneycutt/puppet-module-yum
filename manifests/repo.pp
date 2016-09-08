@@ -37,6 +37,10 @@ define yum::repo (
 
   validate_string($username)
   validate_string($password)
+  validate_string(
+    $mirrorlist,
+    $failovermethod,
+  )
 
   if $description == undef {
     $description_real = $name

@@ -219,13 +219,24 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.test.local///rspec/5/10/testing/\$basearch$}) }
   end
 
+  context 'with mirrorlist set to valid string <http://mirror.list/?release=7?arch=x86_64>' do
+    let(:params) { mandatory_params.merge({ :mirrorlist => 'http://mirror.list/?release=7?arch=x86_64' }) }
+    it { should contain_file('rspec.repo').without_content(/\[rspec\][\s\S]*baseurl=/) }
+    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*mirrorlist=http://mirror.list/\?release=7\?arch=x86_64$}) }
+  end
+
+  context 'with failovermethod set to valid string <priority>' do
+    let(:params) { mandatory_params.merge({ :failovermethod => 'priority' }) }
+    it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*failovermethod=priority/) }
+  end
+
   describe 'variable type and content validations' do
     let(:mandatory_params) { mandatory_params }
 
     validations = {
       # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
       'string' => {
-        :name    => %w(username password),
+        :name    => %w(username password mirrorlist failovermethod),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
         :message => 'is not a string',
