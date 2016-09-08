@@ -1,6 +1,6 @@
 {
   "name": "ghoneycutt-yum",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "ghoneycutt",
   "summary": "Puppet module to manage yum (client, server, and key management)",
   "license": "Apache-2.0",
@@ -11,6 +11,8 @@
   "dependencies": [
     {"name":"ghoneycutt/common","version_requirement":">= 1.5.0 < 2.0.0"},
     {"name":"puppetlabs/apache","version_requirement":">= 1.0.0 < 2.0.0"},
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.6.0 < 6.0.0"}
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.6.0 < 6.0.0"},
+    {"name":"puppetlabs/firewall","version_requirement":">= 1.8.0 < 2.0.0"},
+    {"name":"puppetlabs/concat","version_requirement":">= 2.2.0 < 3.0.0"}
   ]
 }
