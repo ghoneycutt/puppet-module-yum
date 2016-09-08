@@ -23,7 +23,7 @@ define yum::repo (
   $repo_file_mode       = '0400',
   $yum_repos_d_path     = '/etc/yum.repos.d',
   $gpgkey_url_proto     = 'http',
-  $gpgkey_url_server    = $repo_server,
+  $gpgkey_url_server    = undef,
   $gpgkey_url_path      = 'keys',
   $gpgkey_file_prefix   = 'RPM-GPG-KEY',
   $gpgkey_local_path    = '/etc/pki/rpm-gpg',
@@ -41,6 +41,20 @@ define yum::repo (
     $mirrorlist,
     $failovermethod,
   )
+
+  if is_domain_name($repo_server) == false or is_string($repo_server) == false {
+    fail("yum::repo::repo_server is not a domain name. It is <${repo_server}>.")
+  }
+
+  if is_string($gpgkey_url_server) == true and is_domain_name($gpgkey_url_server) == true {
+    $gpgkey_url_server_real = $gpgkey_url_server
+  }
+  elsif $gpgkey_url_server == undef {
+    $gpgkey_url_server_real = $repo_server
+  }
+  else {
+    fail("yum::repo::gpgkey_url_server is not a domain name. It is <${gpgkey_url_server}>.")
+  }
 
   if $description == undef {
     $description_real = $name
@@ -69,7 +83,7 @@ define yum::repo (
   # http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5
   if $gpgkey == 'UNSET' {
     if $use_gpgkey_uri == true {
-      $my_gpgkey = "${gpgkey_url_proto}://${gpgkey_url_server}/${gpgkey_url_path}/${gpgkey_file_prefix}-${upcase_name}-${::lsbmajdistrelease}"
+      $my_gpgkey = "${gpgkey_url_proto}://${gpgkey_url_server_real}/${gpgkey_url_path}/${gpgkey_file_prefix}-${upcase_name}-${::lsbmajdistrelease}"
     } else {
       $my_gpgkey = $gpgkey
     }

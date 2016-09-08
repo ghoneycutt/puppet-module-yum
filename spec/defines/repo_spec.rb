@@ -235,6 +235,12 @@ describe 'yum::repo' do
 
     validations = {
       # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
+      'domain_name' => {
+        :name    => %w(repo_server gpgkey_url_server),
+        :valid   => %w(v.al.id val.id),
+        :invalid => ['in,val.id', 'in_val.id', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false],
+        :message => 'is not a domain name',
+      },
       'string' => {
         :name    => %w(username password mirrorlist failovermethod),
         :valid   => ['string'],
