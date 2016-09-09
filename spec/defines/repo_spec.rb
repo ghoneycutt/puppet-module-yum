@@ -75,8 +75,6 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*gpgcheck=0$/) }
   end
 
-# /!\ my_gpgkey is not defined when gpgkey is != UNSET
-=begin
   context 'with gpgkey set to valid string <http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5>' do
     let(:params) { mandatory_params.merge({ :gpgkey => 'http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5' }) }
 
@@ -88,7 +86,6 @@ describe 'yum::repo' do
     end
     it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*gpgkey=http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5$}) }
   end
-=end
 
   context 'with use_gpgkey_uri set to valid bool <false>' do
     let(:params) { mandatory_params.merge({ :use_gpgkey_uri => false }) }

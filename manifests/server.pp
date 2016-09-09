@@ -10,7 +10,7 @@ class yum::server (
   $gpg_keys_path             = 'keys',
   $gpg_user_name             = 'Root',
   $yum_server                = 'yum',
-  $yum_server_http_listen_ip = 'UNSET',
+  $yum_server_http_listen_ip = undef,
 ) {
 
   include ::apache

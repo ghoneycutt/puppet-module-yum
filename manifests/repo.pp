@@ -11,12 +11,12 @@
 #  }
 #
 define yum::repo (
-  $baseurl              = 'UNSET',
+  $baseurl              = undef,
   $enabled              = '1',
   $gpgcheck             = '1',
-  $gpgkey               = 'UNSET',
+  $gpgkey               = undef,
   $use_gpgkey_uri       = true,
-  $priority             = 'UNSET',
+  $priority             = undef,
   $repo_server          = "yum.${::domain}",
   $repo_server_protocol = 'http',
   $repo_server_basedir  = '/',
@@ -64,16 +64,16 @@ define yum::repo (
 
   # $baseurl is used in template and takes a form such as
   # http://yum.domain.tld/customrepo/5/8/dev/x86_64
-  if $baseurl == 'UNSET' {
+  if $baseurl == undef {
     if $mirrorlist != undef {
-      $my_baseurl = undef
+      $baseurl_real = undef
     } elsif $username != undef and $password != undef {
-      $my_baseurl = "${repo_server_protocol}://${username}:${password}@${repo_server}/${repo_server_basedir}/${name}/${::lsbmajdistrelease}/${::lsbminordistrelease}/${environment}/\$basearch"
+      $baseurl_real = "${repo_server_protocol}://${username}:${password}@${repo_server}/${repo_server_basedir}/${name}/${::lsbmajdistrelease}/${::lsbminordistrelease}/${environment}/\$basearch"
     } else {
-      $my_baseurl = "${repo_server_protocol}://${repo_server}/${repo_server_basedir}/${name}/${::lsbmajdistrelease}/${::lsbminordistrelease}/${environment}/\$basearch"
+      $baseurl_real = "${repo_server_protocol}://${repo_server}/${repo_server_basedir}/${name}/${::lsbmajdistrelease}/${::lsbminordistrelease}/${environment}/\$basearch"
     }
   } else {
-    $my_baseurl = $baseurl
+    $baseurl_real = $baseurl
   }
 
   # uppercase name of repo
@@ -81,12 +81,11 @@ define yum::repo (
 
   # URL of gpgkey used in template and takes a form such as
   # http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5
-  if $gpgkey == 'UNSET' {
-    if $use_gpgkey_uri == true {
-      $my_gpgkey = "${gpgkey_url_proto}://${gpgkey_url_server_real}/${gpgkey_url_path}/${gpgkey_file_prefix}-${upcase_name}-${::lsbmajdistrelease}"
-    } else {
-      $my_gpgkey = $gpgkey
-    }
+  if $use_gpgkey_uri == true and $gpgkey == undef {
+    $gpgkey_real = "${gpgkey_url_proto}://${gpgkey_url_server_real}/${gpgkey_url_path}/${gpgkey_file_prefix}-${upcase_name}-${::lsbmajdistrelease}"
+  }
+  else {
+    $gpgkey_real = $gpgkey
   }
 
   # repo file
@@ -105,7 +104,7 @@ define yum::repo (
   if ($gpgcheck == '1') and ($use_gpgkey_uri == true) {
 
     yum::rpm_gpg_key { $upcase_name:
-      gpgkey_url => $my_gpgkey,
+      gpgkey_url => $gpgkey_real,
       gpgkey     => "${gpgkey_local_path}/${gpgkey_file_prefix}-${upcase_name}-${::lsbmajdistrelease}",
       before     => File["${name}.repo"],
     }
