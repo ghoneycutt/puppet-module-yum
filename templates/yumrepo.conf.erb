@@ -1,8 +1,8 @@
 # This file is being maintained by Puppet.
 # DO NOT EDIT
 
-NameVirtualHost <% if @yum_server_http_listen_ip != nil %><%= @yum_server_http_listen_ip %><% else %><%= @ipaddress %><% end %>:80
-<VirtualHost <% if @yum_server_http_listen_ip != nil %><%= @yum_server_http_listen_ip %><% else %><%= @ipaddress %><% end %>:80>
+NameVirtualHost <% @yum_server_http_listen_ip_real %>:80
+<VirtualHost <% @yum_server_http_listen_ip_real %>:80>
     ServerName <%= @yum_server %>
     ServerAlias <%= @fqdn %> <%= @hostname %>
     ServerAdmin <%= @contact_email %>

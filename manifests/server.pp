@@ -22,6 +22,11 @@ class yum::server (
   validate_string($yum_server)
   validate_string($yum_server_http_listen_ip)
 
+  case $yum_server_http_listen_ip {
+    undef:   { $yum_server_http_listen_ip_real = $::ipaddress }
+    default: { $yum_server_http_listen_ip_real = $yum_server_http_listen_ip }
+  }
+
   package { 'createrepo':
     ensure => installed,
   }
