@@ -154,8 +154,8 @@ describe 'yum' do
     end
   end
 
-  context 'with distroverpkg set to valid string <rspec-release>' do
-    let(:params) { { :distroverpkg => 'rspec-release' } }
+  context 'with distroverpkg set to valid bool <true>' do
+    let(:params) { { :distroverpkg => true } }
 
     it { should contain_file('yum_config').with_content(/\[main\][\s\S]*distroverpkg=redhat-release$/) }
   end
@@ -214,7 +214,7 @@ describe 'yum' do
         :message => 'is not an absolute path',
       },
       'bool and stringified' => {
-        :name    => %w(manage_repos repos_hiera_merge),
+        :name    => %w(distroverpkg manage_repos repos_hiera_merge),
         :valid   => [true, false, 'true', 'false'],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
         :message => '(is not a boolean|Unknown type of boolean given)',
@@ -246,7 +246,7 @@ describe 'yum' do
       },
       # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
       'string' => {
-        :name    => %w(config_owner config_group repos_d_owner repos_d_group distroverpkg proxy),
+        :name    => %w(config_owner config_group repos_d_owner repos_d_group proxy),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
         :message => 'is not a string',

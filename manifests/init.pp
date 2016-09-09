@@ -13,7 +13,7 @@ class yum (
   $repos_d_mode      = '0755',
   $repos_hiera_merge = true,
   $repos             = undef,
-  $distroverpkg      = undef,
+  $distroverpkg      = false,
   $pkgpolicy         = undef,
   $proxy             = undef,
   $installonly_limit = undef,
@@ -23,12 +23,17 @@ class yum (
 
   validate_absolute_path($config_path)
 
+  case $distroverpkg {
+    true, 'true':   { $distroverpkg_bool = true }  # lint:ignore:quoted_booleans
+    false, 'false': { $distroverpkg_bool = false } # lint:ignore:quoted_booleans
+    default:        { fail("yum::distroverpkg is not a boolean. It is <${distroverpkg}>.") }
+  }
+
   validate_string(
     $config_owner,
     $config_group,
     $repos_d_owner,
     $repos_d_group,
-    $distroverpkg,
   )
 
   if $proxy != undef {

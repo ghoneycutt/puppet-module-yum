@@ -9,7 +9,7 @@ cachedir=/var/cache/yum/$basearch/$releasever
 keepcache=0
 debuglevel=2
 logfile=/var/log/yum.log
-<% if @distroverpkg != nil -%>
+<% if @distroverpkg_bool == true -%>
 distroverpkg=<%= @operatingsystem.downcase %>-release
 <% end -%>
 tolerant=1
