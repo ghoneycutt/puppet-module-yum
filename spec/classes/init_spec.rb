@@ -156,27 +156,23 @@ describe 'yum' do
 
   context 'with distroverpkg set to valid bool <true>' do
     let(:params) { { :distroverpkg => true } }
-
-    it { should contain_file('yum_config').with_content(/\[main\][\s\S]*distroverpkg=redhat-release$/) }
+    it { should contain_file('yum_config').with_content(/\[main\]\ndistroverpkg=redhat-release$/) }
   end
 
   context 'with pkgpolicy set to valid string <newest>' do
     let(:params) { { :pkgpolicy => 'newest' } }
-
-    it { should contain_file('yum_config').with_content(/\[main\][\s\S]*pkgpolicy=newest$/) }
+    it { should contain_file('yum_config').with_content(/\[main\]\npkgpolicy=newest$/) }
   end
 
   context 'with proxy set to valid string <https://rspec.test:3128>' do
     let(:params) { { :proxy => 'https://rspec.test:3128' } }
-
     it { should contain_file('yum_config').with_content(%r{\[main\]\nproxy=https://rspec.test:3128$}) }
   end
 
   [242, '242'].each do |value|
     context "with installonly_limit set to valid <242> (as #{value.class})" do
       let(:params) { { :installonly_limit => value } }
-
-      it { should contain_file('yum_config').with_content(/\[main\][\s\S]*installonly_limit=242$/) }
+      it { should contain_file('yum_config').with_content(/\[main\]\ninstallonly_limit=242$/) }
     end
   end
 

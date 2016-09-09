@@ -27,12 +27,11 @@ describe 'yum::repo' do
       |# DO NOT EDIT
       |
       |[rspec]
-      |name=rspec
+      |gpgkey=http://yum.test.local/keys/RPM-GPG-KEY-RSPEC-5
       |baseurl=http://yum.test.local///rspec/5/10/rp_env/$basearch
+      |name=rspec
       |enabled=1
       |gpgcheck=1
-      |gpgkey=http://yum.test.local/keys/RPM-GPG-KEY-RSPEC-5
-      |
     END
 
     it do
@@ -101,7 +100,7 @@ describe 'yum::repo' do
   context 'with priority set to valid string <242>' do
     let(:params) { mandatory_params.merge({ :priority => '242' }) }
 
-    it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*priority=242$/) }
+    it { should contain_file('rspec.repo').with_content(/\[rspec\]\npriority=242$/) }
   end
 
   context 'with repo_server set to valid string <rspec.test.local>' do
@@ -210,7 +209,7 @@ describe 'yum::repo' do
   context 'with description set to valid string <info>' do
     let(:params) { mandatory_params.merge({ :description => 'info' }) }
 
-    it { should contain_file('rspec.repo').with_content(/\[rspec\]\nname=info$/) }
+    it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*name=info$/) }
   end
 
   context 'with environment set to valid string <testing>' do
@@ -221,13 +220,13 @@ describe 'yum::repo' do
 
   context 'with mirrorlist set to valid string <http://mirror.list/?release=7?arch=x86_64>' do
     let(:params) { mandatory_params.merge({ :mirrorlist => 'http://mirror.list/?release=7?arch=x86_64' }) }
-    it { should contain_file('rspec.repo').without_content(/\[rspec\][\s\S]*baseurl=/) }
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*mirrorlist=http://mirror.list/\?release=7\?arch=x86_64$}) }
+    it { should contain_file('rspec.repo').with_content(%r{\[rspec\]\nmirrorlist=http://mirror.list/\?release=7\?arch=x86_64$}) }
+    it { should contain_file('rspec.repo').without_content(/baseurl=/) }
   end
 
   context 'with failovermethod set to valid string <priority>' do
     let(:params) { mandatory_params.merge({ :failovermethod => 'priority' }) }
-    it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*failovermethod=priority/) }
+    it { should contain_file('rspec.repo').with_content(/\[rspec\]\nfailovermethod=priority/) }
   end
 
   describe 'variable type and content validations' do

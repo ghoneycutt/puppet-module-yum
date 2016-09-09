@@ -2,17 +2,21 @@
 # DO NOT EDIT
 
 [<%= @name %>]
-name=<%= @description_real %>
-<% if @my_baseurl != nil -%>
-baseurl=<%= @my_baseurl %>
-<% end -%>
-enabled=<%= @enabled %>
-gpgcheck=<%= @gpgcheck %>
 <% if @mirrorlist != nil -%>
 mirrorlist=<%= @mirrorlist %>
 <% end -%>
 <% if @failovermethod != nil -%>
 failovermethod=<%= @failovermethod %>
 <% end -%>
-<% if @use_gpgkey_uri == true %>gpgkey=<%= @my_gpgkey %><% end %>
-<% if @priority != 'UNSET' %>priority=<%= @priority %><% end %>
+<% if @priority != 'UNSET' -%>
+priority=<%= @priority %>
+<% end -%>
+<% if @use_gpgkey_uri == true -%>
+gpgkey=<%= @my_gpgkey %>
+<% end -%>
+<% if @my_baseurl != nil -%>
+baseurl=<%= @my_baseurl %>
+<% end -%>
+name=<%= @description_real %>
+enabled=<%= @enabled %>
+gpgcheck=<%= @gpgcheck %>
