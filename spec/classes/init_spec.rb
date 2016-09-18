@@ -3,6 +3,7 @@ describe 'yum' do
   mandatory_facts = {
     :fqdn                => 'no-hiera-data.example.local',
     :test                => 'no-hiera-data',
+    :environment         => 'rp_env',
     :operatingsystem     => 'RedHat',
     :lsbmajdistrelease   => '5',
     :lsbminordistrelease => '10',

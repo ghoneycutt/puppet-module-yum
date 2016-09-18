@@ -8,15 +8,15 @@ mirrorlist=<%= @mirrorlist %>
 <% if @failovermethod != nil -%>
 failovermethod=<%= @failovermethod %>
 <% end -%>
-<% if @priority != nil -%>
-priority=<%= @priority %>
+<% if @priority_int != nil -%>
+priority=<%= @priority_int %>
 <% end -%>
-<% if @use_gpgkey_uri == true -%>
+<% if @use_gpgkey_uri_bool == true -%>
 gpgkey=<%= @gpgkey_real %>
 <% end -%>
 <% if @baseurl_real != nil -%>
 baseurl=<%= @baseurl_real %>
 <% end -%>
 name=<%= @description_real %>
-enabled=<%= @enabled %>
-gpgcheck=<%= @gpgcheck %>
+enabled=<%= @enabled_strg %>
+gpgcheck=<%= @gpgcheck_strg %>

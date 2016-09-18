@@ -41,14 +41,14 @@ class yum (
   }
 
   if $pkgpolicy != undef {
-    validate_re($pkgpolicy, '^(newest|last)$',
+    validate_re("${$pkgpolicy}", '^(newest|last)$', # lint:ignore:only_variable_string
       "yum::pkgpolicy must be <newest> or <last>. It is <${pkgpolicy}>.")
   }
 
-  validate_re($config_mode, '^[0-7]{4}$',
+  validate_re("${config_mode}", '^[0-7]{4}$', # lint:ignore:only_variable_string
     "yum::config_mode is not a file mode in octal notation. It is <${config_mode}>.")
 
-  validate_re($repos_d_mode, '^[0-7]{4}$',
+  validate_re("${repos_d_mode}", '^[0-7]{4}$', # lint:ignore:only_variable_string
     "yum::repos_d_mode is not a file mode in octal notation. It is <${config_mode}>.")
 
 
