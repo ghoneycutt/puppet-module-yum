@@ -1,41 +1,10 @@
 require 'spec_helper'
-
-# To get this class working, you need to fix two templates in the apache module.
-# To activate these tests, remove the lines with '=begin' and '=end'
-# You need to add an @-sign in two templates to fix it:
-#
-# diff --git a/templates/httpd.conf.erb b/templates/httpd.conf.erb
-# index 5b5d963..e8bc6f3 100644
-# --- a/templates/httpd.conf.erb
-# +++ b/templates/httpd.conf.erb
-# @@ -361,7 +361,7 @@ HostnameLookups Off
-#  # filesystems.  Please see
-#  # http://httpd.apache.org/docs/2.2/mod/core.html#enablesendfile
-#  #
-# -<% if sendfile %>
-# +<% if @sendfile %>
-#  EnableSendfile <%= @sendfile %>
-#  <% end %>
-#
-# diff --git a/templates/mod/proxy.conf.erb b/templates/mod/proxy.conf.erb
-# index 2360e05..c3629d6 100644
-# --- a/templates/mod/proxy.conf.erb
-# +++ b/templates/mod/proxy.conf.erb
-# @@ -6,7 +6,7 @@
-#    # Do not enable proxying with ProxyRequests until you have secured your
-#    # server.  Open proxy servers are dangerous both to your network and to the
-#    # Internet at large.
-# -  ProxyRequests <%= proxy_requests %>
-# +  ProxyRequests <%= @proxy_requests %>
-#
-#    <Proxy *>
-#      Order deny,allow
-
-=begin
 describe 'yum::server' do
   mandatory_facts = {
     :fqdn                   => 'no-hiera-data.example.local',
+    :hostname               => 'no-hiera-data',
     :test                   => 'no-hiera-data',
+    :ipaddress              => '10.0.0.242',
     :osfamily               => 'RedHat',
     :operatingsystemrelease => '7.0.1406',
     :operatingsystem        => 'RedHat',
@@ -73,16 +42,22 @@ describe 'yum::server' do
     it { should contain_common__mkdir_p('/opt/repos') }
     it do
       should contain_apache__vhost('yumrepo').with({
-        'docroot'  => '/opt/repos',
-        'port'     => '80',
-        'template' => 'yum/yumrepo.conf.erb',
-        'require' => 'Common::Mkdir_p[/opt/repos]',
+        'docroot'       => '/opt/repos',
+        'port'          => '80',
+        'vhost_name'    => '10.0.0.242',
+        'servername'    => 'yum',
+        'serveraliases' => [ 'no-hiera-data.example.local', 'no-hiera-data' ],
+        'serveradmin'   => 'root@localhost',
+        'options'       => ['Indexes','FollowSymLinks','MultiViews'],
+        'override'      => ['AuthConfig'],
+        'require'       => 'Common::Mkdir_p[/opt/repos]',
       })
     end
   end
 
   context 'with contact_email set to valid string <spec@test.local>' do
-    # parameter is only used in template, can't be tested :(
+    let(:params) { mandatory_params.merge({ :contact_email => 'spec@test.local' }) }
+    it { should contain_apache__vhost('yumrepo').with_serveradmin('spec@test.local') }
   end
 
   context 'with docroot set to valid string </spec/tests>' do
@@ -113,11 +88,13 @@ describe 'yum::server' do
   end
 
   context 'with yum_server set to valid string <jum>' do
-    # parameter is only used in template, can't be tested :(
+    let(:params) { mandatory_params.merge({ :yum_server => 'jum' }) }
+    it { should contain_apache__vhost('yumrepo').with_servername('jum') }
   end
 
-  context 'with yum_server_http_listen_ip set to valid string <10.0.0.242>' do
-    # parameter is only used in template, can't be tested :(
+  context 'with yum_server_http_listen_ip set to valid string <10.242.242.242>' do
+    let(:params) { mandatory_params.merge({ :yum_server_http_listen_ip => '10.242.242.242' }) }
+    it { should contain_apache__vhost('yumrepo').with_vhost_name('10.242.242.242') }
   end
 
   describe 'variable type and content validations' do
@@ -162,4 +139,3 @@ describe 'yum::server' do
     end # validations.sort.each
   end # describe 'variable type and content validations'
 end
-=end
