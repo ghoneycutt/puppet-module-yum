@@ -10,7 +10,7 @@ class yum::server (
   $gpg_keys_path             = 'keys',
   $gpg_user_name             = 'Root',
   $yum_server                = 'yum',
-  $yum_server_http_listen_ip = undef,
+  $yum_server_http_listen_ip = $::ipaddress,
 ) {
 
   include ::apache
@@ -21,11 +21,7 @@ class yum::server (
   validate_string($gpg_user_name)
   validate_string($yum_server)
   validate_string($yum_server_http_listen_ip)
-
-  case $yum_server_http_listen_ip {
-    undef:   { $yum_server_http_listen_ip_real = $::ipaddress }
-    default: { $yum_server_http_listen_ip_real = $yum_server_http_listen_ip }
-  }
+  validate_ip_address($yum_server_http_listen_ip)
 
   package { 'createrepo':
     ensure => installed,
@@ -58,9 +54,14 @@ class yum::server (
   common::mkdir_p { $docroot: }
 
   apache::vhost { 'yumrepo':
-    docroot  => $docroot,
-    port     => '80',
-    template => 'yum/yumrepo.conf.erb',
-    require  => Common::Mkdir_p[$docroot],
+    docroot       => $docroot,
+    port          => '80',
+    vhost_name    => $yum_server_http_listen_ip,
+    servername    => $yum_server,
+    serveraliases => [ $::fqdn, $::hostname ],
+    serveradmin   => $contact_email,
+    options       => ['Indexes','FollowSymLinks','MultiViews'],
+    override      => ['AuthConfig'],
+    require       => Common::Mkdir_p[$docroot],
   }
 }
