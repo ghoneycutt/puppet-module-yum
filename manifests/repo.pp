@@ -30,7 +30,7 @@ define yum::repo (
   $username             = undef,
   $password             = undef,
   $description          = undef,
-  $environment          = "${::environment}", # lint:ignore:only_variable_string
+  $environment          = "${::environment}", # lint:ignore:only_variable_string # stringification needed for spec testing on Puppet 3.8 & 4.3.0
   $mirrorlist           = undef,
   $failovermethod       = undef,
 ) {
