@@ -3,6 +3,7 @@ describe 'yum' do
   mandatory_facts = {
     :fqdn                => 'no-hiera-data.example.local',
     :test                => 'no-hiera-data',
+    :environment         => 'rp_env',
     :operatingsystem     => 'RedHat',
     :lsbmajdistrelease   => '5',
     :lsbminordistrelease => '10',
@@ -154,29 +155,25 @@ describe 'yum' do
     end
   end
 
-  context 'with distroverpkg set to valid string <rspec-release>' do
-    let(:params) { { :distroverpkg => 'rspec-release' } }
-
-    it { should contain_file('yum_config').with_content(/\[main\][\s\S]*distroverpkg=redhat-release$/) }
+  context 'with distroverpkg set to valid bool <true>' do
+    let(:params) { { :distroverpkg => true } }
+    it { should contain_file('yum_config').with_content(/\[main\]\ndistroverpkg=redhat-release$/) }
   end
 
   context 'with pkgpolicy set to valid string <newest>' do
     let(:params) { { :pkgpolicy => 'newest' } }
-
-    it { should contain_file('yum_config').with_content(/\[main\][\s\S]*pkgpolicy=newest$/) }
+    it { should contain_file('yum_config').with_content(/\[main\]\npkgpolicy=newest$/) }
   end
 
   context 'with proxy set to valid string <https://rspec.test:3128>' do
     let(:params) { { :proxy => 'https://rspec.test:3128' } }
-
     it { should contain_file('yum_config').with_content(%r{\[main\]\nproxy=https://rspec.test:3128$}) }
   end
 
   [242, '242'].each do |value|
     context "with installonly_limit set to valid <242> (as #{value.class})" do
       let(:params) { { :installonly_limit => value } }
-
-      it { should contain_file('yum_config').with_content(/\[main\][\s\S]*installonly_limit=242$/) }
+      it { should contain_file('yum_config').with_content(/\[main\]\ninstallonly_limit=242$/) }
     end
   end
 
@@ -214,7 +211,7 @@ describe 'yum' do
         :message => 'is not an absolute path',
       },
       'bool and stringified' => {
-        :name    => %w(manage_repos repos_hiera_merge),
+        :name    => %w(distroverpkg manage_repos repos_hiera_merge),
         :valid   => [true, false, 'true', 'false'],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
         :message => '(is not a boolean|Unknown type of boolean given)',
@@ -229,14 +226,20 @@ describe 'yum' do
       'integer and stringified' => {
         :name    => %w(installonly_limit),
         :valid   => [242, '242'],
-        :invalid => [2.42, %w(array), true, false], # /!\ enhancement: validate and convert stringified integers
-        :message => 'must be a string or an integer',
+        :invalid => ['string', 2.42, %w(array), { 'ha' => 'sh' }, true, false, nil],
+        :message => '(is not an integer nor stringified integer|floor\(\): Wrong argument type)',
       },
       'regex for mode' => {
         :name    => %w(config_mode repos_d_mode),
         :valid   => %w(0644 0755 0640 0740),
-        :invalid => ['644', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        :message => 'must be a valid four digit mode in octal notation\.',
+        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
+        :message => 'is not a file mode in octal notation',
+      },
+      'regex for pkgpolicy' => {
+        :name    => %w(pkgpolicy),
+        :valid   => %w(newest last),
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
+        :message => 'must be <newest> or <last>',
       },
       # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
       'string' => {

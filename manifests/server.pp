@@ -21,6 +21,7 @@ class yum::server (
   validate_string($gpg_user_name)
   validate_string($yum_server)
   validate_string($yum_server_http_listen_ip)
+  validate_ip_address($yum_server_http_listen_ip)
 
   package { 'createrepo':
     ensure => installed,

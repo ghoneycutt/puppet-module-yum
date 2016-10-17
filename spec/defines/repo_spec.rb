@@ -3,12 +3,11 @@ require 'spec_helper'
 describe 'yum::repo' do
   mandatory_facts = {
     :domain              => 'test.local',
+    :environment         => 'rp_env', # can't be set on Puppet >= 4.3, using the hardcoded default value here to match
     :lsbmajdistrelease   => '5',
     :lsbminordistrelease => '10',
   }
-  mandatory_params = {
-    :gpgkey_url_server => 'yum.test.local', # workaround https://github.com/ghoneycutt/puppet-module-yum/issues/6
-  }
+  mandatory_params = {}
   let(:title) { 'rspec' }
   let(:facts) { mandatory_facts }
   let(:params) { mandatory_params }
@@ -27,12 +26,11 @@ describe 'yum::repo' do
       |# DO NOT EDIT
       |
       |[rspec]
-      |name=rspec
+      |gpgkey=http://yum.test.local/keys/RPM-GPG-KEY-RSPEC-5
       |baseurl=http://yum.test.local///rspec/5/10/rp_env/$basearch
+      |name=rspec
       |enabled=1
       |gpgcheck=1
-      |gpgkey=http://yum.test.local/keys/RPM-GPG-KEY-RSPEC-5
-      |
     END
 
     it do
@@ -76,8 +74,6 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*gpgcheck=0$/) }
   end
 
-# /!\ my_gpgkey is not defined when gpgkey is != UNSET
-=begin
   context 'with gpgkey set to valid string <http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5>' do
     let(:params) { mandatory_params.merge({ :gpgkey => 'http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5' }) }
 
@@ -89,7 +85,6 @@ describe 'yum::repo' do
     end
     it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*gpgkey=http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5$}) }
   end
-=end
 
   context 'with use_gpgkey_uri set to valid bool <false>' do
     let(:params) { mandatory_params.merge({ :use_gpgkey_uri => false }) }
@@ -101,7 +96,7 @@ describe 'yum::repo' do
   context 'with priority set to valid string <242>' do
     let(:params) { mandatory_params.merge({ :priority => '242' }) }
 
-    it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*priority=242$/) }
+    it { should contain_file('rspec.repo').with_content(/\[rspec\]\npriority=242$/) }
   end
 
   context 'with repo_server set to valid string <rspec.test.local>' do
@@ -210,39 +205,63 @@ describe 'yum::repo' do
   context 'with description set to valid string <info>' do
     let(:params) { mandatory_params.merge({ :description => 'info' }) }
 
-    it { should contain_file('rspec.repo').with_content(/\[rspec\]\nname=info$/) }
+    it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*name=info$/) }
   end
 
-  context 'with environment set to valid string <testing>' do
-    let(:params) { mandatory_params.merge({ :environment => 'testing' }) }
+  context 'with environment set to valid string <spec_testing>' do
+    let(:params) { mandatory_params.merge({ :environment => 'spec_testing' }) }
 
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.test.local///rspec/5/10/testing/\$basearch$}) }
+    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.test.local///rspec/5/10/spec_testing/\$basearch$}) }
   end
 
   context 'with mirrorlist set to valid string <http://mirror.list/?release=7?arch=x86_64>' do
     let(:params) { mandatory_params.merge({ :mirrorlist => 'http://mirror.list/?release=7?arch=x86_64' }) }
-    it { should contain_file('rspec.repo').without_content(/\[rspec\][\s\S]*baseurl=/) }
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*mirrorlist=http://mirror.list/\?release=7\?arch=x86_64$}) }
+    it { should contain_file('rspec.repo').with_content(%r{\[rspec\]\nmirrorlist=http://mirror.list/\?release=7\?arch=x86_64$}) }
+    it { should contain_file('rspec.repo').without_content(/baseurl=/) }
   end
 
   context 'with failovermethod set to valid string <priority>' do
     let(:params) { mandatory_params.merge({ :failovermethod => 'priority' }) }
-    it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*failovermethod=priority/) }
+    it { should contain_file('rspec.repo').with_content(/\[rspec\]\nfailovermethod=priority/) }
   end
 
   describe 'variable type and content validations' do
     let(:mandatory_params) { mandatory_params }
 
     validations = {
-      # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
+      'absolute_path' => {
+        :name    => %w(gpgkey_local_path yum_repos_d_path),
+        :valid   => ['/absolute/filepath', '/absolute/directory/'],
+        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
+        :message => 'is not an absolute path',
+      },
+      'bool and stringified' => {
+        :name    => %w(enabled gpgcheck use_gpgkey_uri),
+        :valid   => [true, false, 'true', '1', 'false', '0'],
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
+        :message => '(is not a boolean|Unknown type of boolean given)',
+      },
       'domain_name' => {
-        :name    => %w(repo_server gpgkey_url_server),
+        :name    => %w(gpgkey_url_server repo_server),
         :valid   => %w(v.al.id val.id),
         :invalid => ['in,val.id', 'in_val.id', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false],
         :message => 'is not a domain name',
       },
+      'integer and stringified' => {
+        :name    => %w(priority),
+        :valid   => [242, '242'],
+        :invalid => ['string', 2.42, %w(array), { 'ha' => 'sh' }, true, false, nil],
+        :message => '(is not an integer nor stringified integer|floor\(\): Wrong argument type)',
+      },
+      'regex for mode' => {
+        :name    => %w(repo_file_mode),
+        :valid   => %w(0644 0755 0640 0740),
+        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
+        :message => 'is not a file mode in octal notation',
+      },
+      # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
       'string' => {
-        :name    => %w(username password mirrorlist failovermethod),
+        :name    => %w(baseurl description environment failovermethod gpgkey gpgkey_file_prefix gpgkey_url_path gpgkey_url_proto mirrorlist password repo_server_basedir repo_server_protocol username),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
         :message => 'is not a string',

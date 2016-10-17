@@ -13,7 +13,7 @@ class yum (
   $repos_d_mode      = '0755',
   $repos_hiera_merge = true,
   $repos             = undef,
-  $distroverpkg      = undef,
+  $distroverpkg      = false,
   $pkgpolicy         = undef,
   $proxy             = undef,
   $installonly_limit = undef,
@@ -22,60 +22,68 @@ class yum (
   include ::yum::updatesd
 
   validate_absolute_path($config_path)
-  validate_string($config_owner)
-  validate_string($config_group)
-  validate_re($config_mode, '^[0-7]{4}$',
-    "yum::config_mode is <${config_mode}> and must be a valid four digit mode in octal notation.")
 
-  validate_string($repos_d_owner)
-  validate_string($repos_d_group)
-  validate_re($repos_d_mode, '^[0-7]{4}$',
-    "yum::repos_d_mode is <${repos_d_mode}> and must be a valid four digit mode in octal notation.")
+  case $distroverpkg {
+    true, 'true':   { $distroverpkg_bool = true }  # lint:ignore:quoted_booleans
+    false, 'false': { $distroverpkg_bool = false } # lint:ignore:quoted_booleans
+    default:        { fail("yum::distroverpkg is not a boolean. It is <${distroverpkg}>.") }
+  }
+
+  validate_string(
+    $config_owner,
+    $config_group,
+    $repos_d_owner,
+    $repos_d_group,
+  )
 
   if $proxy != undef {
     validate_string($proxy)
   }
 
+  if $pkgpolicy != undef {
+    validate_re("${$pkgpolicy}", '^(newest|last)$', # lint:ignore:only_variable_string
+      "yum::pkgpolicy must be <newest> or <last>. It is <${pkgpolicy}>.")
+  }
+
+  validate_re("${config_mode}", '^[0-7]{4}$', # lint:ignore:only_variable_string
+    "yum::config_mode is not a file mode in octal notation. It is <${config_mode}>.")
+
+  validate_re("${repos_d_mode}", '^[0-7]{4}$', # lint:ignore:only_variable_string
+    "yum::repos_d_mode is not a file mode in octal notation. It is <${config_mode}>.")
+
+
   if $installonly_limit != undef {
-    if is_string($installonly_limit) == false and is_integer($installonly_limit) == false {
-      $installonly_limit_type = type3x($installonly_limit)
-      fail("yum::installonly_limit is <${installonly_limit}> with type ${installonly_limit_type} and must be a string or an integer")
+    case type3x($installonly_limit) {
+      'integer': { $installonly_limit_int = $installonly_limit }
+      'string':  { $installonly_limit_int = floor($installonly_limit) }
+      default:   { fail("yum::installonly_limit is not an integer nor stringified integer. It is <${installonly_limit}>.")}
     }
   }
 
-  if type3x($manage_repos) == 'string' {
-    $manage_repos_bool = str2bool($manage_repos)
-  } else {
-    $manage_repos_bool = $manage_repos
-  }
-  validate_bool($manage_repos_bool)
-
-  case $manage_repos_bool {
-    true: {
+  case $manage_repos {
+    true, 'true': { # lint:ignore:quoted_booleans
       $repos_d_purge   = true
       $repos_d_recurse = true
     }
-    false: {
+    false, 'false': { # lint:ignore:quoted_booleans
       $repos_d_purge   = false
       $repos_d_recurse = false
     }
     default: {
-      fail("yum::manage_repos must be true or false and is ${manage_repos}")
+      fail("yum::manage_repos is not a boolean. It is <${manage_repos}>.")
     }
   }
 
-  if type3x($repos_hiera_merge) == 'string' {
-    $repos_hiera_merge_real = str2bool($repos_hiera_merge)
-  } else {
-    $repos_hiera_merge_real = $repos_hiera_merge
+  case $repos_hiera_merge {
+    true, 'true':   { $repos_hiera_merge_bool = true }  # lint:ignore:quoted_booleans
+    false, 'false': { $repos_hiera_merge_bool = false } # lint:ignore:quoted_booleans
+    default:        { fail("yum::manage_repos is not a boolean. It is <${repos_hiera_merge}>.") }
   }
-  validate_bool($repos_hiera_merge_real)
 
   if $repos != undef {
-    if $repos_hiera_merge_real == true {
-      $repos_real = hiera_hash('yum::repos')
-    } else {
-      $repos_real = $repos
+    case $repos_hiera_merge_bool {
+      true:    { $repos_real = hiera_hash('yum::repos') }
+      default: { $repos_real = $repos }
     }
     validate_hash($repos_real)
     create_resources('yum::repo',$repos_real)
