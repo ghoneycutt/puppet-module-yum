@@ -77,7 +77,7 @@ class yum (
   case $repos_hiera_merge {
     true, 'true':   { $repos_hiera_merge_bool = true }  # lint:ignore:quoted_booleans
     false, 'false': { $repos_hiera_merge_bool = false } # lint:ignore:quoted_booleans
-    default:        { fail("yum::manage_repos is not a boolean. It is <${repos_hiera_merge}>.") }
+    default:        { fail("yum::repos_hiera_merge is not a boolean. It is <${repos_hiera_merge}>.") }
   }
 
   if $repos != undef {
