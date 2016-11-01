@@ -70,19 +70,19 @@ Trigger to add the `installonly_limit` setting with the given number to the main
 
 ---
 #### manage_repos (boolean)
-Trigger if files in /etc/yum.repos.d should get managed by Puppet exclusivly. If set to true all unmanged files in /etc/yum.repos.d (and below) will get removed.
+Trigger if files in /etc/yum.repos.d should get managed by Puppet exclusivly. If set to true, all unmanged files in /etc/yum.repos.d (and below) will get removed.
 
 - *Default*: false
 
 ---
 #### pkgpolicy (string)
-Trigger to add the `pkgpolicy` setting with the given string to the main section of yum.conf. When unset (default) pkgpolicy will not be present in yum.conf. Valid values are: 'newest' or 'last'.
+Trigger to add the `pkgpolicy` setting with the given string to the main section of yum.conf. Valid values are: 'newest' or 'last'.
 
 - *Default*: undef
 
 ---
 #### proxy (string)
-Trigger to add the `proxy` setting with the given string to the main section of yum.conf. When unset (default) proxy will not be present in yum.conf. Set to a proxy URL to activate.
+Trigger to add the `proxy` setting with the given string to the main section of yum.conf. Specify a proxy URL.
 
 - *Default*: undef
 
@@ -123,7 +123,7 @@ Hash of repos to pass to yum::repo. See [yum::repo](#defined-type-yumrepo) for m
 
 Manage a yum repository service
 
-This class includes/utilizes Puppetlabs apache module to set up a vhost on Apache HTTPD.
+This class includes Puppetlabs apache module to set up a vhost for Apache HTTPD.
 
 ### Parameters
 
@@ -180,7 +180,7 @@ Set ensure attribute for package resource. Valid values are: 'present', 'absent'
 
 ---
 #### updatesd_package (string)
-Set name of yum updatesd package.
+Specify name of yum updatesd package.
 
 - *Default*: 'yum-updatesd'
 
@@ -198,7 +198,7 @@ Set ensure attribute for service resource. Valid values are: 'stopped' or 'false
 
 ---
 #### updatesd_service (string)
-Set name of yum updatesd service.
+Specify name of yum updatesd service.
 
 - *Default*: 'yum-updatesd'
 
@@ -215,25 +215,25 @@ Manage individual yum repo files in /etc/yum.repos.d
 
 ---
 #### baseurl (string)
-Trigger to set the baseurl parameter of the repository configuration. Takes a form such as 'http://yum.domain.tld/customrepo/5/8/dev/x86_64'.
+Trigger to set the `baseurl` parameter of the repository configuration. Takes a form such as 'http://yum.domain.tld/customrepo/5/8/dev/x86_64'.
 
-If $baseurl and $mirrorlist are both unset, it baseurl will become:
-`$repo_server_protocol://$repo_server/$repo_server_basedir/$name/$::lsbmajdistrelease/$::lsbminordistrelease/$environment/$basearch`.
-Optional provided credentials ($username and $password) will be added accordingly.
+If $baseurl and $mirrorlist are both unset, it baseurl will become:  
+`$repo_server_protocol://$username:$password@$repo_server/$repo_server_basedir/$name/$::lsbmajdistrelease/$::lsbminordistrelease/$environment/$basearch`.  
+Passing $username and $password is optional.
 
-If only $mirrorlist is set, baseurl will not be used in the repository configuration.
+If only $mirrorlist is set, `baseurl` will not be used in the repository configuration.
 
 - *Default*: undef
 
 ---
 #### description (string)
-Set the name parameter of the repository configuration. If unset it will use the name of the defined type.
+Set the `name` parameter of the repository configuration. If unset it will use the name of the defined type.
 
 - *Default*: undef
 
 ---
 #### enabled (boolean)
-Set the enabled parameter of the repository configuration.
+Set the `enabled` parameter of the repository configuration.
 
 - *Default*: true
 
@@ -246,13 +246,13 @@ Specifying $baseurl or $mirrorlist will override this parameter.
 
 ---
 #### failovermethod (boolean)
-Trigger to set the failovermethod parameter of the repository configuration.
+Trigger to set the `failovermethod` parameter of the repository configuration.
 
 - *Default*: undef
 
 ---
 #### gpgcheck (boolean)
-Set the gpgcheck parameter of a repository configuration.
+Set the `gpgcheck` parameter of a repository configuration.
 
 - *Default*: true
 
@@ -271,7 +271,7 @@ Specify the path where GPG keys should be stored locally.
 
 ---
 #### gpgkey (string)
-Set the gpgkey parameter of the repository configuration.
+Set the `gpgkey` parameter of the repository configuration.
 Will only be used when $use_gpgkey_uri is set to true.
 
 - *Default*: undef
@@ -299,7 +299,7 @@ Specifing $gpgkey will override this parameter.
 
 ---
 #### mirrorlist (string)
-Trigger to set the mirrorlist parameter of the repository configuration.
+Trigger to set the `mirrorlist` parameter of the repository configuration.
 
 - *Default*: undef
 
@@ -312,7 +312,7 @@ Specifing $baseurl or $mirrlost will override this parameter.
 
 ---
 #### priority (string)
-Trigger to set the priority parameter of the repository configuration.
+Trigger to set the `priority` parameter of the repository configuration.
 
 - *Default*: undef
 
@@ -358,7 +358,7 @@ Specifing $baseurl or $mirrlost will override this parameter.
 
 ---
 #### yum_repos_d_path (string)
-Specify the path the directory for yum repository files.
+Specify the path of the directory for yum repository files.
 
 - *Default*: '/etc/yum.repos.d'
 
