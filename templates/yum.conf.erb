@@ -23,6 +23,9 @@ exactarch=1
 obsoletes=1
 gpgcheck=1
 plugins=1
+<% if @exclude != nil -%>
+exclude=<%= @exclude %>
+<% end -%>
 
 # Note: yum-RHN-plugin doesn't honor this.
 metadata_expire=1h

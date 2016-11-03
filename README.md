@@ -69,6 +69,12 @@ Trigger to add the `installonly_limit` setting with the given number to the main
 - *Default*: undef
 
 ---
+#### exclude (string)
+Value for the exclude setting in the main section of yum.conf. When `undef` (default) exclude will not be present in yum.conf.
+
+- *Default*: undef
+
+---
 #### manage_repos (boolean)
 Trigger if files in /etc/yum.repos.d should get managed by Puppet exclusivly. If set to true, all unmanged files in /etc/yum.repos.d (and below) will get removed.
 
