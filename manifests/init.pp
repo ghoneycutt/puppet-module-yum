@@ -17,6 +17,7 @@ class yum (
   $pkgpolicy         = undef,
   $proxy             = undef,
   $installonly_limit = undef,
+  $exclude           = undef,
 ) {
 
   include ::yum::updatesd
@@ -58,6 +59,10 @@ class yum (
       'string':  { $installonly_limit_int = floor($installonly_limit) }
       default:   { fail("yum::installonly_limit is not an integer nor stringified integer. It is <${installonly_limit}>.")}
     }
+  }
+
+  if $exclude != undef {
+    validate_string($exclude)
   }
 
   case $manage_repos {

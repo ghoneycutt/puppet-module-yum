@@ -170,6 +170,11 @@ describe 'yum' do
     it { should contain_file('yum_config').with_content(%r{\[main\]\nproxy=https://rspec.test:3128$}) }
   end
 
+  context 'with exclude set to valid string <foo>' do
+    let(:params) { { :exclude => 'foo' } }
+    it { should contain_file('yum_config').with_content(%r{^exclude=foo$}) }
+  end
+
   [242, '242'].each do |value|
     context "with installonly_limit set to valid <242> (as #{value.class})" do
       let(:params) { { :installonly_limit => value } }
@@ -243,7 +248,7 @@ describe 'yum' do
       },
       # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
       'string' => {
-        :name    => %w(config_owner config_group repos_d_owner repos_d_group proxy),
+        :name    => %w(config_owner config_group repos_d_owner repos_d_group proxy exclude),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
         :message => 'is not a string',
