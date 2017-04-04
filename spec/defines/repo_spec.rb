@@ -11,15 +11,11 @@ describe 'yum::repo' do
   let(:title) { 'rspec' }
   let(:facts) { mandatory_facts }
   let(:params) { mandatory_params }
-  let(:pre_condition) do
-    'exec { clean_yum_cache:
-       command => "yum clean all",
-       refreshonly => true,
-       path        => "/bin:/usr/bin:/sbin:/usr/sbin",
-    }'
-  end
+
   context 'with defaults for all parameters' do
     it { should compile.with_all_deps }
+
+    it { should contain_class('yum') }
 
     content = <<-END.gsub(/^\s+\|/, '')
       |# This file is being maintained by Puppet.

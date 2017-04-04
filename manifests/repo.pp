@@ -35,6 +35,8 @@ define yum::repo (
   $failovermethod       = undef,
 ) {
 
+  include ::yum
+
   validate_absolute_path(
     $gpgkey_local_path,
     $yum_repos_d_path,
