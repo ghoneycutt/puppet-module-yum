@@ -24,7 +24,12 @@ obsoletes=1
 gpgcheck=1
 plugins=1
 <% if @exclude != nil -%>
+<%   if @exclude.class == String -%>
 exclude=<%= @exclude %>
+<%   end -%>
+<%   if @exclude.class == Array -%>
+exclude=<%= @exclude.join(' ') %>
+<%   end -%>
 <% end -%>
 
 # Note: yum-RHN-plugin doesn't honor this.

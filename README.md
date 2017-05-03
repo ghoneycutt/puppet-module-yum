@@ -69,7 +69,7 @@ Trigger to add the `installonly_limit` setting with the given number to the main
 - *Default*: undef
 
 ---
-#### exclude (string)
+#### exclude (string or array)
 Value for the exclude setting in the main section of yum.conf. When `undef` (default) exclude will not be present in yum.conf.
 
 - *Default*: undef
