@@ -62,7 +62,9 @@ class yum (
   }
 
   if $exclude != undef {
-    validate_string($exclude)
+    if is_string($exclude) == false and is_array($exclude) == false {
+      fail("yum::exclude is <${exclude}> and must be either a string or an array.")
+    }
   }
 
   case $manage_repos {
