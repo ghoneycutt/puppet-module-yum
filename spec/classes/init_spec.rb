@@ -187,7 +187,7 @@ describe 'yum' do
     end
   end
 
-  describe 'with hiera providing data from multiple levels' do
+  describe 'with hiera providing data from multiple levels for the repos parameter' do
     let(:facts) do
       mandatory_facts.merge({
         :fqdn => 'yum.example.local',
