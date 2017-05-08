@@ -208,6 +208,24 @@ describe 'yum' do
     end
   end
 
+  describe 'with hiera providing data from multiple levels for the exclude parameter' do
+    let(:facts) do
+      mandatory_facts.merge({
+        :fqdn => 'yum.example.local',
+        :test => 'yum__exclude',
+      })
+    end
+
+    context 'with defaults for all parameters' do
+      it { should contain_file('yum_config').with_content(%r{^exclude=from_hiera_fqdn$}) }
+    end
+
+    context 'with exclude_hiera_merge set to valid <true>' do
+      let(:params) { { :exclude_hiera_merge => true } }
+      it { should contain_file('yum_config').with_content(%r{^exclude=from_hiera_fqdn from_hiera_test$}) }
+    end
+  end
+
   describe 'variable type and content validations' do
     # set needed custom facts and variables
     let(:facts) { mandatory_facts }
@@ -221,10 +239,10 @@ describe 'yum' do
         :message => 'is not an absolute path',
       },
       'bool and stringified' => {
-        :name    => %w(distroverpkg manage_repos repos_hiera_merge),
+        :name    => %w(distroverpkg exclude_hiera_merge manage_repos repos_hiera_merge),
         :valid   => [true, false, 'true', 'false'],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
-        :message => '(is not a boolean|Unknown type of boolean given)',
+        :message => '(is not a boolean|Unknown type of boolean given|str2bool)',
       },
       'hash' => {
         :name    => %w(repos),

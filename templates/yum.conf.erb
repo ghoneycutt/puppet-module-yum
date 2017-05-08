@@ -23,8 +23,8 @@ exactarch=1
 obsoletes=1
 gpgcheck=1
 plugins=1
-<% if @exclude_array != nil -%>
-exclude=<%= @exclude_array.join(' ') %>
+<% if @exclude_array_real != nil -%>
+exclude=<%= @exclude_array_real.join(' ') %>
 <%   end -%>
 
 # Note: yum-RHN-plugin doesn't honor this.

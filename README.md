@@ -75,6 +75,12 @@ Value for the exclude setting in the main section of yum.conf. When `undef` (def
 - *Default*: undef
 
 ---
+#### exclude_hiera_merge (boolean)
+Trigger to merge all found instances of yum::exclude in Hiera. This is useful for specifying repositories at different levels of the hierarchy and having them all included in the catalog.
+
+- *Default*: false
+
+---
 #### manage_repos (boolean)
 Trigger if files in /etc/yum.repos.d should get managed by Puppet exclusivly. If set to true, all unmanged files in /etc/yum.repos.d (and below) will get removed.
 
