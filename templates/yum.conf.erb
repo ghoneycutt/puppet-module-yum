@@ -23,14 +23,9 @@ exactarch=1
 obsoletes=1
 gpgcheck=1
 plugins=1
-<% if @exclude != nil -%>
-<%   if @exclude.class == String -%>
-exclude=<%= @exclude %>
+<% if @exclude_array_real != nil -%>
+exclude=<%= @exclude_array_real.join(' ') %>
 <%   end -%>
-<%   if @exclude.class == Array -%>
-exclude=<%= @exclude.join(' ') %>
-<%   end -%>
-<% end -%>
 
 # Note: yum-RHN-plugin doesn't honor this.
 metadata_expire=1h

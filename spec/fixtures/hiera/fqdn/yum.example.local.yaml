@@ -2,3 +2,6 @@
 yum::repos:
   'from_hiera_fqdn':
     'gpgkey_url_server': 'yum.rspec.local'
+
+yum::exclude:
+  - from_hiera_fqdn

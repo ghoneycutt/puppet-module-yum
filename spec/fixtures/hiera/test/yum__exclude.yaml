@@ -1,0 +1,3 @@
+---
+yum::exclude:
+  - from_hiera_test

@@ -3,21 +3,22 @@
 # Manages yum
 #
 class yum (
-  $config_path       = '/etc/yum.conf',
-  $config_owner      = 'root',
-  $config_group      = 'root',
-  $config_mode       = '0644',
-  $manage_repos      = false,
-  $repos_d_owner     = 'root',
-  $repos_d_group     = 'root',
-  $repos_d_mode      = '0755',
-  $repos_hiera_merge = true,
-  $repos             = undef,
-  $distroverpkg      = false,
-  $pkgpolicy         = undef,
-  $proxy             = undef,
-  $installonly_limit = undef,
-  $exclude           = undef,
+  $config_path         = '/etc/yum.conf',
+  $config_owner        = 'root',
+  $config_group        = 'root',
+  $config_mode         = '0644',
+  $manage_repos        = false,
+  $repos_d_owner       = 'root',
+  $repos_d_group       = 'root',
+  $repos_d_mode        = '0755',
+  $repos_hiera_merge   = true,
+  $repos               = undef,
+  $distroverpkg        = false,
+  $pkgpolicy           = undef,
+  $proxy               = undef,
+  $installonly_limit   = undef,
+  $exclude             = undef,
+  $exclude_hiera_merge = false,
 ) {
 
   include ::yum::updatesd
@@ -61,9 +62,19 @@ class yum (
     }
   }
 
+  $exclude_hiera_merge_bool = str2bool($exclude_hiera_merge)
+  validate_bool($exclude_hiera_merge_bool)
+
   if $exclude != undef {
-    if is_string($exclude) == false and is_array($exclude) == false {
-      fail("yum::exclude is <${exclude}> and must be either a string or an array.")
+    case type3x($exclude) {
+      'array':  { $exclude_array = $exclude }
+      'string': { $exclude_array = any2array($exclude) }
+      default:  { fail("yum::exclude is <${exclude}> and must be either a string or an array.") }
+    }
+
+    case $exclude_hiera_merge_bool {
+      true:    { $exclude_array_real = hiera_array('yum::exclude') }
+      default: { $exclude_array_real = $exclude_array }
     }
   }
 
