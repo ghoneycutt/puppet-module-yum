@@ -1,3 +1,6 @@
+### v1.2.0 - 2017-05-08
+  * Allow yum::exclude to do a merged Hiera lookup
+
 ### v1.1.0 - 2017-05-03
   * Allow yum::exclude to be an array.
 
