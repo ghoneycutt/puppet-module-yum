@@ -62,8 +62,10 @@ class yum (
   }
 
   if $exclude != undef {
-    if is_string($exclude) == false and is_array($exclude) == false {
-      fail("yum::exclude is <${exclude}> and must be either a string or an array.")
+    case type3x($exclude) {
+      'array':  { $exclude_array = $exclude }
+      'string': { $exclude_array = any2array($exclude) }
+      default:  { fail("yum::exclude is <${exclude}> and must be either a string or an array.") }
     }
   }
 
