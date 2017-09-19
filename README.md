@@ -375,6 +375,13 @@ Specify the path of the directory for yum repository files.
 - *Default*: '/etc/yum.repos.d'
 
 ---
+#### sslcacert (string)
+Overrides the sslcacert option from the yum.conf [main] section for this repository.
+If unset, uses system default path.
+
+- *Default*: undef
+
+---
 
 ## Defined type `yum::rpm_gpg_key`
 
