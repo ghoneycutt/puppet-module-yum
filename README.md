@@ -23,7 +23,7 @@ Requires Facter >= v2.2.0 for the `lsbminordistrelease` fact.
 
 This module is built for use with Puppet v3 (with and without the future
 parser) and Puppet v4 on the following platforms and supports Ruby versions
-1.8.7, 1.9.3, 2.0.0, 2.1.0 and 2.3.1.
+1.8.7, 1.9.3, 2.0.0, 2.1.9 and 2.3.1.
 
  * EL 6
  * EL 7
@@ -373,6 +373,14 @@ Specifing $baseurl or $mirrlost will override this parameter.
 Specify the path of the directory for yum repository files.
 
 - *Default*: '/etc/yum.repos.d'
+
+---
+#### sslcacert (string)
+If set, will ensure the line `sslcacert` is present in the repository
+configuration with the specified value. This is useful when using your
+own CA bundle.
+
+- *Default*: undef
 
 ---
 

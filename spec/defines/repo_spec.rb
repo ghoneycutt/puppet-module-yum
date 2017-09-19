@@ -53,6 +53,8 @@ describe 'yum::repo' do
         'before'     => 'File[rspec.repo]',
       })
     end
+
+    it { should contain_file('rspec.repo').without_content(/\[rspec\][\s\S]*sslcacert=/) }
   end
 
   context 'with baseurl set to valid string <http://yum.domain.tld/customrepo/5/8/dev/x86_64>' do
@@ -225,6 +227,11 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(/\[rspec\]\nfailovermethod=priority/) }
   end
 
+  context 'with sslcacert set to valid string </path/to/cert>' do
+    let(:params) { mandatory_params.merge({ :sslcacert => '/path/to/cert' }) }
+    it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*sslcacert=\/path\/to\/cert/) }
+  end
+
   describe 'variable type and content validations' do
     let(:mandatory_params) { mandatory_params }
 
@@ -233,6 +240,12 @@ describe 'yum::repo' do
         :name    => %w(gpgkey_local_path yum_repos_d_path),
         :valid   => ['/absolute/filepath', '/absolute/directory/'],
         :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
+        :message => 'is not an absolute path',
+      },
+      'absolute_path_and_undef' => {
+        :name    => %w(sslcacert),
+        :valid   => [ :undef, '/absolute/filepath', '/absolute/directory/'],
+        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false],
         :message => 'is not an absolute path',
       },
       'bool and stringified' => {

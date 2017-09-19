@@ -20,3 +20,6 @@ baseurl=<%= @baseurl_real %>
 name=<%= @description_real %>
 enabled=<%= @enabled_strg %>
 gpgcheck=<%= @gpgcheck_strg %>
+<% if @sslcacert != nil -%>
+sslcacert=<%= @sslcacert %>
+<% end -%>
