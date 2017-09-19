@@ -1,3 +1,6 @@
+### v1.3.0 - 2017-09-19
+  * Add sslcacert parameter to yum::repo
+
 ### v1.2.0 - 2017-05-08
   * Allow yum::exclude to do a merged Hiera lookup
 
