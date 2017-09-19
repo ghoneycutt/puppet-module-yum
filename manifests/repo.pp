@@ -33,6 +33,7 @@ define yum::repo (
   $environment          = "${::environment}", # lint:ignore:only_variable_string # stringification needed for spec testing on Puppet 3.8 & 4.3.0
   $mirrorlist           = undef,
   $failovermethod       = undef,
+  $sslcacert            = undef,
 ) {
 
   validate_absolute_path(
@@ -53,6 +54,10 @@ define yum::repo (
     $repo_server_protocol,
     $username,
   )
+
+  if $sslcacert != undef {
+    validate_absolute_path($sslcacert)
+  }
 
   validate_re("${repo_file_mode}", '^[0-7]{4}$', # lint:ignore:only_variable_string
     "yum::repo::repo_file_mode is not a file mode in octal notation. It is <${repo_file_mode}>.")
