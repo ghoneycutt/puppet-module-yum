@@ -8,7 +8,9 @@ end
 
 gem 'facter', '>= 2.2.0'
 gem 'rspec-puppet', '~> 2.0'
-gem 'puppet-lint', '~> 2.0'
+# 2017-09-27 Pinned until 2.3.1 issue is resolved.
+# Check: https://github.com/rodjek/puppet-lint/issues/759
+gem 'puppet-lint', '2.3.0'
 gem 'puppet-lint-absolute_classname-check'
 gem 'puppet-lint-alias-check'
 gem 'puppet-lint-empty_string-check'
