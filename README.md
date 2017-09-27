@@ -226,6 +226,14 @@ Manage individual yum repo files in /etc/yum.repos.d
 ### Parameters
 
 ---
+#### ensure (string)
+Set to `"present"` or `"absent"`.  When absent, removes the repository
+configuration file from the node modeled on the behavior of the File type's
+ensure parameter.
+
+- *Default*: `"present"`
+
+---
 #### baseurl (string)
 Trigger to set the `baseurl` parameter of the repository configuration. Takes a form such as 'http://yum.domain.tld/customrepo/5/8/dev/x86_64'.
 

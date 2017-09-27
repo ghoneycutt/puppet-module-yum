@@ -232,6 +232,17 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*sslcacert=\/path\/to\/cert/) }
   end
 
+  context 'with ensure set to valid string "absent"' do
+    let(:params) { mandatory_params.merge({ :ensure => 'absent' }) }
+    it { should contain_file('rspec.repo').with_ensure('absent') }
+    it { is_expected.to have_yum__rpm_gpg_key_resource_count(0) }
+  end
+
+  context 'with ensure set to valid string "present"' do
+    let(:params) { mandatory_params.merge({ :ensure => 'present' }) }
+    it { should contain_file('rspec.repo').with_ensure('file') }
+  end
+
   describe 'variable type and content validations' do
     let(:mandatory_params) { mandatory_params }
 
@@ -278,6 +289,12 @@ describe 'yum::repo' do
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
         :message => 'is not a string',
+      },
+      'present or absent' => {
+        :name    => %w(ensure),
+        :valid   => ['present', 'absent'],
+        :invalid => [true, false, 'file'],
+        :message => 'ensure must be present or absent',
       },
     }
 

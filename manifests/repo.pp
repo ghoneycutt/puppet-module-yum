@@ -11,6 +11,7 @@
 #  }
 #
 define yum::repo (
+  $ensure               = 'present',
   $baseurl              = undef,
   $enabled              = true,
   $gpgcheck             = true,
@@ -58,6 +59,9 @@ define yum::repo (
   if $sslcacert != undef {
     validate_absolute_path($sslcacert)
   }
+
+  validate_re("${ensure}", ['^present$', '^absent$'], # lint:ignore:only_variable_string
+    "yum::repo::ensure must be present or absent. It is <${ensure}>.")
 
   validate_re("${repo_file_mode}", '^[0-7]{4}$', # lint:ignore:only_variable_string
     "yum::repo::repo_file_mode is not a file mode in octal notation. It is <${repo_file_mode}>.")
@@ -141,10 +145,15 @@ define yum::repo (
     fail("yum::repo::gpgkey is not a string. It is <${gpgkey}>.")
   }
 
+  $file_ensure = $ensure ? {
+    'present' => 'file',
+    'absent'  => 'absent',
+  }
+
   # repo file
   # ie: /etc/yum.repos.d/customrepo.repo
   file { "${name}.repo":
-    ensure  => file,
+    ensure  => $file_ensure,
     path    => "${yum_repos_d_path}/${name}.repo",
     owner   => 'root',
     group   => 'root',
@@ -154,8 +163,7 @@ define yum::repo (
   }
 
   # Only need to deal with importing GPG keys, if we have gpgcheck enabled
-  if ($gpgcheck_strg == '1') and ($use_gpgkey_uri_bool == true) {
-
+  if ($ensure == 'present') and ($gpgcheck_strg == '1') and ($use_gpgkey_uri_bool == true) {
     yum::rpm_gpg_key { $upcase_name:
       gpgkey_url => $gpgkey_real,
       gpgkey     => "${gpgkey_local_path}/${gpgkey_file_prefix}-${upcase_name}-${::lsbmajdistrelease}",
