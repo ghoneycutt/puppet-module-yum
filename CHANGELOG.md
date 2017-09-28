@@ -1,3 +1,6 @@
+### v1.4.0 - 2017-09-28
+  * Add ensure parameter to yum::repo so it could be set to absent.
+
 ### v1.3.0 - 2017-09-19
   * Add sslcacert parameter to yum::repo
 
