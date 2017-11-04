@@ -186,7 +186,7 @@ Manage yum-updatesd which is available on EL5, though not EL6
 
 ---
 #### updatesd_package_ensure (string)
-Set ensure attribute for package resource. Valid values are: 'present', 'absent', 'latest', 'purged', and 'held'.
+Set ensure attribute for package resource. Valid values are: 'present', 'absent', 'latest', and 'purged'.
 
 - *Default*: 'absent'
 
@@ -204,7 +204,7 @@ Set enable attribute for service resource. Valid values are: 'true', 'false', 'm
 
 ---
 #### updatesd_service_ensure (string)
-Set ensure attribute for service resource. Valid values are: 'stopped' or 'false', and 'running' or 'true'.
+Set ensure attribute for service resource. Valid values are: 'running' and 'stopped'.
 
 - *Default*: 'stopped'
 
@@ -247,9 +247,9 @@ If only $mirrorlist is set, `baseurl` will not be used in the repository configu
 
 ---
 #### description (string)
-Set the `name` parameter of the repository configuration. If unset it will use the name of the defined type.
+Set the `name` parameter of the repository configuration. Defaults to the name of the defined type.
 
-- *Default*: undef
+- *Default*: $name
 
 ---
 #### enabled (boolean)

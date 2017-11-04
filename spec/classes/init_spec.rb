@@ -131,7 +131,7 @@ describe 'yum' do
         :repos_hiera_merge => false,
         :repos => {
           'rspec' => {
-            'gpgcheck'          => '1',
+            'gpgcheck'          => true,
           },
           'test' => {
             'repo_file_mode'    => '0242',
@@ -144,7 +144,7 @@ describe 'yum' do
 
     it do
       should contain_yum__repo('rspec').with({
-        'gpgcheck' => '1',
+        'gpgcheck' => true,
       })
     end
 
@@ -180,11 +180,9 @@ describe 'yum' do
     it { should contain_file('yum_config').with_content(%r{^exclude=foo\* bar$}) }
   end
 
-  [242, '242'].each do |value|
-    context "with installonly_limit set to valid <242> (as #{value.class})" do
-      let(:params) { { :installonly_limit => value } }
-      it { should contain_file('yum_config').with_content(/\[main\]\ninstallonly_limit=242$/) }
-    end
+  context "with installonly_limit set to valid integer 242" do
+    let(:params) { { :installonly_limit => 242 } }
+    it { should contain_file('yum_config').with_content(/\[main\]\ninstallonly_limit=242$/) }
   end
 
   describe 'with hiera providing data from multiple levels for the repos parameter' do
@@ -235,52 +233,57 @@ describe 'yum' do
       'absolute_path' => {
         :name    => %w(config_path),
         :valid   => ['/absolute/filepath', '/absolute/directory/'],
-        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        :message => 'is not an absolute path',
+        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, nil],
+        :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
       },
-      'bool and stringified' => {
+      'boolean' => {
         :name    => %w(distroverpkg exclude_hiera_merge manage_repos repos_hiera_merge),
-        :valid   => [true, false, 'true', 'false'],
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
-        :message => '(is not a boolean|Unknown type of boolean given|str2bool)',
+        :valid   => [true, false],
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false', nil],
+        :message => 'expects a Boolean value',
       },
       'hash' => {
         :name    => %w(repos),
         :params  => { :repos_hiera_merge => false },
         :valid   => [], # valid hashes are to complex to block test them here. Subclasses have their own specific spec tests anyway.
-        :invalid => ['string', 3, 2.42, %w(array), true, false, nil],
-        :message => 'is not a Hash',
+        :invalid => ['string', 3, 2.42, %w(array), true, nil],
+        :message => 'expects a (value of type Undef or |)Hash',
       },
-      'integer and stringified' => {
+      'integer' => {
         :name    => %w(installonly_limit),
-        :valid   => [242, '242'],
-        :invalid => ['string', 2.42, %w(array), { 'ha' => 'sh' }, true, false, nil],
-        :message => '(is not an integer nor stringified integer|floor\(\): Wrong argument type)',
+        :valid   => [242,],
+        :invalid => ['242', 2.42, %w(array), { 'ha' => 'sh' }, true, nil],
+        :message => 'expects (an Optional\[Integer\] value|a value of type Undef or Integer)',
       },
       'regex for mode' => {
         :name    => %w(config_mode repos_d_mode),
         :valid   => %w(0644 0755 0640 0740),
-        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        :message => 'is not a file mode in octal notation',
+        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, nil],
+        :message => 'expects a match for Pattern\[/\^\[0-7\]\{4\}\$/\]',
       },
       'regex for pkgpolicy' => {
         :name    => %w(pkgpolicy),
         :valid   => %w(newest last),
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        :message => 'must be <newest> or <last>',
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, nil],
+        :message => 'expects (an undef value or |)a match for Enum\[\'last\', \'newest\'\]',
       },
-      # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
       'string' => {
-        :name    => %w(config_owner config_group repos_d_owner repos_d_group proxy),
+        :name    => %w(config_owner config_group repos_d_owner repos_d_group),
         :valid   => ['string'],
-        :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
-        :message => 'is not a string',
+        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, true],
+        :message => 'expects a String value',
       },
       'string and array' => {
         :name    => %w(exclude),
-        :valid   => ['string', %w(array)],
-        :invalid => [{ 'ha' => 'sh' }, true, false],
-        :message => 'must be either a string or an array',
+        :valid   => [nil, 'string', %w(array)],
+        :invalid => [{ 'ha' => 'sh' }, true],
+        :message => 'expects a value of type (Optional\[|Undef, )String(\]|,) or Array',
+      },
+      'string and undef' => {
+        :name    => %w(proxy),
+        :valid   => [nil, 'string'],
+        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, true],
+        :message => 'expects a (value of type Undef or |)String',
       },
     }
 

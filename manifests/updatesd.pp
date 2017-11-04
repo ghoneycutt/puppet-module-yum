@@ -5,11 +5,11 @@
 # This is defaulted to being disabled.
 #
 class yum::updatesd (
-  $updatesd_package        = 'yum-updatesd',
-  $updatesd_package_ensure = 'absent',
-  $updatesd_service        = 'yum-updatesd',
-  $updatesd_service_ensure = 'stopped',
-  $updatesd_service_enable = false,
+  String $updatesd_package                                               = 'yum-updatesd',
+  Enum['absent', 'latest', 'present', 'purged'] $updatesd_package_ensure = 'absent',
+  String $updatesd_service                                               = 'yum-updatesd',
+  Enum['running', 'stopped'] $updatesd_service_ensure                    = 'stopped',
+  Enum['false', 'manual', 'mark', 'true'] $updatesd_service_enable       = 'false', # lint:ignore:quoted_booleans
 ) {
 
   package { 'yum_updatesd_package':

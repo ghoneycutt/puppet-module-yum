@@ -5,14 +5,14 @@
 <% if @proxy != nil -%>
 proxy=<%= @proxy %>
 <% end -%>
-<% if @distroverpkg_bool == true -%>
+<% if @distroverpkg == true -%>
 distroverpkg=<%= @operatingsystem.downcase %>-release
 <% end -%>
 <% if @pkgpolicy != nil -%>
 pkgpolicy=<%= @pkgpolicy %>
 <% end -%>
-<% if @installonly_limit_int != nil -%>
-installonly_limit=<%= @installonly_limit_int %>
+<% if @installonly_limit != nil -%>
+installonly_limit=<%= @installonly_limit %>
 <% end -%>
 cachedir=/var/cache/yum/$basearch/$releasever
 keepcache=0
@@ -25,7 +25,7 @@ gpgcheck=1
 plugins=1
 <% if @exclude_array_real != nil -%>
 exclude=<%= @exclude_array_real.join(' ') %>
-<%   end -%>
+<% end -%>
 
 # Note: yum-RHN-plugin doesn't honor this.
 metadata_expire=1h

@@ -3,25 +3,17 @@
 # Manage a yum repository service
 #
 class yum::server (
-  $contact_email             = 'root@localhost',
-  $docroot                   = '/opt/repos',
-  # gpg_keys_path is relative to $docroot
-  # ${docroot}/${gpg_keys_path}
-  $gpg_keys_path             = 'keys',
-  $gpg_user_name             = 'Root',
-  $yum_server                = 'yum',
-  $yum_server_http_listen_ip = $::ipaddress,
+  String $contact_email             = 'root@localhost',
+  Stdlib::Absolutepath $docroot     = '/opt/repos',
+  String $gpg_keys_path             = 'keys', # gpg_keys_path is relative to $docroot, ${docroot}/${gpg_keys_path}
+  String $gpg_user_name             = 'Root',
+  String $yum_server                = 'yum',
+  String $yum_server_http_listen_ip = $::ipaddress,
 ) {
 
-  include ::apache
-
-  # validate contact_email
-  validate_absolute_path($docroot)
-  validate_string($gpg_keys_path)
-  validate_string($gpg_user_name)
-  validate_string($yum_server)
-  validate_string($yum_server_http_listen_ip)
   validate_ip_address($yum_server_http_listen_ip)
+
+  include ::apache
 
   package { 'createrepo':
     ensure => installed,

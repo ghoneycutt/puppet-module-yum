@@ -106,20 +106,20 @@ describe 'yum::server' do
       'absolute_path' => {
         :name    => %w(docroot),
         :valid   => ['/absolute/filepath', '/absolute/directory/'],
-        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        :message => 'is not an absolute path',
+        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
       },
       'ip address' => {
         :name    => %w(yum_server_http_listen_ip),
         :valid   => %w(127.0.0.1 194.232.104.150 3ffe:0505:0002:: ::1/64 fe80::a00:27ff:fe94:44d6/64),
-        :invalid => ['127.0.0.256', '23.43.9.22/64', %w(array), { 'ha' => 'sh' }, true, false],
-        :message => '(is not a valid IP address|is not a string)',
+        :invalid => ['127.0.0.256', '23.43.9.22/64', %w(array), { 'ha' => 'sh' }, false],
+        :message => '(is not a valid IP address|expects a String value)',
       },
       'string' => {
         :name    => %w(gpg_keys_path gpg_user_name yum_server),
         :valid   => ['string'],
-        :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
-        :message => 'is not a string',
+        :invalid => [%w(array), { 'ha' => 'sh' }, false],
+        :message => 'expects a String value',
       },
     }
 

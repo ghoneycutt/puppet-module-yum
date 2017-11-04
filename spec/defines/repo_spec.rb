@@ -63,14 +63,14 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.domain.tld/customrepo/5/8/dev/x86_64$}) }
   end
 
-  context 'with enabled set to valid string <0>' do
-    let(:params) { mandatory_params.merge({ :enabled => '0' }) }
+  context 'with enabled set to valid boolean false' do
+    let(:params) { mandatory_params.merge({ :enabled => false }) }
 
     it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*enabled=0$/) }
   end
 
-  context 'with gpgcheck set to valid string <0>' do
-    let(:params) { mandatory_params.merge({ :gpgcheck => '0' }) }
+  context 'with gpgcheck set to valid boolean false' do
+    let(:params) { mandatory_params.merge({ :gpgcheck => false }) }
 
     it { should have_yum__rpm_gpg_key_resource_count(0) }
     it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*gpgcheck=0$/) }
@@ -95,8 +95,8 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').without_content(/gpgkey=/) }
   end
 
-  context 'with priority set to valid string <242>' do
-    let(:params) { mandatory_params.merge({ :priority => '242' }) }
+  context 'with priority set to valid integer 242' do
+    let(:params) { mandatory_params.merge({ :priority => 242 }) }
 
     it { should contain_file('rspec.repo').with_content(/\[rspec\]\npriority=242$/) }
   end
@@ -250,51 +250,56 @@ describe 'yum::repo' do
       'absolute_path' => {
         :name    => %w(gpgkey_local_path yum_repos_d_path),
         :valid   => ['/absolute/filepath', '/absolute/directory/'],
-        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        :message => 'is not an absolute path',
+        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
       },
       'absolute_path_and_undef' => {
         :name    => %w(sslcacert),
         :valid   => [ :undef, '/absolute/filepath', '/absolute/directory/'],
-        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false],
-        :message => 'is not an absolute path',
+        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false],
+        :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
       },
-      'bool and stringified' => {
+      'bool' => {
         :name    => %w(enabled gpgcheck use_gpgkey_uri),
-        :valid   => [true, false, 'true', '1', 'false', '0'],
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
-        :message => '(is not a boolean|Unknown type of boolean given)',
+        :valid   => [true, false],
+        :invalid => ['false',  %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
+        :message => 'expects a Boolean value',
       },
       'domain_name' => {
-        :name    => %w(gpgkey_url_server repo_server),
+        :name    => %w(gpgkey_url_server),
         :valid   => %w(v.al.id val.id),
-        :invalid => ['in,val.id', 'in_val.id', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false],
-        :message => 'is not a domain name',
+        :invalid => ['in,val.id', 'in_val.id', %w(array), { 'ha' => 'sh' }, 3, 2.42, false],
+        :message => '(is not a domain name|expects (a String|a value of type Undef or String))',
       },
-      'integer and stringified' => {
+      'domain_name or undef' => {
+        :name    => %w(repo_server),
+        :valid   => %w(v.al.id val.id),
+        :invalid => ['in,val.id', 'in_val.id', %w(array), { 'ha' => 'sh' }, 3, 2.42, false],
+        :message => '(expects a (value of type Undef or |)String|is not a domain name)',
+      },
+      'integer' => {
         :name    => %w(priority),
-        :valid   => [242, '242'],
-        :invalid => ['string', 2.42, %w(array), { 'ha' => 'sh' }, true, false, nil],
-        :message => '(is not an integer nor stringified integer|floor\(\): Wrong argument type)',
+        :valid   => [242,],
+        :invalid => ['242', 2.42, %w(array), { 'ha' => 'sh' }, false, nil],
+        :message => 'expects a(n| value of type Undef or) Integer',
       },
       'regex for mode' => {
         :name    => %w(repo_file_mode),
         :valid   => %w(0644 0755 0640 0740),
-        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        :message => 'is not a file mode in octal notation',
+        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects a match for Pattern\[/\^\[0-7\]\{4\}\$/\]',
       },
-      # /!\ Downgrade for Puppet 3.x: remove fixnum and float from invalid list
       'string' => {
         :name    => %w(baseurl description environment failovermethod gpgkey gpgkey_file_prefix gpgkey_url_path gpgkey_url_proto mirrorlist password repo_server_basedir repo_server_protocol username),
         :valid   => ['string'],
-        :invalid => [%w(array), { 'ha' => 'sh' }, true, false],
-        :message => 'is not a string',
+        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, false],
+        :message => 'expects a (value of type Undef or |)String',
       },
       'present or absent' => {
         :name    => %w(ensure),
         :valid   => ['present', 'absent'],
-        :invalid => [true, false, 'file'],
-        :message => 'ensure must be present or absent',
+        :invalid => [false, 'file'],
+        :message => 'expects a match for Enum\[\'absent\', \'present\'\]',
       },
     }
 

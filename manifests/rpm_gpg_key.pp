@@ -5,10 +5,10 @@
 # Uses wget and rpimport commands
 #
 define yum::rpm_gpg_key (
-  $gpgkey_url,
-  $gpgkey,
-  $wget_path = '/bin:/usr/bin:/sbin:/usr/sbin',
-  $rpm_path  = '/bin:/usr/bin:/sbin:/usr/sbin',
+  String $gpgkey_url,
+  String $gpgkey,
+  String $wget_path = '/bin:/usr/bin:/sbin:/usr/sbin',
+  String $rpm_path  = '/bin:/usr/bin:/sbin:/usr/sbin',
 ) {
 
   # wget -O in the yum_wget_gpgkey_for_${name}_repo exec will leave an empty
