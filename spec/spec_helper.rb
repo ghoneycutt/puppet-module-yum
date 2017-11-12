@@ -11,6 +11,14 @@ RSpec.configure do |config|
     Facter.clear_messages
   end
   config.default_facts = {
-    :environment => 'rp_env',
+    :environment     => 'testing',
+    :operatingsystem => 'RedHat',
+    :osfamily        => 'RedHat', # mandatory for Puppet service provider
+    :os => {
+      :release => {
+        :major  => '5',
+        :minor  => '10',
+      }
+    }
   }
 end

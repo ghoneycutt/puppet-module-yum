@@ -3,9 +3,6 @@ require 'spec_helper'
 describe 'yum::repo' do
   mandatory_facts = {
     :domain              => 'test.local',
-    :environment         => 'rp_env', # can't be set on Puppet >= 4.3, using the hardcoded default value here to match
-    :lsbmajdistrelease   => '5',
-    :lsbminordistrelease => '10',
   }
   mandatory_params = {}
   let(:title) { 'rspec' }
