@@ -1,6 +1,28 @@
-# == Class: yum::server
+# @summary Manage a yum repository service
 #
-# Manage a yum repository service
+# @param contact_email
+#   Set email address for server administration contact.
+#   Will be used for ServerAdmin in Apache vhost configuration.
+#
+# @param docroot
+#   Set absolute path to document root. Will be used for DocumentRoot
+#   Apache vhost configuration.
+#
+# @param gpg_keys_path
+#   Set relative path to GPG keys directory which will be in $docroot
+#   directory. $docroot/$gpg_keys_path will be created and used.
+#
+# @param gpg_user_name
+#    Set user who signs the packages. Will be used as %_gpg_name in
+#    /root/.rpmmacros.
+#
+# @param yum_server
+#   Set servername for yum repository. Will be used for ServerName in
+#   Apache vhost configuration.
+#
+# @param yum_server_http_listen_ip
+#   Set listen IP for yum repository server. Will be used for VirtualHost
+#   in Apache vhost configuration.
 #
 class yum::server (
   String $contact_email             = 'root@localhost',

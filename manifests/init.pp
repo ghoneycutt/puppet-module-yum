@@ -1,6 +1,67 @@
-# == Class: yum
+# @summary Manage yum (client, server, and key management)
 #
-# Manages yum
+# @example Declaring the class
+#   include ::yum
+#
+# @param config_path
+#   Set the path to the yum.conf file, representing a fully qualified name.
+#
+# @param config_owner
+#   Set owner access to the yum.conf file, representing a user.
+#
+# @param config_group
+#   Set group access to the yum.conf file, representing a group.
+#
+# @param config_mode
+#   Set access permissions for the yum.conf file, in numeric notation.
+#
+# @param manage_repos
+#   Trigger if files in /etc/yum.repos.d should get managed by Puppet exclusivly.
+#   If set to true, all unmanged files in /etc/yum.repos.d (and below) will get
+#   removed.
+#
+# @param repos_d_owner
+#   Set owner access to the /etc/yum.repos.d directory, representing a user.
+#
+# @param repos_d_group
+#   Set group access to the /etc/yum.repos.d directory, representing a group.
+#
+# @param repos_d_mode
+#   Set access permissions for the /etc/yum.repos.d directory, in numeric notation.
+#
+# @param repos_hiera_merge
+#   Trigger to merge all found instances of yum::repos in Hiera. This is useful
+#   for specifying repositories at different levels of the hierarchy and having
+#   them all included in the catalog.
+#
+# @param repos
+#   Hash of repos to pass to yum::repo. See yum::repo for more details.
+#
+# @param distroverpkg
+#   Trigger to add the distroverpkg setting to the main section of yum.conf.
+#   Will use the format distroverpk=$::operatingsystem-release (downcase) if active.
+#
+# @param pkgpolicy
+#   Trigger to add the pkgpolicy setting with the given string to the main section
+#   of yum.conf. Valid values are: 'newest' or 'last'.
+#
+# @param proxy
+#   Trigger to add the proxy setting with the given string to the main section of
+#   yum.conf. Specify a proxy URL.
+#
+# @param installonly_limit
+#   Trigger to add the installonly_limit setting with the given number to the main
+#   section of yum.conf. When unset (default) installonly_limit will not be present
+#   in yum.conf.
+#
+# @param exclude
+#   Value for the exclude setting in the main section of yum.conf.
+#   When undef (default) exclude will not be present in yum.conf.
+#
+# @param exclude_hiera_merge
+#   Trigger to merge all found instances of yum::exclude in Hiera. This is useful
+#   for specifying repositories at different levels of the hierarchy and having
+#   them all included in the catalog.
 #
 class yum (
   Stdlib::Absolutepath $config_path           = '/etc/yum.conf',

@@ -1,14 +1,108 @@
-# == Define: yum::repo
+# @summary Manage individual yum repo files in /etc/yum.repos.d
+#   This was used in favor of the yumrepo type, which cannot
+#   manage files in that directory.
 #
-# Manage individual yum repo files in /etc/yum.repos.d
+# @example Using the define.
+#   yum::repo { 'redhat-base':
+#     gpgcheck => '1',
+#   }
 #
-# This was used in favor of the yumrepo type, which cannot
-# manage files in that directory.
+# @param ensure
+#   Set to "present" or "absent". When absent, removes the repository
+#   configuration file from the node modeled on the behavior of the
+#   File type's ensure parameter.
 #
-# example
-#  yum::repo { 'redhat-base':
-#    gpgcheck => '1',
-#  }
+# @param baseurl
+#   Trigger to set the baseurl parameter of the repository configuration.
+#   Takes a form such as 'http://yum.domain.tld/customrepo/5/8/dev/x86_64'.
+#   If $baseurl and $mirrorlist are both unset, it baseurl will become:
+#   $repo_server_protocol://$username:$password@$repo_server/$repo_server_basedir/$name/$::lsbmajdistrelease/$::lsbminordistrelease/$environment/$basearch.
+#   Passing $username and $password is optional.
+#   If only $mirrorlist is set, baseurl will not be used in the repository
+#   configuration.
+#
+# @param enabled
+#   Set the enabled parameter of the repository configuration.
+#
+# @param gpgcheck
+#   Set the gpgcheck parameter of a repository configuration.
+#
+# @param gpgkey
+#   Set the gpgkey parameter of the repository configuration. Will only be used
+#   when $use_gpgkey_uri is set to true.
+#
+# @param use_gpgkey_uri
+#   Trigger to activate support for using GPG keys. If set to true the module
+#   will download GPG keys and add the gpgkey parameter to the repository
+#   configuration.
+#
+# @param priority
+#   Trigger to set the priority parameter of the repository configuration.
+#
+# @param repo_server
+#   Specify the server part of the default URL for baseurl (see $baseurl).
+#   Specifing $baseurl or $mirrlost will override this parameter.
+#
+# @param repo_server_protocol
+#   Specify the protocol part of the default URL for baseurl (see $baseurl).
+#   Specifing $baseurl or $mirrlost will override this parameter.
+#
+# @param repo_server_basedir
+#   Specify the basedir part of the default URL for baseurl (see $baseurl).
+#   Specifing $baseurl or $mirrlost will override this parameter.
+#
+# @param repo_file_mode
+#   Set the file mode of the repository configuration file.
+#
+# @param yum_repos_d_path
+#   Specify the path of the directory for yum repository files.
+#
+# @param gpgkey_url_proto
+#   Specify the protocol part of the default URL for GPG keys (see $gpgkey).
+#   Specifing $gpgkey will override this parameter.
+#
+# @param gpgkey_url_server
+#   Specify the server part of the default URL for GPG keys (see $gpgkey).
+#   If unset $repo_server will be used. Specifing $gpgkey will override this
+#   parameter.
+#
+# @param gpgkey_url_path
+#   Specify the URL part of the default URL for GPG keys (see $gpgkey).
+#   Specifing $gpgkey will override this parameter.
+#
+# @param gpgkey_file_prefix
+#   Specify the prefix part of the default URL for GPG keys (see $gpgkey).
+#   Specifing $gpgkey will override this parameter.
+#
+# @param gpgkey_local_path
+#   Specify the path where GPG keys should be stored locally.
+#
+# @param username
+#   Specify the optional username part of the default URL for baseurl
+#   (see $baseurl). Specifing $baseurl or $mirrlost will override this parameter.
+#
+# @param password
+#   Specify the optional password part of the default URL for baseurl
+#   (see $baseurl). Specifing $baseurl or $mirrlost will override this parameter.
+#
+# @param description
+#   Set the name parameter of the repository configuration. Defaults to the name
+#   of the defined type.
+#
+# @param environment
+#   Specify the environment part of the default value for baseurl (see $baseurl).
+#   Specifying $baseurl or $mirrorlist will override this parameter.
+#
+# @param mirrorlist
+#   Trigger to set the mirrorlist parameter of the repository configuration.
+#
+# @param failovermethod
+#   Trigger to set the failovermethod parameter of the repository configuration.
+#
+# @param sslcacert
+#   If set, will ensure the line sslcacert is present in the repository
+#   configuration with the specified value. This is useful when using your own
+#   CA bundle.
 #
 define yum::repo (
   Enum['absent', 'present'] $ensure         = 'present',

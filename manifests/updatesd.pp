@@ -1,8 +1,23 @@
-# == Class: yum::updatesd
+# @summary Manage yum-updatesd which is available on EL5, though not EL6
+#   This is defaulted to being disabled.
 #
-# Manage yum-updatesd which is available on EL5, though not EL6
+# @param updatesd_package
+#   Specify name of yum updatesd package.
 #
-# This is defaulted to being disabled.
+# @param updatesd_package_ensure
+#   Set ensure attribute for package resource. Valid values are: 'present',
+#   'absent', 'latest', and 'purged'.
+#
+# @param updatesd_service
+#   Specify name of yum updatesd service.
+#
+# @param updatesd_service_ensure
+#  Set ensure attribute for service resource. Valid values are: 'running'
+#  and 'stopped'.
+#
+# @param updatesd_service_enable
+#  Set enable attribute for service resource. Valid values are: 'true', 'false',
+#  'manual', and 'mark'.
 #
 class yum::updatesd (
   String $updatesd_package                                               = 'yum-updatesd',

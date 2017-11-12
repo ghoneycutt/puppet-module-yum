@@ -1,8 +1,17 @@
-# == Define: yum::rpm_gpg_key
+# @summary Downloads a public gpg key for a yum repo and installs the key
+#   Uses wget and rpimport commands
 #
-# Downloads a public gpg key for a yum repo and installs the key
+# @param gpgkey_url
+#   Specify the source URL for the GPG key to download from.
 #
-# Uses wget and rpimport commands
+# @param gpgkey
+#   Specify the fully qualified destination file name for the GPG key to save to.
+#
+# @param wget_path
+#   Specify the path parameter to be used for the wget command.
+#
+# @param rpm_path
+#   Specify the path parameter to be used for the rpm command.
 #
 define yum::rpm_gpg_key (
   String $gpgkey_url,
