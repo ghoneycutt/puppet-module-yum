@@ -250,6 +250,12 @@ describe 'yum::repo' do
         :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
       },
+      'Stdlib::Filemode' => {
+        :name    => %w(repo_file_mode),
+        :valid   => %w(0644 0755 0640 0740),
+        :invalid => [ 2770, '0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects a match for Stdlib::Filemode',
+      },
       'absolute_path_and_undef' => {
         :name    => %w(sslcacert),
         :valid   => [ :undef, '/absolute/filepath', '/absolute/directory/'],
@@ -279,12 +285,6 @@ describe 'yum::repo' do
         :valid   => [242,],
         :invalid => ['242', 2.42, %w(array), { 'ha' => 'sh' }, false, nil],
         :message => 'expects a(n| value of type Undef or) Integer',
-      },
-      'regex for mode' => {
-        :name    => %w(repo_file_mode),
-        :valid   => %w(0644 0755 0640 0740),
-        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Pattern\[/\^\[0-7\]\{4\}\$/\]',
       },
       'string' => {
         :name    => %w(baseurl description environment failovermethod gpgkey gpgkey_file_prefix gpgkey_url_path gpgkey_url_proto mirrorlist password repo_server_basedir repo_server_protocol username),

@@ -115,7 +115,7 @@ define yum::repo (
   String $repo_server                       = "yum.${::domain}",
   String $repo_server_protocol              = 'http',
   String $repo_server_basedir               = '/',
-  Pattern[/^[0-7]{4}$/] $repo_file_mode     = '0400',
+  Stdlib::Filemode $repo_file_mode          = '0400',
   Stdlib::Absolutepath $yum_repos_d_path    = '/etc/yum.repos.d',
   String $gpgkey_url_proto                  = 'http',
   String $gpgkey_url_server                 = "yum.${::domain}",

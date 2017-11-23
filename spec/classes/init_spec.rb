@@ -232,6 +232,12 @@ describe 'yum' do
         :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, nil],
         :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
       },
+      'Stdlib::Filemode' => {
+        :name    => %w(config_mode repos_d_mode),
+        :valid   => %w(0644 0755 0640 0740),
+        :invalid => [ 2770, '0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects a match for Stdlib::Filemode',
+      },
       'boolean' => {
         :name    => %w(distroverpkg exclude_hiera_merge manage_repos repos_hiera_merge),
         :valid   => [true, false],
@@ -250,12 +256,6 @@ describe 'yum' do
         :valid   => [242,],
         :invalid => ['242', 2.42, %w(array), { 'ha' => 'sh' }, true, nil],
         :message => 'expects (an Optional\[Integer\] value|a value of type Undef or Integer)',
-      },
-      'regex for mode' => {
-        :name    => %w(config_mode repos_d_mode),
-        :valid   => %w(0644 0755 0640 0740),
-        :invalid => ['0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, nil],
-        :message => 'expects a match for Pattern\[/\^\[0-7\]\{4\}\$/\]',
       },
       'regex for pkgpolicy' => {
         :name    => %w(pkgpolicy),
