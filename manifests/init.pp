@@ -99,7 +99,12 @@ class yum (
       default: { $repos_real = $repos }
     }
     validate_hash($repos_real)
-    create_resources('yum::repo',$repos_real)
+
+    $repos_real.each |$key,$value| {
+      ::yum::repo { $key:
+        * => $value,
+      }
+    }
   }
 
   include ::yum::updatesd
