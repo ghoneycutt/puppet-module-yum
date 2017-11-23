@@ -15,6 +15,7 @@ describe 'yum::repo' do
        path        => "/bin:/usr/bin:/sbin:/usr/sbin",
     }'
   end
+
   context 'with defaults for all parameters' do
     it { should compile.with_all_deps }
 
@@ -244,59 +245,53 @@ describe 'yum::repo' do
     let(:mandatory_params) { mandatory_params }
 
     validations = {
-      'absolute_path' => {
-        :name    => %w(gpgkey_local_path yum_repos_d_path),
+      'Stdlib::Absolutepath' => {
+        :name    => %w(gpgkey_local_path sslcacert yum_repos_d_path),
         :valid   => ['/absolute/filepath', '/absolute/directory/'],
         :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
+        :message => 'expects a (match for|match for Stdlib::Absolutepath =|Stdlib::Absolutepath =) Variant\[Stdlib::Windowspath.*Stdlib::Unixpath', # Puppet (4.x|5.0 & 5.1|5.x)
       },
       'Stdlib::Filemode' => {
         :name    => %w(repo_file_mode),
         :valid   => %w(0644 0755 0640 0740),
         :invalid => [ 2770, '0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Stdlib::Filemode',
+        :message => 'expects a match for Stdlib::Filemode', # Puppet 4 & 5
       },
-      'absolute_path_and_undef' => {
-        :name    => %w(sslcacert),
-        :valid   => [ :undef, '/absolute/filepath', '/absolute/directory/'],
-        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false],
-        :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
-      },
-      'bool' => {
+      'boolean' => {
         :name    => %w(enabled gpgcheck use_gpgkey_uri),
         :valid   => [true, false],
         :invalid => ['false',  %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
-        :message => 'expects a Boolean value',
+        :message => 'expects a Boolean value', # Puppet 4 & 5
       },
       'domain_name' => {
-        :name    => %w(gpgkey_url_server),
+        :name    => %w(gpgkey_url_server repo_server),
         :valid   => %w(v.al.id val.id),
         :invalid => ['in,val.id', 'in_val.id', %w(array), { 'ha' => 'sh' }, 3, 2.42, false],
-        :message => '(is not a domain name|expects (a String|a value of type Undef or String))',
-      },
-      'domain_name or undef' => {
-        :name    => %w(repo_server),
-        :valid   => %w(v.al.id val.id),
-        :invalid => ['in,val.id', 'in_val.id', %w(array), { 'ha' => 'sh' }, 3, 2.42, false],
-        :message => '(expects a (value of type Undef or |)String|is not a domain name)',
+        :message => '(is not a domain name|expects a String value)', # (code|Puppet 4 & 5)
       },
       'integer' => {
         :name    => %w(priority),
         :valid   => [242,],
         :invalid => ['242', 2.42, %w(array), { 'ha' => 'sh' }, false, nil],
-        :message => 'expects a(n| value of type Undef or) Integer',
+        :message => 'expects a value of type Undef or Integer', # Puppet 4 & 5
       },
       'string' => {
-        :name    => %w(baseurl description environment failovermethod gpgkey gpgkey_file_prefix gpgkey_url_path gpgkey_url_proto mirrorlist password repo_server_basedir repo_server_protocol username),
+        :name    => %w(environment gpgkey_file_prefix gpgkey_url_path gpgkey_url_proto repo_server_basedir repo_server_protocol),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, false],
-        :message => 'expects a (value of type Undef or |)String',
+        :message => 'expects a String', # Puppet 4 & 5
+      },
+      'string or undef' => {
+        :name    => %w(baseurl description failovermethod gpgkey mirrorlist password username),
+        :valid   => ['string'],
+        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, false],
+        :message => 'expects a value of type Undef or String', # Puppet 4 & 5
       },
       'present or absent' => {
         :name    => %w(ensure),
         :valid   => ['present', 'absent'],
         :invalid => [false, 'file'],
-        :message => 'expects a match for Enum\[\'absent\', \'present\'\]',
+        :message => 'expects a match for Enum\[\'absent\', \'present\'\]', # Puppet 4 & 5
       },
     }
 

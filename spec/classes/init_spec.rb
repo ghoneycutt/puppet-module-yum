@@ -226,60 +226,60 @@ describe 'yum' do
     let(:mandatory_params) { {} }
 
     validations = {
-      'absolute_path' => {
+      'Stdlib::Absolutepath' => {
         :name    => %w(config_path),
         :valid   => ['/absolute/filepath', '/absolute/directory/'],
-        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, nil],
-        :message => 'expects.*Variant\[Stdlib::Windowspath.*Stdlib::Unixpath',
+        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects a (match for|match for Stdlib::Absolutepath =|Stdlib::Absolutepath =) Variant\[Stdlib::Windowspath.*Stdlib::Unixpath', # Puppet (4.x|5.0 & 5.1|5.x)
       },
       'Stdlib::Filemode' => {
         :name    => %w(config_mode repos_d_mode),
         :valid   => %w(0644 0755 0640 0740),
         :invalid => [ 2770, '0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Stdlib::Filemode',
+        :message => 'expects a match for Stdlib::Filemode',  # Puppet 4 & 5
       },
       'boolean' => {
         :name    => %w(distroverpkg exclude_hiera_merge manage_repos repos_hiera_merge),
         :valid   => [true, false],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false', nil],
-        :message => 'expects a Boolean value',
+        :message => 'expects a Boolean value', # Puppet 4 & 5
       },
       'hash' => {
         :name    => %w(repos),
         :params  => { :repos_hiera_merge => false },
         :valid   => [], # valid hashes are to complex to block test them here. Subclasses have their own specific spec tests anyway.
         :invalid => ['string', 3, 2.42, %w(array), true, nil],
-        :message => 'expects a (value of type Undef or |)Hash',
+        :message => 'expects a value of type Undef or Hash', # Puppet 4 & 5
       },
       'integer' => {
         :name    => %w(installonly_limit),
         :valid   => [242,],
         :invalid => ['242', 2.42, %w(array), { 'ha' => 'sh' }, true, nil],
-        :message => 'expects (an Optional\[Integer\] value|a value of type Undef or Integer)',
+        :message => 'expects a value of type Undef or Integer', # Puppet 4 & 5
       },
       'regex for pkgpolicy' => {
         :name    => %w(pkgpolicy),
         :valid   => %w(newest last),
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, true, nil],
-        :message => 'expects (an undef value or |)a match for Enum\[\'last\', \'newest\'\]',
+        :message => 'expects (an undef value or |)a match for Enum\[\'last\', \'newest\'\]', # Puppet (4|5)
       },
       'string' => {
         :name    => %w(config_owner config_group repos_d_owner repos_d_group),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, true],
-        :message => 'expects a String value',
+        :message => 'expects a String', # Puppet 4 & 5
       },
-      'string and array' => {
+      'string or undef and array' => {
         :name    => %w(exclude),
         :valid   => [nil, 'string', %w(array)],
         :invalid => [{ 'ha' => 'sh' }, true],
-        :message => 'expects a value of type (Optional\[|Undef, )String(\]|,) or Array',
+        :message => 'expects a value of type Undef, String, or Array', # Puppet 4 & 5
       },
-      'string and undef' => {
+      'string or undef' => {
         :name    => %w(proxy),
         :valid   => [nil, 'string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, true],
-        :message => 'expects a (value of type Undef or |)String',
+        :message => 'expects a value of type Undef or String', # Puppet 4 & 5
       },
     }
 
