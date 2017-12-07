@@ -2,30 +2,245 @@
 # DO NOT EDIT
 
 [main]
-<% if @proxy != nil -%>
-proxy=<%= @proxy %>
+<% if @distroverpkg_string != '' -%>
+distroverpkg=<%= @distroverpkg_string %>
 <% end -%>
-<% if @distroverpkg == true -%>
-distroverpkg=<%= @operatingsystem.downcase %>-release
-<% end -%>
-<% if @pkgpolicy != nil -%>
+<% if @pkgpolicy != '' -%>
 pkgpolicy=<%= @pkgpolicy %>
 <% end -%>
-<% if @installonly_limit != nil -%>
+<% if @installonly_limit != '' -%>
 installonly_limit=<%= @installonly_limit %>
 <% end -%>
-cachedir=/var/cache/yum/$basearch/$releasever
-keepcache=0
-debuglevel=2
-logfile=/var/log/yum.log
-tolerant=1
-exactarch=1
-obsoletes=1
-gpgcheck=1
-plugins=1
-<% if @exclude_array_real != nil -%>
-exclude=<%= @exclude_array_real.join(' ') %>
+<% if @cachedir != '' -%>
+cachedir=<%= @cachedir %>
+<% end -%>
+<% if @keepcache != '' -%>
+keepcache=<%= @keepcache_string %>
+<% end -%>
+<% if @debuglevel != '' -%>
+debuglevel=<%= @debuglevel %>
+<% end -%>
+<% if @errorlevel != '' -%>
+errorlevel=<%= @errorlevel %>
+<% end -%>
+<% if @logfile != '' -%>
+logfile=<%= @logfile %>
+<% end -%>
+<% if @tolerant != '' -%>
+tolerant=<%= @tolerant_string %>
+<% end -%>
+<% if @exactarch != '' -%>
+exactarch=<%= @exactarch_string %>
+<% end -%>
+<% if @obsoletes != '' -%>
+obsoletes=<%= @obsoletes_string %>
+<% end -%>
+<% if @gpgcheck != '' -%>
+gpgcheck=<%= @gpgcheck_string %>
+<% end -%>
+<% if @plugins != '' -%>
+plugins=<%= @plugins_string %>
+<% end -%>
+<% if @exclude_real != [] -%>
+exclude=<%= @exclude_real.join(',') %>
 <% end -%>
 
+<% if @metadata_expire != '' -%>
 # Note: yum-RHN-plugin doesn't honor this.
-metadata_expire=1h
+metadata_expire=<%= @metadata_expire %>
+<% end -%>
+<% if @alwaysprompt_string != '' -%>
+alwaysprompt=<%= @alwaysprompt_string %>
+<% end -%>
+<% if @assumeyes_string != '' -%>
+assumeyes=<%= @assumeyes_string %>
+<% end -%>
+<% if @clean_requirements_on_remove_string != '' -%>
+clean_requirements_on_remove=<%= @clean_requirements_on_remove_string %>
+<% end -%>
+<% if @color_string != '' -%>
+color=<%= @color_string %>
+<% end -%>
+<% if @diskspacecheck_string != '' -%>
+diskspacecheck=<%= @diskspacecheck_string %>
+<% end -%>
+<% if @enable_group_conditionals_string != '' -%>
+enable_group_conditionals=<%= @enable_group_conditionals_string %>
+<% end -%>
+<% if @groupremove_leaf_only_string != '' -%>
+groupremove_leaf_only=<%= @groupremove_leaf_only_string %>
+<% end -%>
+<% if @history_record_string != '' -%>
+history_record=<%= @history_record_string %>
+<% end -%>
+<% if @keepalive_string != '' -%>
+keepalive=<%= @keepalive_string %>
+<% end -%>
+<% if @localpkg_gpgcheck_string != '' -%>
+localpkg_gpgcheck=<%= @localpkg_gpgcheck_string %>
+<% end -%>
+<% if @overwrite_groups_string != '' -%>
+overwrite_groups=<%= @overwrite_groups_string %>
+<% end -%>
+<% if @protected_multilib_string != '' -%>
+protected_multilib=<%= @protected_multilib_string %>
+<% end -%>
+<% if @repo_gpgcheck_string != '' -%>
+repo_gpgcheck=<%= @repo_gpgcheck_string %>
+<% end -%>
+<% if @reset_nice_string != '' -%>
+reset_nice=<%= @reset_nice_string %>
+<% end -%>
+<% if @showdupesfromrepos_string != '' -%>
+showdupesfromrepos=<%= @showdupesfromrepos_string %>
+<% end -%>
+<% if @skip_broken_string != '' -%>
+skip_broken=<%= @skip_broken_string %>
+<% end -%>
+<% if @ssl_check_cert_permissions_string != '' -%>
+ssl_check_cert_permissions=<%= @ssl_check_cert_permissions_string %>
+<% end -%>
+<% if @sslverify_string != '' -%>
+sslverify=<%= @sslverify_string %>
+<% end -%>
+<% if @throttle != '' -%>
+throttle=<%= @throttle %>
+<% end -%>
+<% if @syslog_ident != '' -%>
+syslog_ident=<%= @syslog_ident %>
+<% end -%>
+<% if @syslog_facility != '' -%>
+syslog_facility=<%= @syslog_facility %>
+<% end -%>
+<% if @proxy_username != '' -%>
+proxy_username=<%= @proxy_username %>
+<% end -%>
+<% if @proxy_password != '' -%>
+proxy_password=<%= @proxy_password %>
+<% end -%>
+<% if @username != '' -%>
+username=<%= @username %>
+<% end -%>
+<% if @password != '' -%>
+password=<%= @password %>
+<% end -%>
+<% if @syslog_device != '' -%>
+syslog_device=<%= @syslog_device %>
+<% end -%>
+<% if @proxy != '' -%>
+proxy=<%= @proxy %>
+<% end -%>
+<% if @bugtracker_url != '' -%>
+bugtracker_url=<%= @bugtracker_url %>
+<% end -%>
+<% if @rpmverbosity != '' -%>
+rpmverbosity=<%= @rpmverbosity %>
+<% end -%>
+<% if @http_caching != '' -%>
+http_caching=<%= @http_caching %>
+<% end -%>
+<% if @history_list_view != '' -%>
+history_list_view=<%= @history_list_view %>
+<% end -%>
+<% if @mdpolicy != '' -%>
+mdpolicy=<%= @mdpolicy %>
+<% end -%>
+<% if @multilib_policy != '' -%>
+multilib_policy=<%= @multilib_policy %>
+<% end -%>
+<% if @color_list_available_downgrade != [] -%>
+color_list_available_downgrade=<%= @color_list_available_downgrade.join(',') %>
+<% end -%>
+<% if @color_list_available_install != [] -%>
+color_list_available_install=<%= @color_list_available_install.join(',') %>
+<% end -%>
+<% if @color_list_available_reinstall != [] -%>
+color_list_available_reinstall=<%= @color_list_available_reinstall.join(',') %>
+<% end -%>
+<% if @color_list_available_upgrade != [] -%>
+color_list_available_upgrade=<%= @color_list_available_upgrade.join(',') %>
+<% end -%>
+<% if @color_list_installed_extra != [] -%>
+color_list_installed_extra=<%= @color_list_installed_extra.join(',') %>
+<% end -%>
+<% if @color_list_installed_newer != [] -%>
+color_list_installed_newer=<%= @color_list_installed_newer.join(',') %>
+<% end -%>
+<% if @color_list_installed_older != [] -%>
+color_list_installed_older=<%= @color_list_installed_older.join(',') %>
+<% end -%>
+<% if @color_list_installed_reinstall != [] -%>
+color_list_installed_reinstall=<%= @color_list_installed_reinstall.join(',') %>
+<% end -%>
+<% if @color_search_match != [] -%>
+color_search_match=<%= @color_search_match.join(',') %>
+<% end -%>
+<% if @color_update_installed != [] -%>
+color_update_installed=<%= @color_update_installed.join(',') %>
+<% end -%>
+<% if @color_update_local != [] -%>
+color_update_local=<%= @color_update_local.join(',') %>
+<% end -%>
+<% if @color_update_remote != [] -%>
+color_update_remote=<%= @color_update_remote.join(',') %>
+<% end -%>
+<% if @group_package_types != [] -%>
+group_package_types=<%= @group_package_types.join(',') %>
+<% end -%>
+<% if @tsflags != [] -%>
+tsflags=<%= @tsflags.join(',') %>
+<% end -%>
+<% if @protected_packages != [] -%>
+protected_packages=<%= @protected_packages.join(',') %>
+<% end -%>
+<% if @installonlypkgs != [] -%>
+installonlypkgs=<%= @installonlypkgs.join(',') %>
+<% end -%>
+<% if @kernelpkgnames != [] -%>
+kernelpkgnames=<%= @kernelpkgnames.join(',') %>
+<% end -%>
+<% if @history_record_packages != [] -%>
+history_record_packages=<%= @history_record_packages.join(',') %>
+<% end -%>
+<% if @commands != [] -%>
+commands=<%= @commands.join(',') %>
+<% end -%>
+<% if @installroot != '' -%>
+installroot=<%= @installroot %>
+<% end -%>
+<% if @persistdir != '' -%>
+persistdir=<%= @persistdir %>
+<% end -%>
+<% if @pluginconfpath != '' -%>
+pluginconfpath=<%= @pluginconfpath %>
+<% end -%>
+<% if @pluginpath != '' -%>
+pluginpath=<%= @pluginpath %>
+<% end -%>
+<% if @sslcacert != '' -%>
+sslcacert=<%= @sslcacert %>
+<% end -%>
+<% if @sslclientcert != '' -%>
+sslclientcert=<%= @sslclientcert %>
+<% end -%>
+<% if @sslclientkey != '' -%>
+sslclientkey=<%= @sslclientkey %>
+<% end -%>
+<% if @reposdir != [] -%>
+reposdir=<%= @reposdir.join(',') %>
+<% end -%>
+<% if @bandwidth != '' -%>
+bandwidth=<%= @bandwidth %>
+<% end -%>
+<% if @mirrorlist_expire != '' -%>
+mirrorlist_expire=<%= @mirrorlist_expire %>
+<% end -%>
+<% if @recent != '' -%>
+recent=<%= @recent %>
+<% end -%>
+<% if @retries != '' -%>
+retries=<%= @retries %>
+<% end -%>
+<% if @timeout != '' -%>
+timeout=<%= @timeout %>
+<% end -%>

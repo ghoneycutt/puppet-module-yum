@@ -57,12 +57,6 @@ Set the path to the yum.conf file, representing a fully qualified name.
 - *Default*: '/etc/yum.conf'
 
 ---
-#### distroverpkg (boolean)
-Trigger to add the `distroverpkg` setting to the main section of yum.conf. Will use the format distroverpk=$::operatingsystem-release (downcase) if active.
-
-- *Default*: false
-
----
 #### installonly_limit (integer)
 Trigger to add the `installonly_limit` setting with the given number to the main section of yum.conf. When unset (default) installonly_limit will not be present in yum.conf.
 
@@ -85,12 +79,6 @@ Trigger to merge all found instances of yum::exclude in Hiera. This is useful fo
 Trigger if files in /etc/yum.repos.d should get managed by Puppet exclusivly. If set to true, all unmanged files in /etc/yum.repos.d (and below) will get removed.
 
 - *Default*: false
-
----
-#### pkgpolicy (string)
-Trigger to add the `pkgpolicy` setting with the given string to the main section of yum.conf. Valid values are: 'newest' or 'last'.
-
-- *Default*: undef
 
 ---
 #### proxy (string)
@@ -129,6 +117,578 @@ Hash of repos to pass to yum::repo. See [yum::repo](#defined-type-yumrepo) for m
 - *Default*: undef
 
 ---
+
+### Parameters for yum.conf
+---
+#### color_list_available_downgrade (array)
+`color_list_available_downgrade` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_list_available_install (array)
+`color_list_available_install` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_list_available_reinstall (array)
+`color_list_available_reinstall` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_list_available_upgrade (array)
+`color_list_available_upgrade` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_list_installed_extra (array)
+`color_list_installed_extra` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_list_installed_newer (array)
+`color_list_installed_newer` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_list_installed_older (array)
+`color_list_installed_older` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_list_installed_reinstall (array)
+`color_list_installed_reinstall` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_search_match (array)
+`color_search_match` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_update_installed (array)
+`color_update_installed` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_update_local (array)
+`color_update_local` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### color_update_remote (array)
+`color_update_remote` setting in the main section of yum.conf.
+Valid values are: 'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white',
+'bg:yellow', 'blink', 'bold', 'dim', 'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta',
+'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+#### commands (array)
+`commands` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### exclude (array)
+`exclude` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### group_package_types (array)
+`group_package_types` setting in the main section of yum.conf.
+Valid values are: , 'default', 'mandatory', and 'optional'.
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### history_record_packages (array)
+`history_record_packages` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### installonlypkgs (array)
+`installonlypkgs` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### kernelpkgnames (array)
+`kernelpkgnames` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### protected_packages (array)
+`protected_packages` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+---
+#### tsflags (array)
+`tsflags` setting in the main section of yum.conf.
+Valid values are: , 'justdb', 'nocontexts', 'nodocs', 'noscripts', 'notriggers', 'repackage', and 'test'
+When empty, it will not be present in yum.conf.
+
+- *Default*: []
+
+#### reposdir (array)
+`reposdir` setting in the main section of yum.conf.
+Takes a list of one or more absolute paths.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### distroverpkg (boolean or string)
+`distroverpkg` setting in the main section of yum.conf. Will use the format distroverpk=$::operatingsystem-release (downcase) if true. Alternatively you can also specify a free string text instead. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### alwaysprompt (boolean)
+`alwaysprompt` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### assumeyes (boolean)
+`assumeyes` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### clean_requirements_on_remove (boolean)
+`clean_requirements_on_remove` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### color (boolean)
+`color` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### diskspacecheck (boolean)
+`diskspacecheck` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### enable_group_conditionals (boolean)
+`enable_group_conditionals` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### exactarch (boolean)
+`exactarch` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: true
+
+---
+#### gpgcheck (boolean)
+`gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: false
+
+---
+#### groupremove_leaf_only (boolean)
+`groupremove_leaf_only` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### history_record (boolean)
+`history_record` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### keepalive (boolean)
+`keepalive` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### keepcache (boolean)
+`keepcache` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: true
+
+---
+#### localpkg_gpgcheck (boolean)
+`localpkg_gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### obsoletes (boolean)
+`obsoletes` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: true
+
+---
+#### overwrite_groups (boolean)
+`overwrite_groups` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### plugins (boolean)
+`plugins` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: false
+
+---
+#### protected_multilib (boolean)
+`protected_multilib` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### repo_gpgcheck (boolean)
+`repo_gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### reset_nice (boolean)
+`reset_nice` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### showdupesfromrepos (boolean)
+`showdupesfromrepos` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### skip_broken (boolean)
+`skip_broken` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### ssl_check_cert_permissions (boolean)
+`ssl_check_cert_permissions` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### sslverify (boolean)
+`sslverify` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: undef
+
+---
+#### tolerant (boolean)
+`tolerant` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+
+- *Default*: false
+
+---
+#### debuglevel (integer)
+`debuglevel` setting in the main section of yum.conf.
+Takes any integer between 0 and 10. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### errorlevel (integer)
+`errorlevel` setting in the main section of yum.conf.
+Takes any integer between 0 and 10. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### bandwidth (integer)
+`bandwidth` setting in the main section of yum.conf.
+Takes any integer. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### installonly_limit (integer)
+`installonly_limit` setting in the main section of yum.conf.
+Takes any integer. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### mirrorlist_expire (integer)
+`mirrorlist_expire` setting in the main section of yum.conf.
+Takes any integer. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### recent (integer)
+`recent` setting in the main section of yum.conf.
+Takes any integer. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### retries (integer)
+`retries` setting in the main section of yum.conf.
+Takes any integer. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### timeout (integer)
+`timeout` setting in the main section of yum.conf.
+Takes any integer. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### cachedir (string)
+`cachedir` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: '/var/cache/yum/$basearch/$releasever'
+
+---
+#### installroot (string)
+`installroot` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### logfile (string)
+`logfile` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: '/var/log/yum.log'
+
+---
+#### persistdir (string)
+`persistdir` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### pluginconfpath (string)
+`pluginconfpath` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### pluginpath (string)
+`pluginpath` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### sslcacert (string)
+`sslcacert` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### sslclientcert (string)
+`sslclientcert` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### sslclientkey (string)
+`sslclientkey` setting in the main section of yum.conf.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### bugtracker_url (string)
+`bugtracker_url` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### proxy (string)
+`proxy` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### password (string)
+`password` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### proxy_password (string)
+`proxy_password` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### proxy_username (string)
+`proxy_username` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### syslog_device (string)
+`syslog_device` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### syslog_facility (string)
+`syslog_facility` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### syslog_ident (string)
+`syslog_ident` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### username (string)
+`username` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### throttle (integer, float, or string)
+`throttle` setting in the main section of yum.conf. Rate in bytes/sec, allows an SI prefix (k, M, or G) to be appended. When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### metadata_expire (integer or string)
+`metadata_expire` setting in the main section of yum.conf. Time in seconds, allows a prefix of m, h, or d to specify minutes, hours, or days. Alternatively you can also specify the word never instead.
+
+
+- *Default*: '6h'
+
+---
+#### history_list_view (string)
+`history_list_view` setting in the main section of yum.conf.
+Valid values are: 'cmds', 'commands', 'default', 'single-user-commands', or 'users'.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### mdpolicy (string)
+`mdpolicy` setting in the main section of yum.conf.
+Valid values are: 'group:all', 'group:main', 'group:primary', 'group:small', or 'instant'
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### rpmverbosity (string)
+`rpmverbosity` setting in the main section of yum.conf.
+Valid values are: 'critical', 'debug', 'emergency', 'error', 'info', or 'warn'.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### http_caching (string)
+`http_caching` setting in the main section of yum.conf.
+Valid values are: 'all', 'none', or 'packages'
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### multilib_policy (string)
+`multilib_policy` setting in the main section of yum.conf.
+Valid values are: 'all' or 'best'.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+#### pkgpolicy (string)
+`pkgpolicy` setting in the main section of yum.conf.
+Valid values are: 'last' or 'newest'.
+When empty, it will not be present in yum.conf.
+
+- *Default*: ''
+
+---
+
 ## Class `yum::server`
 
 ### Description
