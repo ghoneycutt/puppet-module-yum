@@ -2,24 +2,105 @@
 # DO NOT EDIT
 
 [<%= @name %>]
-<% if @mirrorlist != nil -%>
+<% if @mirrorlist != '' -%>
 mirrorlist=<%= @mirrorlist %>
 <% end -%>
-<% if @failovermethod != nil -%>
+<% if @failovermethod != '' -%>
 failovermethod=<%= @failovermethod %>
-<% end -%>
-<% if @priority != nil -%>
-priority=<%= @priority %>
 <% end -%>
 <% if @use_gpgkey_uri == true -%>
 gpgkey=<%= @gpgkey_real %>
 <% end -%>
-<% if @baseurl_real != nil -%>
+<% if @baseurl_real != '' -%>
 baseurl=<%= @baseurl_real %>
 <% end -%>
+<% if @description != '' -%>
 name=<%= @description %>
-enabled=<%= @enabled_strg %>
-gpgcheck=<%= @gpgcheck_strg %>
-<% if @sslcacert != nil -%>
+<% end -%>
+<% if @enabled_string != '' -%>
+enabled=<%= @enabled_string %>
+<% end -%>
+<% if @gpgcheck_string != '' -%>
+gpgcheck=<%= @gpgcheck_string %>
+<% end -%>
+<% if @sslcacert != '' -%>
 sslcacert=<%= @sslcacert %>
+<% end -%>
+<% if @enablegroups_string != '' -%>
+enablegroups=<%= @enablegroups_string %>
+<% end -%>
+<% if @keepalive_string != '' -%>
+keepalive=<%= @keepalive_string %>
+<% end -%>
+<% if @repo_gpgcheck_string != '' -%>
+repo_gpgcheck=<%= @repo_gpgcheck_string %>
+<% end -%>
+<% if @skip_if_unavailable_string != '' -%>
+skip_if_unavailable=<%= @skip_if_unavailable_string %>
+<% end -%>
+<% if @ssl_check_cert_permissions_string != '' -%>
+ssl_check_cert_permissions=<%= @ssl_check_cert_permissions_string %>
+<% end -%>
+<% if @sslverify_string != '' -%>
+sslverify=<%= @sslverify_string %>
+<% end -%>
+<% if @bandwidth != '' -%>
+bandwidth=<%= @bandwidth %>
+<% end -%>
+<% if @cost != '' -%>
+cost=<%= @cost %>
+<% end -%>
+<% if @mirrorlist_expire != '' -%>
+mirrorlist_expire=<%= @mirrorlist_expire %>
+<% end -%>
+<% if @retries != '' -%>
+retries=<%= @retries %>
+<% end -%>
+<% if @timeout != '' -%>
+timeout=<%= @timeout %>
+<% end -%>
+<% if @password != '' -%>
+password=<%= @password %>
+<% end -%>
+<% if @proxy_password != '' -%>
+proxy_password=<%= @proxy_password %>
+<% end -%>
+<% if @proxy_username != '' -%>
+proxy_username=<%= @proxy_username %>
+<% end -%>
+<% if @repositoryid != '' -%>
+repositoryid=<%= @repositoryid %>
+<% end -%>
+<% if @username != '' -%>
+username=<%= @username %>
+<% end -%>
+<% if @gpgcakey != '' -%>
+gpgcakey=<%= @gpgcakey %>
+<% end -%>
+<% if @metalink != '' -%>
+metalink=<%= @metalink %>
+<% end -%>
+<% if @proxy != '' -%>
+proxy=<%= @proxy %>
+<% end -%>
+<% if @http_caching != '' -%>
+http_caching=<%= @http_caching %>
+<% end -%>
+<% if @metadata_expire != '' -%>
+metadata_expire=<%= @metadata_expire %>
+<% end -%>
+<% if @throttle != '' -%>
+throttle=<%= @throttle %>
+<% end -%>
+<% if @sslclientcert != '' -%>
+sslclientcert=<%= @sslclientcert %>
+<% end -%>
+<% if @sslclientkey != '' -%>
+sslclientkey=<%= @sslclientkey %>
+<% end -%>
+<% if @exclude != [] -%>
+exclude=<%= @exclude.join(',') %>
+<% end -%>
+<% if @includepkgs != [] -%>
+includepkgs=<%= @includepkgs.join(',') %>
 <% end -%>

@@ -806,18 +806,6 @@ If only $mirrorlist is set, `baseurl` will not be used in the repository configu
 - *Default*: undef
 
 ---
-#### description (string)
-Set the `name` parameter of the repository configuration. Defaults to the name of the defined type.
-
-- *Default*: $name
-
----
-#### enabled (boolean)
-Set the `enabled` parameter of the repository configuration.
-
-- *Default*: true
-
----
 #### environment (string)
 Specify the environment part of the default value for baseurl (see [$baseurl](#baseurl-string)).
 Specifying $baseurl or $mirrorlist will override this parameter.
@@ -829,12 +817,6 @@ Specifying $baseurl or $mirrorlist will override this parameter.
 Trigger to set the `failovermethod` parameter of the repository configuration.
 
 - *Default*: undef
-
----
-#### gpgcheck (boolean)
-Set the `gpgcheck` parameter of a repository configuration.
-
-- *Default*: true
 
 ---
 #### gpgkey_file_prefix (string)
@@ -884,19 +866,7 @@ Trigger to set the `mirrorlist` parameter of the repository configuration.
 - *Default*: undef
 
 ---
-#### password (string)
-Specify the optional password part of the default URL for baseurl (see [$baseurl](#baseurl-string)).
-Specifing $baseurl or $mirrlost will override this parameter.
-
-- *Default*: undef
-
----
-#### priority (string)
-Trigger to set the `priority` parameter of the repository configuration.
-
-- *Default*: undef
-
----
+=======
 #### repo_file_mode (string)
 Set the file mode of the repository configuration file.
 
@@ -930,28 +900,245 @@ Trigger to activate support for using GPG keys. If set to true the module will d
 - *Default*: true
 
 ---
-#### username (string)
-Specify the optional username part of the default URL for baseurl (see [$baseurl](#baseurl-string)).
-Specifing $baseurl or $mirrlost will override this parameter.
-
-- *Default*: undef
-
----
 #### yum_repos_d_path (string)
 Specify the path of the directory for yum repository files.
 
 - *Default*: '/etc/yum.repos.d'
 
 ---
-#### sslcacert (string)
-If set, will ensure the line `sslcacert` is present in the repository
-configuration with the specified value. This is useful when using your
-own CA bundle.
+#### gpgkey_local_path (string)
+Specify the path where GPG keys should be stored locally.
 
-- *Default*: undef
+- *Default*: '/etc/pki/rpm-gpg'
+
+---
+### Parameters for repository files
+
+---
+#### enabled (boolean)
+`enabled` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+
+- *Default*: true
+
+---
+#### enablegroups (boolean)
+`enablegroups` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### gpgcheck (boolean)
+`gpgcheck` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+
+- *Default*: false
+
+---
+#### keepalive (boolean)
+`keepalive` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### repo_gpgcheck (boolean)
+`repo_gpgcheck` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### skip_if_unavailable (boolean)
+`skip_if_unavailable` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### ssl_check_cert_permissions (boolean)
+`ssl_check_cert_permissions` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### sslverify (boolean)
+`sslverify` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### bandwidth (integer)
+`bandwidth` setting in the repository file. Takes any integer. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### cost (integer)
+`cost` setting in the repository file. Takes any integer. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### mirrorlist_expire (integer)
+`mirrorlist_expire` setting in the repository file. Takes any integer. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### retries (integer)
+`retries` setting in the repository file. Takes any integer. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### timeout (integer)
+`timeout` setting in the repository file. Takes any integer. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### description (string)
+`description` setting in the repository file. Defaults to the name of the defined type. When empty, it will not be present.
+
+- *Default*: "$name"
+
+---
+#### password (string)
+`password` setting in the repository file. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### proxy_password (string)
+`proxy_password` setting in the repository file. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### proxy_username (string)
+`proxy_username` setting in the repository file. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### repositoryid (string)
+`repositoryid` setting in the repository file. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### username (string)
+`username` setting in the repository file. When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### baseurl (string)
+`baseurl` setting in the repository file. Accepts HTTP/HTTPS URLs.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### gpgcakey (string with URL)
+`gpgcakey` setting in the repository file. Accepts HTTP/HTTPS URLs.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### gpgkey (string with URL)
+`gpgkey` setting in the repository file. Accepts HTTP/HTTPS URLs.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### metalink (string with URL)
+`metalink` setting in the repository file. Accepts HTTP/HTTPS URLs.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### mirrorlist (string with URL)
+`mirrorlist` setting in the repository file. Accepts HTTP/HTTPS URLs.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### proxy (string with URL)
+`proxy` setting in the repository file. Accepts HTTP/HTTPS URLs and '_none_'.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### failovermethod (string with URL)
+`failovermethod` setting in the repository file. Valid values are: 'all', 'none', or 'packages'
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### http_caching (string)
+`http_caching` setting in the repository file. Valid values are: 'all', 'none', or 'packages'
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### throttle (integer, float, or string)
+`throttle` setting in the repository file.
+Rate in bytes/sec, allows a suffix of k, M, or G to be appended.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### metadata_expire (integer or string)
+`metadata_expire` setting in the repository file.
+Time in seconds, allows a suffix of m, h, or d to specify minutes, hours, or days.
+Alternatively you can also specify the word never instead.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### sslcacert (string)
+`sslcacert` setting in the repository file.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### sslclientcert (string)
+`sslclientcert` setting in the repository file.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### sslclientkey (string)
+`sslclientkey` setting in the repository file.
+When empty, it will not be present.
+
+- *Default*: ''
+
+---
+#### exclude (array)
+`exclude` setting in the repository file.
+When empty, it will not be present.
+
+- *Default*: []
+
+---
+#### includepkgs (array)
+`includepkgs` setting in the repository file.
+When empty, it will not be present.
+
+- *Default*: []
 
 ---
 
+###################
 ## Defined type `yum::rpm_gpg_key`
 
 ### Description

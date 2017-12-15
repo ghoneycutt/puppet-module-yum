@@ -7,6 +7,8 @@
   * Changed default value for metadata_expire in main section of yum.conf to '6h' to follow yum standard.
   * distroverpkg now also allows free string texts.
   * exclude does now only suppport arrays. Support for strings was removed.
+  * Changed default value for yum::repo::gpgcheck in main section of yum.conf to '0' (false) to follow yum standard.
+  * Removed non existing yum::repo::priority parameter.
 
 ### v1.4.0 - 2017-09-28
   * Add ensure parameter to yum::repo so it could be set to absent.
