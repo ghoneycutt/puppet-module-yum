@@ -8,11 +8,11 @@ mirrorlist=<%= @mirrorlist %>
 <% if @failovermethod != '' -%>
 failovermethod=<%= @failovermethod %>
 <% end -%>
-<% if @use_gpgkey_uri == true -%>
-gpgkey=<%= @gpgkey_real %>
+<% if @gpgkey != '' -%>
+gpgkey=<%= @gpgkey %>
 <% end -%>
-<% if @baseurl_real != '' -%>
-baseurl=<%= @baseurl_real %>
+<% if @baseurl != '' -%>
+baseurl=<%= @baseurl %>
 <% end -%>
 <% if @description != '' -%>
 name=<%= @description %>

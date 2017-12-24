@@ -4,11 +4,12 @@
 
 1. [Module Description](#module-description)
 2. [Compatibility](#compatibility)
-3. [Class Descriptions](#class-descriptions)
+3. [Examples](#examples)
+4. [Class Descriptions](#class-descriptions)
     * [yum](#class-yum)
     * [yum::server](#class-yumserver)
     * [yum::updatesd](#class-yumupdatesd)
-4. [Define Descriptions](#define-descriptions)
+5. [Define Descriptions](#define-descriptions)
     * [yum::repo](#defined-type-yumrepo)
     * [yum::rpm_gpg_key](#defined-type-yumrpm_gpg_key)
 
@@ -27,6 +28,49 @@ parser) and Puppet v4 on the following platforms and supports Ruby versions
 
  * EL 6
  * EL 7
+
+# Examples
+
+Create simple repository (without GPG key):
+
+```
+yum::repo { 'example_plain':
+  gpgkey  => 'http://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_PLAIN',
+  baseurl => 'http://yum.test.local/customrepo/5/10/$basearch',
+}
+```
+via hiera data:
+
+``` yaml
+yum::repos:
+  example_plain:
+    gpgkey:   'http://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_PLAIN'
+    baseurl:  'http://yum.test.local/customrepo/5/10/$basearch'
+```
+
+
+Create secured repository and import GPG key into local store:
+
+```
+yum::repo { 'example_secure':
+  gpgkey   => 'https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE',
+  baseurl  => 'https://yum.test.local/customrepo/5/10/$basearch',
+  username => 'example',
+  password => 'secret',
+  gpgcheck => true,
+}
+```
+via hiera data:
+
+``` yaml
+yum::repos:
+  example_secure:
+    gpgkey:   'https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE'
+    baseurl   'https://yum.test.local/customrepo/5/10/$basearch'
+    username: 'example'
+    password: 'secret'
+    gpgcheck: true
+```
 
 # Class Descriptions
 ## Class `yum`
@@ -794,110 +838,10 @@ ensure parameter.
 - *Default*: `"present"`
 
 ---
-#### baseurl (string)
-Trigger to set the `baseurl` parameter of the repository configuration. Takes a form such as 'http://yum.domain.tld/customrepo/5/8/dev/x86_64'.
-
-If $baseurl and $mirrorlist are both unset, it baseurl will become:  
-`$repo_server_protocol://$username:$password@$repo_server/$repo_server_basedir/$name/$::lsbmajdistrelease/$::lsbminordistrelease/$environment/$basearch`.  
-Passing $username and $password is optional.
-
-If only $mirrorlist is set, `baseurl` will not be used in the repository configuration.
-
-- *Default*: undef
-
----
-#### environment (string)
-Specify the environment part of the default value for baseurl (see [$baseurl](#baseurl-string)).
-Specifying $baseurl or $mirrorlist will override this parameter.
-
-- *Default*: $::environment
-
----
-#### failovermethod (boolean)
-Trigger to set the `failovermethod` parameter of the repository configuration.
-
-- *Default*: undef
-
----
-#### gpgkey_file_prefix (string)
-Specify the prefix part of the default URL for GPG keys (see [$gpgkey](#gpgkey-string)).
-Specifing $gpgkey will override this parameter.
-
-- *Default*: 'RPM-GPG-KEY'
-
----
-#### gpgkey_local_path (string)
-Specify the path where GPG keys should be stored locally.
-
-- *Default*: '/etc/pki/rpm-gpg'
-
----
-#### gpgkey (string)
-Set the `gpgkey` parameter of the repository configuration.
-Will only be used when $use_gpgkey_uri is set to true.
-
-- *Default*: undef
-
----
-#### gpgkey_url_path (string)
-Specify the URL part of the default URL for GPG keys (see [$gpgkey](#gpgkey-string)).
-Specifing $gpgkey will override this parameter.
-
-- *Default*: 'keys'
-
----
-#### gpgkey_url_proto (string)
-Specify the protocol part of the default URL for GPG keys (see [$gpgkey](#gpgkey-string)).
-Specifing $gpgkey will override this parameter.
-
-- *Default*: 'http'
-
----
-#### gpgkey_url_server (string)
-Specify the server part of the default URL for GPG keys (see [$gpgkey](#gpgkey-string)). If unset $repo_server will be used.
-Specifing $gpgkey will override this parameter.
-
-- *Default*: undef
-
----
-#### mirrorlist (string)
-Trigger to set the `mirrorlist` parameter of the repository configuration.
-
-- *Default*: undef
-
----
-=======
 #### repo_file_mode (string)
 Set the file mode of the repository configuration file.
 
 - *Default*: '0400'
-
----
-#### repo_server_basedir (string)
-Specify the basedir part of the default URL for baseurl (see [$baseurl](#baseurl-string)).
-Specifing $baseurl or $mirrlost will override this parameter.
-
-- *Default*: '/'
-
----
-#### repo_server_protocol (string)
-Specify the protocol part of the default URL for baseurl (see [$baseurl](#baseurl-string)).
-Specifing $baseurl or $mirrlost will override this parameter.
-
-- *Default*: 'http'
-
----
-#### repo_server (string)
-Specify the server part of the default URL for baseurl (see [$baseurl](#baseurl-string)).
-Specifing $baseurl or $mirrlost will override this parameter.
-
-- *Default*: 'yum.$::domain'
-
----
-#### use_gpgkey_uri (boolean)
-Trigger to activate support for using GPG keys. If set to true the module will download GPG keys and add the `gpgkey` parameter to the repository configuration.
-
-- *Default*: true
 
 ---
 #### yum_repos_d_path (string)

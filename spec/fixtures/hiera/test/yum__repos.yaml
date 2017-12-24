@@ -1,4 +1,4 @@
 ---
 yum::repos:
   'from_hiera_class':
-    'gpgkey_url_server': 'yum.rspec.local'
+    'baseurl': 'http://yum.rspec.local'
