@@ -9,6 +9,8 @@
   * exclude does now only suppport arrays. Support for strings was removed.
   * Changed default value for yum::repo::gpgcheck in main section of yum.conf to '0' (false) to follow yum standard.
   * Removed non existing yum::repo::priority parameter.
+  * Removed concatination logic for $baseurl. Consequently also removes $environment, $repo_server_basedir, $repo_server_protocol, and $repo_server.
+  * Removed concatination logic for $gpgkey. Consequently also removes $use_gpgkey_uri, $gpgkey_url_proto, $gpgkey_url_path and $gpgkey_file_prefix.
 
 ### v1.4.0 - 2017-09-28
   * Add ensure parameter to yum::repo so it could be set to absent.

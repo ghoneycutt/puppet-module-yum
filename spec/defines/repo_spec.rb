@@ -24,8 +24,6 @@ describe 'yum::repo' do
       |# DO NOT EDIT
       |
       |[rspec]
-      |gpgkey=http://yum.test.local/keys/RPM-GPG-KEY-RSPEC-5
-      |baseurl=http://yum.test.local///rspec/5/10/rp_env/$basearch
       |name=rspec
       |enabled=1
       |gpgcheck=0
@@ -83,32 +81,6 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*gpgkey=http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5$}) }
   end
 
-  context 'with use_gpgkey_uri set to valid bool <false>' do
-    let(:params) { mandatory_params.merge({ :use_gpgkey_uri => false }) }
-
-    it { should have_yum__rpm_gpg_key_resource_count(0) }
-    it { should contain_file('rspec.repo').without_content(/gpgkey=/) }
-  end
-
-  context 'with repo_server set to valid string <rspec.test.local>' do
-    let(:params) { mandatory_params.merge({ :repo_server => 'rspec.test.local' }) }
-
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://rspec.test.local///rspec/5/10/rp_env/\$basearch$}) }
-  end
-
-  context 'with repo_server_protocol set to valid string <https>' do
-    let(:params) { mandatory_params.merge({ :repo_server_protocol => 'https' }) }
-
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=https://yum.test.local///rspec/5/10/rp_env/\$basearch$}) }
-  end
-
-  # /!\ default result with three backslashes looks suspicious
-  context 'with repo_server_basedir set to valid string </rspec>' do
-    let(:params) { mandatory_params.merge({ :repo_server_basedir => '/rspec' }) }
-
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.test.local//rspec/rspec/5/10/rp_env/\$basearch$}) }
-  end
-
   context 'with repo_file_mode set to valid string <0242>' do
     let(:params) { mandatory_params.merge({ :repo_file_mode => '0242' }) }
 
@@ -121,50 +93,6 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_path('/rspec/test/rspec.repo') }
   end
 
-  context 'with gpgkey_url_proto set to valid string <https> when gpgcheck is set to true' do
-    let(:params) do
-      mandatory_params.merge({
-        :gpgkey_url_proto => 'https',
-        :gpgcheck          => true,
-      })
-    end
-    it { should contain_yum__rpm_gpg_key('RSPEC').with_gpgkey_url('https://yum.test.local/keys/RPM-GPG-KEY-RSPEC-5') }
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*gpgkey=https://yum.test.local/keys/RPM-GPG-KEY-RSPEC-5$}) }
-  end
-
-  context 'with gpgkey_url_server set to valid string <rspec.test.local when gpgcheck is set to true>' do
-    let(:params) do
-      mandatory_params.merge({
-        :gpgkey_url_server => 'rspec.test.local',
-        :gpgcheck          => true,
-      })
-    end
-    it { should contain_yum__rpm_gpg_key('RSPEC').with_gpgkey_url('http://rspec.test.local/keys/RPM-GPG-KEY-RSPEC-5') }
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*gpgkey=http://rspec.test.local/keys/RPM-GPG-KEY-RSPEC-5$}) }
-  end
-
-  context 'with gpgkey_url_path set to valid string <rspec.test.local when gpgcheck is set to true>' do
-    let(:params) do
-      mandatory_params.merge({
-        :gpgkey_url_path => 'tests',
-        :gpgcheck        => true,
-      })
-    end
-    it { should contain_yum__rpm_gpg_key('RSPEC').with_gpgkey_url('http://yum.test.local/tests/RPM-GPG-KEY-RSPEC-5') }
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*gpgkey=http://yum.test.local/tests/RPM-GPG-KEY-RSPEC-5$}) }
-  end
-
-  context 'with gpgkey_file_prefix set to valid string <rspec.test.local when gpgcheck is set to true>' do
-    let(:params) do
-      mandatory_params.merge({
-        :gpgkey_file_prefix => 'RSPEC-GPG-KEY',
-        :gpgcheck           => true,
-      })
-    end
-    it { should contain_yum__rpm_gpg_key('RSPEC').with_gpgkey_url('http://yum.test.local/keys/RSPEC-GPG-KEY-RSPEC-5') }
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*gpgkey=http://yum.test.local/keys/RSPEC-GPG-KEY-RSPEC-5$}) }
-  end
-
   context 'with gpgkey_local_path set to valid string </rspec/test>' do
     let(:params) do
       mandatory_params.merge({
@@ -173,30 +101,6 @@ describe 'yum::repo' do
       })
     end
     it { should contain_yum__rpm_gpg_key('RSPEC').with_gpgkey('/rspec/test/RPM-GPG-KEY-RSPEC-5') }
-  end
-
-  context 'with username set to valid string <rspecer>' do
-    let(:params) { mandatory_params.merge({ :username => 'rspecer' }) }
-
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.test.local///rspec/5/10/rp_env/\$basearch$}) }
-  end
-
-  context 'with password set to valid string <secret>' do
-    let(:params) { mandatory_params.merge({ :password => 'secret' }) }
-
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.test.local///rspec/5/10/rp_env/\$basearch$}) }
-  end
-
-  context 'with username and password set to valid strings <rspecer> and <secret>' do
-    let(:params) { mandatory_params.merge({ :username => 'rspecer', :password => 'secret' }) }
-
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://rspecer:secret@yum.test.local///rspec/5/10/rp_env/\$basearch$}) }
-  end
-
-  context 'with environment set to valid string <spec_testing>' do
-    let(:params) { mandatory_params.merge({ :environment => 'spec_testing' }) }
-
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.test.local///rspec/5/10/spec_testing/\$basearch$}) }
   end
 
   context 'with mirrorlist set to valid string <http://mirror.list/?release=7?arch=x86_64>' do
@@ -281,9 +185,9 @@ describe 'yum::repo' do
     'proxy_username'    => %w(string),
     'repositoryid'      => %w(string),
     'username'          => %w(string),
-#    'baseurl'           => %w(http://url.test https://url.test https://port.test:242), # baseurl will be concatenated when empty /!\ need more feedback
+    'baseurl'           => %w(http://url.test https://url.test https://port.test:242),
     'gpgcakey'          => %w(http://url.test https://url.test https://port.test:242),
-#    'gpgkey'            => %w(http://url.test https://url.test https://port.test:242), # gpgkey will be concatenated when empty /!\ need more feedback
+    'gpgkey'            => %w(http://url.test https://url.test https://port.test:242),
     'metalink'          => %w(http://url.test https://url.test https://port.test:242),
     'mirrorlist'        => %w(http://url.test https://url.test https://port.test:242),
     'proxy'             => %w(http://url.test https://url.test https://port.test:242 _none_),
@@ -369,23 +273,11 @@ describe 'yum::repo' do
         :invalid => ['string', { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects an Array', # Puppet 4 & 5
       },
-      'boolean' => {
-        :name    => %w(use_gpgkey_uri),
-        :valid   => [true, false],
-        :invalid => ['false',  %w(array), { 'ha' => 'sh' }, 3, 2.42, nil],
-        :message => 'expects a Boolean value', # Puppet 4 & 5
-      },
       'boolean or empty string' => {
         :name    => %w(enabled enablegroups gpgcheck keepalive repo_gpgcheck skip_if_unavailable ssl_check_cert_permissions sslverify),
         :valid   => [true, false],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false'],
         :message => 'expects a match for Variant\[Enum\[\'\'\], Boolean\]', # Puppet 4 & 5
-      },
-      'domain_name' => {
-        :name    => %w(gpgkey_url_server repo_server),
-        :valid   => %w(v.al.id val.id),
-        :invalid => ['in,val.id', 'in_val.id', %w(array), { 'ha' => 'sh' }, 3, 2.42, false],
-        :message => '(is not a domain name|expects a String value)', # (code|Puppet 4 & 5)
       },
       'integer or empty string' => {
         :name    => %w(bandwidth cost mirrorlist_expire retries timeout),
@@ -428,12 +320,6 @@ describe 'yum::repo' do
         :valid   => [3, 2.42, '242k', '24.2M', '2.42G' ],
         :invalid => [%w(array), { 'ha' => 'sh' }, false],
         :message => 'expects a match for Variant\[Enum\[\'\'\], Integer, Float, Pattern',  # Puppet 4 & 5
-      },
-      'string' => {
-        :name    => %w(environment gpgkey_file_prefix gpgkey_url_path gpgkey_url_proto repo_server_basedir repo_server_protocol),
-        :valid   => ['string'],
-        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, false],
-        :message => 'expects a String', # Puppet 4 & 5
       },
       'string or empty string' => {
         :name    => %w(description password proxy_password proxy_username repositoryid username),
