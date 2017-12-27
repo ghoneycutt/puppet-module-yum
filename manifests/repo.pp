@@ -259,7 +259,10 @@ define yum::repo (
   $upcase_name = upcase($name)
 
   # Only need to deal with importing GPG keys, if we have gpgcheck enabled
-  if ($ensure == 'present') and ($gpgcheck_string == '1') {
+  if $ensure == 'present' and $gpgcheck {
+    if $gpgkey == '' {
+      fail('yum::repo::gpgkey can not be empty when gpgcheck is set to true.')
+    }
     yum::rpm_gpg_key { $upcase_name:
       gpgkey_url => $gpgkey,
       gpgkey     => "${gpgkey_local_path}/RPM-GPG-KEY-${upcase_name}-${_osmajor}",

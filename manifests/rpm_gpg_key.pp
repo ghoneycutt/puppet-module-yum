@@ -14,8 +14,8 @@
 #   Specify the path parameter to be used for the rpm command.
 #
 define yum::rpm_gpg_key (
-  String $gpgkey_url,
-  String $gpgkey,
+  Stdlib::Httpurl $gpgkey_url,
+  Stdlib::Absolutepath $gpgkey,
   String $wget_path = '/bin:/usr/bin:/sbin:/usr/sbin',
   String $rpm_path  = '/bin:/usr/bin:/sbin:/usr/sbin',
 ) {
@@ -23,7 +23,11 @@ define yum::rpm_gpg_key (
   # wget -O in the yum_wget_gpgkey_for_${name}_repo exec will leave an empty
   # file if it does not download one, which causes problems. This exec will
   # remove the key if it exists, but is empty.
-  common::remove_if_empty { $gpgkey: }
+  exec { "remove_if_empty-${gpgkey}":
+    command => "rm -f ${gpgkey}",
+    unless  => "test -f ${gpgkey}; if [ $? == '0' ]; then test -s ${gpgkey}; fi",
+    path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+  }
 
   # ie: wget http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5-8 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-CUSTOMREPO-5-8
   exec { "yum_wget_gpgkey_for_${name}_repo":
@@ -31,7 +35,7 @@ define yum::rpm_gpg_key (
     creates => $gpgkey,
     path    => $wget_path,
     notify  => Exec["yum_rpm_import_${name}_gpgkey"],
-    require => Common::Remove_if_empty[$gpgkey],
+    require => Exec["remove_if_empty-${gpgkey}"],
   }
 
   # import GPG key

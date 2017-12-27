@@ -26,7 +26,7 @@ describe 'yum::server' do
         'owner'   => 'root',
         'group'   => 'root',
         'mode'    => '0644',
-        'require' => 'Common::Mkdir_p[/opt/repos]',
+        'require' => 'Exec[mkdir_p-/opt/repos]',
       })
     end
     it do
@@ -39,7 +39,13 @@ describe 'yum::server' do
         'mode'    => '0644',
       })
     end
-    it { should contain_common__mkdir_p('/opt/repos') }
+    it do
+      should contain_exec('mkdir_p-/opt/repos').with({
+        'command'     => 'mkdir -p /opt/repos',
+        'unless'      => 'test -d /opt/repos',
+        'path'        => '/bin:/usr/bin',
+      })
+    end
     it do
       should contain_apache__vhost('yumrepo').with({
         'docroot'       => '/opt/repos',
@@ -50,7 +56,7 @@ describe 'yum::server' do
         'serveradmin'   => 'root@localhost',
         'options'       => ['Indexes','FollowSymLinks','MultiViews'],
         'override'      => ['AuthConfig'],
-        'require'       => 'Common::Mkdir_p[/opt/repos]',
+        'require'       => 'Exec[mkdir_p-/opt/repos]',
       })
     end
   end
@@ -65,14 +71,19 @@ describe 'yum::server' do
     it do
       should contain_file('gpg_keys_dir').with({
         'path'    => '/spec/tests/keys',
-        'require' => 'Common::Mkdir_p[/spec/tests]',
+        'require' => 'Exec[mkdir_p-/spec/tests]',
       })
     end
-    it { should contain_common__mkdir_p('/spec/tests') }
+    it do
+      should contain_exec('mkdir_p-/spec/tests').with({
+        'command'     => 'mkdir -p /spec/tests',
+        'unless'      => 'test -d /spec/tests',
+      })
+    end
     it do
       should contain_apache__vhost('yumrepo').with({
         'docroot' => '/spec/tests',
-        'require' => 'Common::Mkdir_p[/spec/tests]',
+        'require' => 'Exec[mkdir_p-/spec/tests]',
       })
     end
   end
@@ -116,7 +127,7 @@ describe 'yum::server' do
         :message => '(is not a valid IP address|expects a String)', # (code|Puppet 4 & 5)
       },
       'string' => {
-        :name    => %w(gpg_keys_path gpg_user_name yum_server),
+        :name    => %w(contact_email gpg_keys_path gpg_user_name yum_server),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, false],
         :message => 'expects a String', # Puppet 4 & 5
@@ -128,6 +139,7 @@ describe 'yum::server' do
         var[:params] = {} if var[:params].nil?
         var[:valid].each do |valid|
           context "when #{var_name} (#{type}) is set to valid #{valid} (as #{valid.class})" do
+            let(:facts) { [mandatory_facts, var[:facts]].reduce(:merge) } if ! var[:facts].nil?
             let(:params) { [mandatory_params, var[:params], { :"#{var_name}" => valid, }].reduce(:merge) }
             it { should compile }
           end

@@ -3,9 +3,6 @@ fixtures:
     stdlib:
       repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
       ref: '4.22.0'
-    common:
-      repo: 'https://github.com/ghoneycutt/puppet-module-common.git'
-      ref: 'v1.5.0'
     apache:
       repo: 'https://github.com/puppetlabs/puppetlabs-apache.git'
       ref: '1.10.0'
