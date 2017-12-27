@@ -25,15 +25,13 @@
 #   in Apache vhost configuration.
 #
 class yum::server (
-  String $contact_email             = 'root@localhost',
-  Stdlib::Absolutepath $docroot     = '/opt/repos',
-  String $gpg_keys_path             = 'keys', # gpg_keys_path is relative to $docroot, ${docroot}/${gpg_keys_path}
-  String $gpg_user_name             = 'Root',
-  String $yum_server                = 'yum',
-  String $yum_server_http_listen_ip = $::ipaddress,
+  String $contact_email                  = 'root@localhost',
+  Stdlib::Absolutepath $docroot          = '/opt/repos',
+  String $gpg_keys_path                  = 'keys', # gpg_keys_path is relative to $docroot, ${docroot}/${gpg_keys_path}
+  String $gpg_user_name                  = 'Root',
+  String $yum_server                     = 'yum',
+  IP::Address $yum_server_http_listen_ip = $::ipaddress,
 ) {
-
-  validate_ip_address($yum_server_http_listen_ip)
 
   include ::apache
 
