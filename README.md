@@ -18,8 +18,6 @@
 
 Manage yum (client, server, and key management)
 
-Requires Facter >= v2.2.0 for the `lsbminordistrelease` fact.
-
 # Compatibility
 
 This module is built for use with Puppet v3 (with and without the future
