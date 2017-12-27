@@ -12,5 +12,8 @@ fixtures:
     concat:
       repo: 'https://github.com/puppetlabs/puppetlabs-concat.git'
       ref: '2.2.0'
+    ip:
+      repo: 'https://github.com/thrnio/puppet-ip.git'
+      ref: 'v1.0.0'
   symlinks:
     yum: "#{source_dir}"
