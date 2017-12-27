@@ -52,7 +52,7 @@ class yum::server (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Common::Mkdir_p[$docroot],
+    require => "Exec[mkdir_p-${docroot}]",
   }
 
   # needed for signing packages
@@ -65,7 +65,11 @@ class yum::server (
     mode    => '0644',
   }
 
-  common::mkdir_p { $docroot: }
+  exec { "mkdir_p-${docroot}":
+    command => "mkdir -p ${docroot}",
+    unless  => "test -d ${docroot}",
+    path    => '/bin:/usr/bin',
+  }
 
   apache::vhost { 'yumrepo':
     docroot       => $docroot,
@@ -76,6 +80,6 @@ class yum::server (
     serveradmin   => $contact_email,
     options       => ['Indexes','FollowSymLinks','MultiViews'],
     override      => ['AuthConfig'],
-    require       => Common::Mkdir_p[$docroot],
+    require       => "Exec[mkdir_p-${docroot}]",
   }
 }

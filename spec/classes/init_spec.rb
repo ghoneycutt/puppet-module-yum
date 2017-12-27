@@ -127,7 +127,7 @@ describe 'yum' do
         :repos_hiera_merge => false,
         :repos => {
           'rspec' => {
-            'gpgcheck'          => true,
+            'gpgcheck'          => false,
           },
           'test' => {
             'repo_file_mode'    => '0242',
@@ -140,7 +140,7 @@ describe 'yum' do
 
     it do
       should contain_yum__repo('rspec').with({
-        'gpgcheck' => true,
+        'gpgcheck' => false,
       })
     end
 

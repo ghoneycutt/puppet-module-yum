@@ -51,6 +51,14 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.domain.tld/customrepo/5/8/dev/x86_64$}) }
   end
 
+  context 'with gpgcheck set to valid true when gpgkey is empty' do
+    let(:params) { mandatory_params.merge({ :gpgcheck => true }) }
+
+    it 'should fail' do
+      expect { should contain_class(subject) }.to raise_error(Puppet::Error, /yum::repo::gpgkey can not be empty when gpgcheck is set to true/)
+    end
+  end
+
   context 'with enabled set to valid boolean false' do
     let(:params) { mandatory_params.merge({ :enabled => false }) }
 
@@ -97,6 +105,7 @@ describe 'yum::repo' do
     let(:params) do
       mandatory_params.merge({
         :gpgkey_local_path => '/rspec/test',
+        :gpgkey            => 'http://yum.domain.tld/keys/RPM-GPG-KEY-DUMMY',
         :gpgcheck          => true,
       })
     end
@@ -136,7 +145,13 @@ describe 'yum::repo' do
   boolean_params.each do |param, default|
     [true, false,''].each do |value|
       context "with #{param} set to valid #{value.class} <#{value}>" do
-        let(:params) { { :"#{param}"  => value } }
+        let(:params) do
+          {
+            :"#{param}" => value,
+            :gpgkey     => 'http://yum.domain.tld/keys/RPM-GPG-KEY-DUMMY', # mandatory for gpgcheck
+          }
+        end
+
         if value == true
           it { should contain_file('rspec.repo').with_content(%r{^\[rspec\][\s\S]*#{param}=1$}) }
         elsif value == false
@@ -275,6 +290,7 @@ describe 'yum::repo' do
       },
       'boolean or empty string' => {
         :name    => %w(enabled enablegroups gpgcheck keepalive repo_gpgcheck skip_if_unavailable ssl_check_cert_permissions sslverify),
+        :params  => { :gpgkey => 'http://yum.domain.tld/keys/RPM-GPG-KEY-DUMMY'}, # mandatory for gpgcheck
         :valid   => [true, false],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false'],
         :message => 'expects a match for Variant\[Enum\[\'\'\], Boolean\]', # Puppet 4 & 5
