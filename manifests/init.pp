@@ -34,8 +34,16 @@
 #   for specifying repositories at different levels of the hierarchy and having
 #   them all included in the catalog.
 #
+# @param rpm_gpg_keys_hiera_merge
+#   Trigger to merge all found instances of yum::rpm_gpg_keys in Hiera. This is useful
+#   for specifying repositories at different levels of the hierarchy and having
+#   them all included in the catalog.
+#
 # @param repos
 #   Hash of repos to pass to yum::repo. See yum::repo for more details.
+#
+# @param rpm_gpg_keys
+#   Hash of repos to pass to yum::rpm_gpg_keys. See yum::rpm_gpg_key for more details.
 #
 # @param exclude_hiera_merge
 #   Trigger to merge all found instances of yum::exclude in Hiera. This is useful
@@ -408,6 +416,7 @@ class yum (
   Boolean $exclude_hiera_merge                = false,
   Boolean $manage_repos                       = false,
   Boolean $repos_hiera_merge                  = true,
+  Boolean $rpm_gpg_keys_hiera_merge           = true,
   Stdlib::Absolutepath $config_path           = '/etc/yum.conf',
   Stdlib::Filemode $config_mode               = '0644',
   Stdlib::Filemode $repos_d_mode              = '0755',
@@ -416,6 +425,7 @@ class yum (
   String $repos_d_group                       = 'root',
   String $repos_d_owner                       = 'root',
   Optional[Hash] $repos                       = undef,
+  Optional[Hash] $rpm_gpg_keys                = undef,
   # parameters for yum.conf
   Array $color_list_available_downgrade                   = [],
   Array $color_list_available_install                     = [],
@@ -681,6 +691,20 @@ class yum (
 
     $repos_real.each |$key,$value| {
       ::yum::repo { $key:
+        * => $value,
+      }
+    }
+  }
+
+  if $rpm_gpg_keys != undef {
+    case $rpm_gpg_keys_hiera_merge {
+      true:    { $rpm_gpg_keys_real = hiera_hash('yum::rpm_gpg_keys') }
+      default: { $rpm_gpg_keys_real = $rpm_gpg_keys }
+    }
+    validate_hash($rpm_gpg_keys_real)
+
+    $rpm_gpg_keys_real.each |$key,$value| {
+      ::yum::rpm_gpg_key { $key:
         * => $value,
       }
     }

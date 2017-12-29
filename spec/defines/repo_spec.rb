@@ -51,14 +51,6 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.domain.tld/customrepo/5/8/dev/x86_64$}) }
   end
 
-  context 'with gpgcheck set to valid true when gpgkey is empty' do
-    let(:params) { mandatory_params.merge({ :gpgcheck => true }) }
-
-    it 'should fail' do
-      expect { should contain_class(subject) }.to raise_error(Puppet::Error, /yum::repo::gpgkey can not be empty when gpgcheck is set to true/)
-    end
-  end
-
   context 'with enabled set to valid boolean false' do
     let(:params) { mandatory_params.merge({ :enabled => false }) }
 
@@ -72,23 +64,6 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').with_content(/\[rspec\][\s\S]*gpgcheck=0$/) }
   end
 
-  context 'with gpgkey set to valid string <http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5> when gpgcheck is set to true' do
-    let(:params) do
-      mandatory_params.merge({
-        :gpgkey   => 'http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5',
-        :gpgcheck => true,
-      })
-    end
-
-    it { should have_yum__rpm_gpg_key_resource_count(1) }
-    it do
-      should contain_yum__rpm_gpg_key('RSPEC').with({
-        'gpgkey_url' => 'http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5',
-      })
-    end
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*gpgkey=http://yum.domain.tld/keys/RPM-GPG-KEY-CUSTOMREPO-5$}) }
-  end
-
   context 'with repo_file_mode set to valid string <0242>' do
     let(:params) { mandatory_params.merge({ :repo_file_mode => '0242' }) }
 
@@ -99,17 +74,6 @@ describe 'yum::repo' do
     let(:params) { mandatory_params.merge({ :yum_repos_d_path => '/rspec/test' }) }
 
     it { should contain_file('rspec.repo').with_path('/rspec/test/rspec.repo') }
-  end
-
-  context 'with gpgkey_local_path set to valid string </rspec/test>' do
-    let(:params) do
-      mandatory_params.merge({
-        :gpgkey_local_path => '/rspec/test',
-        :gpgkey            => 'http://yum.domain.tld/keys/RPM-GPG-KEY-DUMMY',
-        :gpgcheck          => true,
-      })
-    end
-    it { should contain_yum__rpm_gpg_key('RSPEC').with_gpgkey('/rspec/test/RPM-GPG-KEY-RSPEC-5') }
   end
 
   context 'with mirrorlist set to valid string <http://mirror.list/?release=7?arch=x86_64>' do
@@ -259,7 +223,7 @@ describe 'yum::repo' do
 
     validations = {
       'Stdlib::Absolutepath' => {
-        :name    => %w(gpgkey_local_path yum_repos_d_path),
+        :name    => %w(yum_repos_d_path),
         :valid   => ['/absolute/filepath', '/absolute/directory/'],
         :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects a (match for|match for Stdlib::Absolutepath =|Stdlib::Absolutepath =) Variant\[Stdlib::Windowspath.*Stdlib::Unixpath', # Puppet (4.x|5.0 & 5.1|5.x)

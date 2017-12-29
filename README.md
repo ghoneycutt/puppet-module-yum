@@ -57,6 +57,11 @@ yum::repo { 'example_secure':
   password => 'secret',
   gpgcheck => true,
 }
+yum::rpm_gpg_key { 'example_secure':
+  gpgkey     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE_SECURE',
+  gpgkey_url => 'https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE',
+}
+
 ```
 via hiera data:
 
@@ -68,6 +73,10 @@ yum::repos:
     username: 'example'
     password: 'secret'
     gpgcheck: true
+yum::rpm_gpg_keys:
+  example_secure:
+    gpgkey:     '/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE_SECURE'
+    gpgkey_url: 'https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE'
 ```
 
 # Class Descriptions
@@ -153,8 +162,20 @@ Trigger to merge all found instances of yum::repos in Hiera. This is useful for 
 - *Default*: true
 
 ---
+#### rpm_gpg_keys_hiera_merge (boolean)
+Trigger to merge all found instances of yum::rpm_gpg_keys in Hiera. This is useful for specifying repositories at different levels of the hierarchy and having them all included in the catalog.
+
+- *Default*: true
+
+---
 #### repos (hash)
 Hash of repos to pass to yum::repo. See [yum::repo](#defined-type-yumrepo) for more details.
+
+- *Default*: undef
+
+---
+#### rpm_gpg_keys (hash)
+Hash of repos to pass to yum::rpm_gpg_keys. See [yum::rpm_gpg_key](#defined-type-yumrpmgpgkeys) for more details.
 
 - *Default*: undef
 
@@ -846,12 +867,6 @@ Set the file mode of the repository configuration file.
 Specify the path of the directory for yum repository files.
 
 - *Default*: '/etc/yum.repos.d'
-
----
-#### gpgkey_local_path (string)
-Specify the path where GPG keys should be stored locally.
-
-- *Default*: '/etc/pki/rpm-gpg'
 
 ---
 ### Parameters for repository files

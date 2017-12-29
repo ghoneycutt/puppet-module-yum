@@ -18,9 +18,6 @@
 # @param yum_repos_d_path
 #   Specify the path of the directory for yum repository files.
 #
-# @param gpgkey_local_path
-#   Specify the path where GPG keys should be stored locally.
-#
 #
 #
 #
@@ -163,7 +160,6 @@ define yum::repo (
   Enum['absent', 'present'] $ensure         = 'present',
   Stdlib::Filemode $repo_file_mode          = '0400',
   Stdlib::Absolutepath $yum_repos_d_path    = '/etc/yum.repos.d',
-  Stdlib::Absolutepath $gpgkey_local_path   = '/etc/pki/rpm-gpg',
   # parameters for repo file
   # lint:ignore:empty_string_assignment
   Variant[Enum[''],Boolean] $enabled                      = true,
@@ -253,20 +249,4 @@ define yum::repo (
     notify  => Exec['clean_yum_cache'],
   }
 
-  $_osmajor = $::facts['os']['release']['major']
-
-  # uppercase name of repo
-  $upcase_name = upcase($name)
-
-  # Only need to deal with importing GPG keys, if we have gpgcheck enabled
-  if $ensure == 'present' and $gpgcheck {
-    if $gpgkey == '' {
-      fail('yum::repo::gpgkey can not be empty when gpgcheck is set to true.')
-    }
-    yum::rpm_gpg_key { $upcase_name:
-      gpgkey_url => $gpgkey,
-      gpgkey     => "${gpgkey_local_path}/RPM-GPG-KEY-${upcase_name}-${_osmajor}",
-      before     => File["${name}.repo"],
-    }
-  }
 }

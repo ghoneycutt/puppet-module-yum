@@ -20,8 +20,7 @@ describe 'yum' do
       }
     end
 
-    it { should have_yum__repo_resource_count(2) }        # two examples
-    it { should have_yum__rpm_gpg_key_resource_count(1) } # only secure example imports GPG key
+    it { should have_yum__repo_resource_count(2) }
 
     it do
       should contain_yum__repo('example_plain').with({
@@ -88,13 +87,31 @@ describe 'yum' do
         'notify'   => 'Exec[clean_yum_cache]',
       })
     end
+  end
+
+  context 'with rpm_gpg_keys set to example hash when hiera merge is disabled' do
+    let(:params) do
+      {
+        :rpm_gpg_keys_hiera_merge => false,
+        :rpm_gpg_keys => {
+          'example' => {
+            'gpgkey'     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE',
+            'gpgkey_url' => 'http://yum.domain.tld/keys/RPM-GPG-KEY-EXAMPLE',
+          }
+        }
+      }
+    end
+    it { should have_yum__rpm_gpg_key_resource_count(1) }
 
     it do
-      should contain_yum__rpm_gpg_key('EXAMPLE_SECURE').with({
-        'gpgkey_url' => 'https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE',
-        'gpgkey'     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE_SECURE-5',
-        'before'     => 'File[example_secure.repo]',
+      should contain_yum__rpm_gpg_key('example').with({
+        'gpgkey'     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE',
+        'gpgkey_url' => 'http://yum.domain.tld/keys/RPM-GPG-KEY-EXAMPLE',
       })
     end
+
+    it { should contain_exec('remove_if_empty-/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE') }
+    it { should contain_exec('yum_wget_gpgkey_for_example_repo') }
+    it { should contain_exec('yum_rpm_import_example_gpgkey') }
   end
 end
