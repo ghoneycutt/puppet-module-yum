@@ -6,12 +6,12 @@ describe 'yum' do
         :repos_hiera_merge => false,
         :repos => {
           'example_plain' => {
-            'gpgkey'   => 'http://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_PLAIN',
-            'baseurl'  => 'http://yum.test.local/customrepo/5/10/$basearch',
+            'gpgkey'   => %w(http://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_PLAIN),
+            'baseurl'  => %w(http://yum.test.local/customrepo/5/10/$basearch),
           },
           'example_secure' => {
-            'gpgkey'   => 'https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE',
-            'baseurl'  => 'https://yum.test.local/customrepo/5/10/$basearch',
+            'gpgkey'   => %w(https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE),
+            'baseurl'  => %w(https://yum.test.local/customrepo/5/10/$basearch),
             'username' => 'example',
             'password' => 'secret',
             'gpgcheck' => true,
@@ -24,15 +24,15 @@ describe 'yum' do
 
     it do
       should contain_yum__repo('example_plain').with({
-        'gpgkey'   => 'http://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_PLAIN',
-        'baseurl'  => 'http://yum.test.local/customrepo/5/10/$basearch',
+        'gpgkey'   => %w(http://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_PLAIN),
+        'baseurl'  => %w(http://yum.test.local/customrepo/5/10/$basearch),
       })
     end
 
     it do
       should contain_yum__repo('example_secure').with({
-        'gpgkey'   => 'https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE',
-        'baseurl'  => 'https://yum.test.local/customrepo/5/10/$basearch',
+        'gpgkey'   => %w(https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE),
+        'baseurl'  => %w(https://yum.test.local/customrepo/5/10/$basearch),
         'username' => 'example',
         'password' => 'secret',
         'gpgcheck' => true,

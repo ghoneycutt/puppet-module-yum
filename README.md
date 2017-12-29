@@ -986,11 +986,11 @@ Specify the path of the directory for yum repository files.
 - *Default*: ''
 
 ---
-#### baseurl (string)
-`baseurl` setting in the repository file. Accepts HTTP/HTTPS URLs.
+#### baseurl (array)
+`baseurl` setting in the repository file. Accepts HTTP/HTTPS/FTP/FILE URLs.
 When empty, it will not be present.
 
-- *Default*: ''
+- *Default*: []
 
 ---
 #### gpgcakey (string with URL)
@@ -1000,11 +1000,11 @@ When empty, it will not be present.
 - *Default*: ''
 
 ---
-#### gpgkey (string with URL)
-`gpgkey` setting in the repository file. Accepts HTTP/HTTPS URLs.
+#### gpgkey (array)
+`gpgkey` setting in the repository file. Accepts HTTP/HTTPS/FTP/FILE URLs.
 When empty, it will not be present.
 
-- *Default*: ''
+- *Default*: []
 
 ---
 #### metalink (string with URL)

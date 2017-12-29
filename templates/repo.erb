@@ -8,11 +8,11 @@ mirrorlist=<%= @mirrorlist %>
 <% if @failovermethod != '' -%>
 failovermethod=<%= @failovermethod %>
 <% end -%>
-<% if @gpgkey != '' -%>
-gpgkey=<%= @gpgkey %>
+<% if @gpgkey != [] -%>
+gpgkey=<%= @gpgkey.join("\n  ") %>
 <% end -%>
-<% if @baseurl != '' -%>
-baseurl=<%= @baseurl %>
+<% if @baseurl != [] -%>
+baseurl=<%= @baseurl.join("\n  ") %>
 <% end -%>
 <% if @description != '' -%>
 name=<%= @description %>

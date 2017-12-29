@@ -94,7 +94,7 @@
 #   username setting in the repository file. When empty, it will not be present.
 #
 # @param baseurl
-#   baseurl setting in the repository file. Accepts HTTP/HTTPS URLs.
+#   baseurl setting in the repository file. Accepts HTTP/HTTPS/FTP/FILE URLs.
 #   When empty, it will not be present.
 #
 # @param gpgcakey
@@ -102,7 +102,7 @@
 #   When empty, it will not be present.
 #
 # @param gpgkey
-#   gpgkey setting in the repository file.  Accepts HTTP/HTTPS URLs.
+#   gpgkey setting in the repository file.  Accepts HTTP/HTTPS/FTP/FILE URLs.
 #   When empty, it will not be present.
 #
 # @param metalink
@@ -181,14 +181,14 @@ define yum::repo (
   Variant[Enum[''],String] $proxy_username                = '',
   Variant[Enum[''],String] $repositoryid                  = '',
   Variant[Enum[''],String] $username                      = '',
-  Variant[Enum[''],Stdlib::Httpurl] $baseurl              = '',
   Variant[Enum[''],Stdlib::Httpurl] $gpgcakey             = '',
-  Variant[Enum[''],Stdlib::Httpurl] $gpgkey               = '',
   Variant[Enum[''],Stdlib::Httpurl] $metalink             = '',
   Variant[Enum[''],Stdlib::Httpurl] $mirrorlist           = '',
   Variant[Enum['','_none_'],Stdlib::Httpurl] $proxy       = '',
   Enum['','priority','roundrobin'] $failovermethod        = '',
   Enum['','all','none','packages'] $http_caching          = '',
+  Array[Variant[Stdlib::Httpurl,Pattern[/^(file|ftp):\/\//]]] $baseurl = [],
+  Array[Variant[Stdlib::Httpurl,Pattern[/^(file|ftp):\/\//]]] $gpgkey = [],
   Variant[Enum[''],Integer,Float,Pattern[/^\d+(.\d+|)(k|M|G)*$/]] $throttle = '',
   Variant[Enum[''],Integer,Pattern[/^(\d+(m|h|d)*|never|)$/]] $metadata_expire = '',
   Variant[Enum[''],Stdlib::Absolutepath] $sslcacert       = '',
