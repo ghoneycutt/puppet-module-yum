@@ -678,16 +678,15 @@ class yum (
   }
 
   case $exclude_hiera_merge {
-    true:    { $exclude_real = hiera_array('yum::exclude') }
+    true:    { $exclude_real = lookup('yum::exclude', Array[String], unique ) }
     default: { $exclude_real = $exclude }
   }
 
   if $repos != undef {
     case $repos_hiera_merge {
-      true:    { $repos_real = hiera_hash('yum::repos') }
+      true:    { $repos_real = lookup('yum::repos', Hash, hash ) }
       default: { $repos_real = $repos }
     }
-    validate_hash($repos_real)
 
     $repos_real.each |$key,$value| {
       ::yum::repo { $key:
@@ -698,10 +697,9 @@ class yum (
 
   if $rpm_gpg_keys != undef {
     case $rpm_gpg_keys_hiera_merge {
-      true:    { $rpm_gpg_keys_real = hiera_hash('yum::rpm_gpg_keys') }
+      true:    { $rpm_gpg_keys_real = lookup('yum::rpm_gpg_keys', Hash, hash ) }
       default: { $rpm_gpg_keys_real = $rpm_gpg_keys }
     }
-    validate_hash($rpm_gpg_keys_real)
 
     $rpm_gpg_keys_real.each |$key,$value| {
       ::yum::rpm_gpg_key { $key:
