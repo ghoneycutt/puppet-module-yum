@@ -45,12 +45,6 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').without_content(/\[rspec\][\s\S]*sslcacert=/) }
   end
 
-  context 'with baseurl set to valid string <http://yum.domain.tld/customrepo/5/8/dev/x86_64>' do
-    let(:params) { mandatory_params.merge({ :baseurl => 'http://yum.domain.tld/customrepo/5/8/dev/x86_64' }) }
-
-    it { should contain_file('rspec.repo').with_content(%r{\[rspec\][\s\S]*baseurl=http://yum.domain.tld/customrepo/5/8/dev/x86_64$}) }
-  end
-
   context 'with enabled set to valid boolean false' do
     let(:params) { mandatory_params.merge({ :enabled => false }) }
 
@@ -109,13 +103,7 @@ describe 'yum::repo' do
   boolean_params.each do |param, default|
     [true, false,''].each do |value|
       context "with #{param} set to valid #{value.class} <#{value}>" do
-        let(:params) do
-          {
-            :"#{param}" => value,
-            :gpgkey     => 'http://yum.domain.tld/keys/RPM-GPG-KEY-DUMMY', # mandatory for gpgcheck
-          }
-        end
-
+        let(:params) { { :"#{param}" => value } }
         if value == true
           it { should contain_file('rspec.repo').with_content(%r{^\[rspec\][\s\S]*#{param}=1$}) }
         elsif value == false
@@ -164,9 +152,7 @@ describe 'yum::repo' do
     'proxy_username'    => %w(string),
     'repositoryid'      => %w(string),
     'username'          => %w(string),
-    'baseurl'           => %w(http://url.test https://url.test https://port.test:242),
     'gpgcakey'          => %w(http://url.test https://url.test https://port.test:242),
-    'gpgkey'            => %w(http://url.test https://url.test https://port.test:242),
     'metalink'          => %w(http://url.test https://url.test https://port.test:242),
     'mirrorlist'        => %w(http://url.test https://url.test https://port.test:242),
     'proxy'             => %w(http://url.test https://url.test https://port.test:242 _none_),
@@ -216,6 +202,24 @@ describe 'yum::repo' do
       it { should contain_file('rspec.repo').without_content(%r{#{param}=}) }
     end
   end
+
+  # arrays with free content for multiliners
+  array_params = {
+    'baseurl' => %w(http://url.test https://url.test https://port.test:242 ftp://port.test:242 file:///file.local),
+    'gpgkey'  => %w(http://url.test https://url.test https://port.test:242 ftp://port.test:242 file:///file.local),
+  }
+  array_params.each do |param, valid|
+    context "with #{param} set to valid array #{valid}" do
+      let(:params) { { :"#{param}" => valid } }
+      it { should contain_file('rspec.repo').with_content(%r{^\[rspec\][\s\S]*#{param}=#{valid.join('\n  ')}$}) }
+    end
+
+    context "with #{param} unset" do
+      it { should contain_file('rspec.repo').without_content(%r{#{param}=}) }
+    end
+  end
+
+
   # </parameters for repo file>
 
   describe 'variable type and content validations' do
@@ -241,7 +245,7 @@ describe 'yum::repo' do
         :message => 'expects a match for Stdlib::Filemode', # Puppet 4 & 5
       },
       'Stdlib::Httpurl' => {
-        :name    => %w(baseurl gpgcakey gpgkey metalink mirrorlist),
+        :name    => %w(gpgcakey metalink mirrorlist),
         :valid   => %w(http://plain.test https://secure.test https://port.test:242),
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects a match for Variant\[Enum\[\'\'\], Stdlib::HTTPUrl',  # Puppet 4 & 5
@@ -252,9 +256,14 @@ describe 'yum::repo' do
         :invalid => ['string', { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects an Array', # Puppet 4 & 5
       },
+      'array with Stdlib::Httpurl/file/ftp' => {
+        :name    => %w(baseurl gpgkey),
+        :valid   => [%w(http://plain.test), %w(https://secure.test), %w(https://port.test:242), %w(ftp://ftp.test), %w(file:///local.file)],
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => '(expects an Array value|expects a match for Variant\[Stdlib::HTTPUrl.*, Pattern\[\^\(file|ftp\):)', # Puppet 4 & 5
+      },
       'boolean or empty string' => {
         :name    => %w(enabled enablegroups gpgcheck keepalive repo_gpgcheck skip_if_unavailable ssl_check_cert_permissions sslverify),
-        :params  => { :gpgkey => 'http://yum.domain.tld/keys/RPM-GPG-KEY-DUMMY'}, # mandatory for gpgcheck
         :valid   => [true, false],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false'],
         :message => 'expects a match for Variant\[Enum\[\'\'\], Boolean\]', # Puppet 4 & 5

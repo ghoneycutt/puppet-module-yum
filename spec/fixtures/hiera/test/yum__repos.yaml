@@ -1,4 +1,5 @@
 ---
 yum::repos:
   'from_hiera_class':
-    'baseurl': 'http://yum.rspec.local'
+    'baseurl':
+      - 'http://yum.rspec.local'
