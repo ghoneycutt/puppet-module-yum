@@ -151,6 +151,40 @@ describe 'yum' do
     end
   end
 
+  context 'with rpm_gpg_keys set to valid hash when hiera merge is disabled' do
+    let(:params) do
+      {
+        :rpm_gpg_keys_hiera_merge => false,
+        :rpm_gpg_keys => {
+          'rspec' => {
+            'gpgkey'     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-RSPEC',
+            'gpgkey_url' => 'http://yum.domain.tld/keys/RPM-GPG-KEY-RSPEC',
+          },
+          'test' => {
+            'gpgkey'     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-TEST',
+            'gpgkey_url' => 'http://yum.domain.tld/keys/RPM-GPG-KEY-TEST',
+          }
+        }
+      }
+    end
+
+    it { should have_yum__rpm_gpg_key_resource_count(2) }
+
+    it do
+      should contain_yum__rpm_gpg_key('rspec').with({
+        'gpgkey'     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-RSPEC',
+        'gpgkey_url' => 'http://yum.domain.tld/keys/RPM-GPG-KEY-RSPEC',
+      })
+    end
+
+    it do
+      should contain_yum__rpm_gpg_key('test').with({
+        'gpgkey'     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-TEST',
+        'gpgkey_url' => 'http://yum.domain.tld/keys/RPM-GPG-KEY-TEST',
+      })
+    end
+  end
+
   describe 'with hiera providing data from multiple levels for the repos parameter' do
     let(:facts) do
       mandatory_facts.merge({
@@ -169,6 +203,27 @@ describe 'yum' do
       let(:params) { { :repos_hiera_merge => false } }
       it { should have_yum__repo_resource_count(1) }
       it { should contain_yum__repo('from_hiera_fqdn') }
+    end
+  end
+
+  describe 'with hiera providing data from multiple levels for the rpm_gpg_keys parameter' do
+    let(:facts) do
+      mandatory_facts.merge({
+        :fqdn => 'yum.example.local',
+        :test => 'yum__rpm_gpg_keys',
+      })
+    end
+
+    context 'with defaults for all parameters' do
+      it { should have_yum__rpm_gpg_key_resource_count(2) }
+      it { should contain_yum__rpm_gpg_key('from_hiera_class') }
+      it { should contain_yum__rpm_gpg_key('from_hiera_fqdn') }
+    end
+
+    context 'with repos_hiera_merge set to valid <false>' do
+      let(:params) { { :rpm_gpg_keys_hiera_merge => false } }
+      it { should have_yum__rpm_gpg_key_resource_count(1) }
+      it { should contain_yum__rpm_gpg_key('from_hiera_fqdn') }
     end
   end
 
@@ -451,14 +506,13 @@ describe 'yum' do
         :message => 'expects an Array', # Puppet 4 & 5
       },
       'boolean' => {
-        :name    => %w(exclude_hiera_merge),
-        :facts   => { :test => 'yum__exclude' },
+        :name    => %w(manage_repos repos_hiera_merge rpm_gpg_keys_hiera_merge),
         :valid   => [true, false],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false', nil],
         :message => 'expects a Boolean value', # Puppet 4 & 5
       },
-      'boolean' => {
-        :name    => %w(manage_repos repos_hiera_merge ),
+      'boolean specific for exclude_hiera_merge' => {
+        :name    => %w(exclude_hiera_merge),
         :facts   => { :test => 'yum__exclude' },
         :valid   => [true, false],
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false', nil],
@@ -477,7 +531,7 @@ describe 'yum' do
         :message => 'expects a value of type Boolean or String', # Puppet 4 & 5
       },
       'hash' => {
-        :name    => %w(repos),
+        :name    => %w(repos rpm_gpg_keys),
         :params  => { :repos_hiera_merge => false },
         :valid   => [], # valid hashes are to complex to block test them here. Subclasses have their own specific spec tests anyway.
         :invalid => ['string', 3, 2.42, %w(array), true, nil],
