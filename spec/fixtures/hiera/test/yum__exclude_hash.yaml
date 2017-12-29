@@ -1,0 +1,4 @@
+---
+yum::exclude:
+  - hash_is_wrong_here:
+    'from_hiera_test'
