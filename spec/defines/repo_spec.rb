@@ -76,13 +76,13 @@ describe 'yum::repo' do
     it { should contain_file('rspec.repo').without_content(/baseurl=/) }
   end
 
-  context 'with ensure set to valid string "absent"' do
+  context 'with ensure set to valid string <absent>' do
     let(:params) { mandatory_params.merge({ :ensure => 'absent' }) }
     it { should contain_file('rspec.repo').with_ensure('absent') }
     it { is_expected.to have_yum__rpm_gpg_key_resource_count(0) }
   end
 
-  context 'with ensure set to valid string "present"' do
+  context 'with ensure set to valid string <present>' do
     let(:params) { mandatory_params.merge({ :ensure => 'present' }) }
     it { should contain_file('rspec.repo').with_ensure('file') }
   end
