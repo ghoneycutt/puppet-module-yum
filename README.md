@@ -20,9 +20,9 @@ Manage yum (client, server, and key management)
 
 # Compatibility
 
-This module is built for use with Puppet v3 (with and without the future
-parser) and Puppet v4 on the following platforms and supports Ruby versions
-1.8.7, 1.9.3, 2.0.0, 2.1.9 and 2.3.1.
+This module is built for use with Puppet v4 on the following platforms
+and supports the Ruby version associated with each puppet agent release.
+See `.travis.yml` for an exact matrix.
 
  * EL 6
  * EL 7
@@ -37,7 +37,8 @@ yum::repo { 'example_plain':
   baseurl => 'http://yum.test.local/customrepo/5/10/$basearch',
 }
 ```
-via hiera data:
+
+Using Hiera:
 
 ``` yaml
 yum::repos:
@@ -57,13 +58,14 @@ yum::repo { 'example_secure':
   password => 'secret',
   gpgcheck => true,
 }
+
 yum::rpm_gpg_key { 'example_secure':
   gpgkey     => '/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE_SECURE',
   gpgkey_url => 'https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE',
 }
-
 ```
-via hiera data:
+
+Using Hiera:
 
 ``` yaml
 yum::repos:
