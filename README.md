@@ -787,13 +787,19 @@ Set user who signs the packages. Will be used as %_gpg_name in in /root/.rpmmacr
 - *Default*: 'Root'
 
 ---
-#### yum_server (string)
+#### servername (string)
 Set servername for yum repository. Will be used for `ServerName` in Apache vhost configuration.
 
 - *Default*: 'yum'
 
 ---
-#### yum_server_http_listen_ip (string)
+#### serveraliases (array of strings)
+Set serveraliases for yum repository. Will be used for `ServerAlias` in Apache vhost configuration.
+
+- *Default*: [ $::fqdn, $::hostname ]
+
+---
+#### http_listen_ip (string)
 Set listen IP for yum repository server. Will be used for `VirtualHost` in Apache vhost configuration.
 
 - *Default*: '$::ipaddress'
