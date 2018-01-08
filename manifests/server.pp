@@ -16,21 +16,26 @@
 #    Set user who signs the packages. Will be used as %_gpg_name in
 #    /root/.rpmmacros.
 #
-# @param yum_server
+# @param servername
 #   Set servername for yum repository. Will be used for ServerName in
 #   Apache vhost configuration.
 #
-# @param yum_server_http_listen_ip
+# @param serveraliases
+#   Set serveraliases for yum repository. Will be used for ServerAlias Apache
+#   vhost configuration.
+#
+# @param http_listen_ip
 #   Set listen IP for yum repository server. Will be used for VirtualHost
 #   in Apache vhost configuration.
 #
 class yum::server (
-  String $contact_email                  = 'root@localhost',
-  Stdlib::Absolutepath $docroot          = '/opt/repos',
-  String $gpg_keys_path                  = 'keys', # gpg_keys_path is relative to $docroot, ${docroot}/${gpg_keys_path}
-  String $gpg_user_name                  = 'Root',
-  String $yum_server                     = 'yum',
-  IP::Address $yum_server_http_listen_ip = $::ipaddress,
+  String $contact_email                 = 'root@localhost',
+  Stdlib::Absolutepath $docroot         = '/opt/repos',
+  String $gpg_keys_path                 = 'keys', # gpg_keys_path is relative to $docroot, ${docroot}/${gpg_keys_path}
+  String $gpg_user_name                 = 'Root',
+  String $servername                    = 'yum',
+  Array[String, 1]  $serveraliases      = [ $::fqdn, $::hostname ],
+  IP::Address::NoSubnet $http_listen_ip = $::ipaddress,
 ) {
 
   include ::apache
@@ -72,9 +77,9 @@ class yum::server (
   apache::vhost { 'yumrepo':
     docroot       => $docroot,
     port          => '80',
-    vhost_name    => $yum_server_http_listen_ip,
-    servername    => $yum_server,
-    serveraliases => [ $::fqdn, $::hostname ],
+    vhost_name    => $http_listen_ip,
+    servername    => $servername,
+    serveraliases => $serveraliases,
     serveradmin   => $contact_email,
     options       => ['Indexes','FollowSymLinks','MultiViews'],
     override      => ['AuthConfig'],

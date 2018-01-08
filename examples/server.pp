@@ -1,5 +1,5 @@
 class { '::yum::server':
-  yum_server_http_listen_ip => $facts['networking']['interfaces']['eth1']['ip'],
+  http_listen_ip => $facts['networking']['interfaces']['eth1']['ip'],
 }
 
 yum::rpm_gpg_key { 'RPM-GPG-KEY-EPEL-7':
