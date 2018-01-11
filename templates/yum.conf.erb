@@ -2,150 +2,150 @@
 # DO NOT EDIT
 
 [main]
-<% if @distroverpkg_string != '' -%>
+<% if @distroverpkg_string -%>
 distroverpkg=<%= @distroverpkg_string %>
 <% end -%>
-<% if @pkgpolicy != '' -%>
+<% if @pkgpolicy -%>
 pkgpolicy=<%= @pkgpolicy %>
 <% end -%>
-<% if @installonly_limit != '' -%>
+<% if @installonly_limit -%>
 installonly_limit=<%= @installonly_limit %>
 <% end -%>
-<% if @cachedir != '' -%>
+<% if @cachedir -%>
 cachedir=<%= @cachedir %>
 <% end -%>
-<% if @keepcache != '' -%>
+<% if @keepcache_string -%>
 keepcache=<%= @keepcache_string %>
 <% end -%>
-<% if @debuglevel != '' -%>
+<% if @debuglevel -%>
 debuglevel=<%= @debuglevel %>
 <% end -%>
-<% if @errorlevel != '' -%>
+<% if @errorlevel -%>
 errorlevel=<%= @errorlevel %>
 <% end -%>
-<% if @logfile != '' -%>
+<% if @logfile -%>
 logfile=<%= @logfile %>
 <% end -%>
-<% if @tolerant != '' -%>
+<% if @tolerant_string -%>
 tolerant=<%= @tolerant_string %>
 <% end -%>
-<% if @exactarch != '' -%>
+<% if @exactarch_string -%>
 exactarch=<%= @exactarch_string %>
 <% end -%>
-<% if @obsoletes != '' -%>
+<% if @obsoletes_string -%>
 obsoletes=<%= @obsoletes_string %>
 <% end -%>
-<% if @gpgcheck != '' -%>
+<% if @gpgcheck_string -%>
 gpgcheck=<%= @gpgcheck_string %>
 <% end -%>
-<% if @plugins != '' -%>
+<% if @plugins_string -%>
 plugins=<%= @plugins_string %>
 <% end -%>
 <% if @exclude_real != [] -%>
 exclude=<%= @exclude_real.join(',') %>
 <% end -%>
 
-<% if @metadata_expire != '' -%>
+<% if @metadata_expire -%>
 # Note: yum-RHN-plugin doesn't honor this.
 metadata_expire=<%= @metadata_expire %>
 <% end -%>
-<% if @alwaysprompt_string != '' -%>
+<% if @alwaysprompt_string -%>
 alwaysprompt=<%= @alwaysprompt_string %>
 <% end -%>
-<% if @assumeyes_string != '' -%>
+<% if @assumeyes_string -%>
 assumeyes=<%= @assumeyes_string %>
 <% end -%>
-<% if @clean_requirements_on_remove_string != '' -%>
+<% if @clean_requirements_on_remove_string -%>
 clean_requirements_on_remove=<%= @clean_requirements_on_remove_string %>
 <% end -%>
-<% if @color_string != '' -%>
+<% if @color_string -%>
 color=<%= @color_string %>
 <% end -%>
-<% if @diskspacecheck_string != '' -%>
+<% if @diskspacecheck_string -%>
 diskspacecheck=<%= @diskspacecheck_string %>
 <% end -%>
-<% if @enable_group_conditionals_string != '' -%>
+<% if @enable_group_conditionals_string -%>
 enable_group_conditionals=<%= @enable_group_conditionals_string %>
 <% end -%>
-<% if @groupremove_leaf_only_string != '' -%>
+<% if @groupremove_leaf_only_string -%>
 groupremove_leaf_only=<%= @groupremove_leaf_only_string %>
 <% end -%>
-<% if @history_record_string != '' -%>
+<% if @history_record_string -%>
 history_record=<%= @history_record_string %>
 <% end -%>
-<% if @keepalive_string != '' -%>
+<% if @keepalive_string -%>
 keepalive=<%= @keepalive_string %>
 <% end -%>
-<% if @localpkg_gpgcheck_string != '' -%>
+<% if @localpkg_gpgcheck_string -%>
 localpkg_gpgcheck=<%= @localpkg_gpgcheck_string %>
 <% end -%>
-<% if @overwrite_groups_string != '' -%>
+<% if @overwrite_groups_string -%>
 overwrite_groups=<%= @overwrite_groups_string %>
 <% end -%>
-<% if @protected_multilib_string != '' -%>
+<% if @protected_multilib_string -%>
 protected_multilib=<%= @protected_multilib_string %>
 <% end -%>
-<% if @repo_gpgcheck_string != '' -%>
+<% if @repo_gpgcheck_string -%>
 repo_gpgcheck=<%= @repo_gpgcheck_string %>
 <% end -%>
-<% if @reset_nice_string != '' -%>
+<% if @reset_nice_string -%>
 reset_nice=<%= @reset_nice_string %>
 <% end -%>
-<% if @showdupesfromrepos_string != '' -%>
+<% if @showdupesfromrepos_string -%>
 showdupesfromrepos=<%= @showdupesfromrepos_string %>
 <% end -%>
-<% if @skip_broken_string != '' -%>
+<% if @skip_broken_string -%>
 skip_broken=<%= @skip_broken_string %>
 <% end -%>
-<% if @ssl_check_cert_permissions_string != '' -%>
+<% if @ssl_check_cert_permissions_string -%>
 ssl_check_cert_permissions=<%= @ssl_check_cert_permissions_string %>
 <% end -%>
-<% if @sslverify_string != '' -%>
+<% if @sslverify_string -%>
 sslverify=<%= @sslverify_string %>
 <% end -%>
-<% if @throttle != '' -%>
+<% if @throttle -%>
 throttle=<%= @throttle %>
 <% end -%>
-<% if @syslog_ident != '' -%>
+<% if @syslog_ident -%>
 syslog_ident=<%= @syslog_ident %>
 <% end -%>
-<% if @syslog_facility != '' -%>
+<% if @syslog_facility -%>
 syslog_facility=<%= @syslog_facility %>
 <% end -%>
-<% if @proxy_username != '' -%>
+<% if @proxy_username -%>
 proxy_username=<%= @proxy_username %>
 <% end -%>
-<% if @proxy_password != '' -%>
+<% if @proxy_password -%>
 proxy_password=<%= @proxy_password %>
 <% end -%>
-<% if @username != '' -%>
+<% if @username -%>
 username=<%= @username %>
 <% end -%>
-<% if @password != '' -%>
+<% if @password -%>
 password=<%= @password %>
 <% end -%>
-<% if @syslog_device != '' -%>
+<% if @syslog_device -%>
 syslog_device=<%= @syslog_device %>
 <% end -%>
-<% if @proxy != '' -%>
+<% if @proxy -%>
 proxy=<%= @proxy %>
 <% end -%>
-<% if @bugtracker_url != '' -%>
+<% if @bugtracker_url -%>
 bugtracker_url=<%= @bugtracker_url %>
 <% end -%>
-<% if @rpmverbosity != '' -%>
+<% if @rpmverbosity -%>
 rpmverbosity=<%= @rpmverbosity %>
 <% end -%>
-<% if @http_caching != '' -%>
+<% if @http_caching -%>
 http_caching=<%= @http_caching %>
 <% end -%>
-<% if @history_list_view != '' -%>
+<% if @history_list_view -%>
 history_list_view=<%= @history_list_view %>
 <% end -%>
-<% if @mdpolicy != '' -%>
+<% if @mdpolicy -%>
 mdpolicy=<%= @mdpolicy %>
 <% end -%>
-<% if @multilib_policy != '' -%>
+<% if @multilib_policy -%>
 multilib_policy=<%= @multilib_policy %>
 <% end -%>
 <% if @color_list_available_downgrade != [] -%>
@@ -205,42 +205,42 @@ history_record_packages=<%= @history_record_packages.join(',') %>
 <% if @commands != [] -%>
 commands=<%= @commands.join(',') %>
 <% end -%>
-<% if @installroot != '' -%>
+<% if @installroot -%>
 installroot=<%= @installroot %>
 <% end -%>
-<% if @persistdir != '' -%>
+<% if @persistdir -%>
 persistdir=<%= @persistdir %>
 <% end -%>
-<% if @pluginconfpath != '' -%>
+<% if @pluginconfpath -%>
 pluginconfpath=<%= @pluginconfpath %>
 <% end -%>
-<% if @pluginpath != '' -%>
+<% if @pluginpath -%>
 pluginpath=<%= @pluginpath %>
 <% end -%>
-<% if @sslcacert != '' -%>
+<% if @sslcacert -%>
 sslcacert=<%= @sslcacert %>
 <% end -%>
-<% if @sslclientcert != '' -%>
+<% if @sslclientcert -%>
 sslclientcert=<%= @sslclientcert %>
 <% end -%>
-<% if @sslclientkey != '' -%>
+<% if @sslclientkey -%>
 sslclientkey=<%= @sslclientkey %>
 <% end -%>
 <% if @reposdir != [] -%>
 reposdir=<%= @reposdir.join(',') %>
 <% end -%>
-<% if @bandwidth != '' -%>
+<% if @bandwidth -%>
 bandwidth=<%= @bandwidth %>
 <% end -%>
-<% if @mirrorlist_expire != '' -%>
+<% if @mirrorlist_expire -%>
 mirrorlist_expire=<%= @mirrorlist_expire %>
 <% end -%>
-<% if @recent != '' -%>
+<% if @recent -%>
 recent=<%= @recent %>
 <% end -%>
-<% if @retries != '' -%>
+<% if @retries -%>
 retries=<%= @retries %>
 <% end -%>
-<% if @timeout != '' -%>
+<% if @timeout -%>
 timeout=<%= @timeout %>
 <% end -%>
