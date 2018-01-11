@@ -364,340 +364,340 @@ When empty, it will not be present in yum.conf.
 Takes a list of one or more absolute paths.
 When empty, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: []
 
 ---
 #### distroverpkg (boolean or string)
-`distroverpkg` setting in the main section of yum.conf. Will use the format distroverpk=$::operatingsystem-release (downcase) if true. Alternatively you can also specify a free string text instead. When empty, it will not be present in yum.conf.
+`distroverpkg` setting in the main section of yum.conf. Will use the format distroverpk=$::operatingsystem-release (downcase) if true. Alternatively you can also specify a free string text instead. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### alwaysprompt (boolean)
-`alwaysprompt` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`alwaysprompt` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### assumeyes (boolean)
-`assumeyes` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`assumeyes` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### clean_requirements_on_remove (boolean)
-`clean_requirements_on_remove` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`clean_requirements_on_remove` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### color (boolean)
-`color` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`color` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### diskspacecheck (boolean)
-`diskspacecheck` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`diskspacecheck` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### enable_group_conditionals (boolean)
-`enable_group_conditionals` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`enable_group_conditionals` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### exactarch (boolean)
-`exactarch` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`exactarch` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: true
 
 ---
 #### gpgcheck (boolean)
-`gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: false
 
 ---
 #### groupremove_leaf_only (boolean)
-`groupremove_leaf_only` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`groupremove_leaf_only` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### history_record (boolean)
-`history_record` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`history_record` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### keepalive (boolean)
-`keepalive` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`keepalive` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### keepcache (boolean)
-`keepcache` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`keepcache` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: true
 
 ---
 #### localpkg_gpgcheck (boolean)
-`localpkg_gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`localpkg_gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### obsoletes (boolean)
-`obsoletes` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`obsoletes` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: true
 
 ---
 #### overwrite_groups (boolean)
-`overwrite_groups` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`overwrite_groups` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### plugins (boolean)
-`plugins` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`plugins` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: false
 
 ---
 #### protected_multilib (boolean)
-`protected_multilib` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`protected_multilib` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### repo_gpgcheck (boolean)
-`repo_gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`repo_gpgcheck` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### reset_nice (boolean)
-`reset_nice` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`reset_nice` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### showdupesfromrepos (boolean)
-`showdupesfromrepos` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`showdupesfromrepos` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### skip_broken (boolean)
-`skip_broken` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`skip_broken` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### ssl_check_cert_permissions (boolean)
-`ssl_check_cert_permissions` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`ssl_check_cert_permissions` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### sslverify (boolean)
-`sslverify` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`sslverify` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: undef
 
 ---
 #### tolerant (boolean)
-`tolerant` setting in the main section of yum.conf. True enables, false disables this feature. When empty, it will not be present in yum.conf.
+`tolerant` setting in the main section of yum.conf. True enables, false disables this feature. When undef, it will not be present in yum.conf.
 
 - *Default*: false
 
 ---
 #### debuglevel (integer)
 `debuglevel` setting in the main section of yum.conf.
-Takes any integer between 0 and 10. When empty, it will not be present in yum.conf.
+Takes any integer between 0 and 10. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: 2
 
 ---
 #### errorlevel (integer)
 `errorlevel` setting in the main section of yum.conf.
-Takes any integer between 0 and 10. When empty, it will not be present in yum.conf.
+Takes any integer between 0 and 10. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### bandwidth (integer)
 `bandwidth` setting in the main section of yum.conf.
-Takes any integer. When empty, it will not be present in yum.conf.
+Takes any integer. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### installonly_limit (integer)
 `installonly_limit` setting in the main section of yum.conf.
-Takes any integer. When empty, it will not be present in yum.conf.
+Takes any integer. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### mirrorlist_expire (integer)
 `mirrorlist_expire` setting in the main section of yum.conf.
-Takes any integer. When empty, it will not be present in yum.conf.
+Takes any integer. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### recent (integer)
 `recent` setting in the main section of yum.conf.
-Takes any integer. When empty, it will not be present in yum.conf.
+Takes any integer. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### retries (integer)
 `retries` setting in the main section of yum.conf.
-Takes any integer. When empty, it will not be present in yum.conf.
+Takes any integer. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### timeout (integer)
 `timeout` setting in the main section of yum.conf.
-Takes any integer. When empty, it will not be present in yum.conf.
+Takes any integer. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### cachedir (string)
 `cachedir` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
 - *Default*: '/var/cache/yum/$basearch/$releasever'
 
 ---
 #### installroot (string)
 `installroot` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### logfile (string)
 `logfile` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
 - *Default*: '/var/log/yum.log'
 
 ---
 #### persistdir (string)
 `persistdir` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### pluginconfpath (string)
 `pluginconfpath` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### pluginpath (string)
 `pluginpath` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### sslcacert (string)
 `sslcacert` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### sslclientcert (string)
 `sslclientcert` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### sslclientkey (string)
 `sslclientkey` setting in the main section of yum.conf.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### bugtracker_url (string)
-`bugtracker_url` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`bugtracker_url` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### proxy (string)
-`proxy` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`proxy` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### password (string)
-`password` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`password` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### proxy_password (string)
-`proxy_password` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`proxy_password` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### proxy_username (string)
-`proxy_username` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`proxy_username` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### syslog_device (string)
-`syslog_device` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`syslog_device` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### syslog_facility (string)
-`syslog_facility` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`syslog_facility` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### syslog_ident (string)
-`syslog_ident` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`syslog_ident` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### username (string)
-`username` setting in the main section of yum.conf. When empty, it will not be present in yum.conf.
+`username` setting in the main section of yum.conf. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### throttle (integer, float, or string)
-`throttle` setting in the main section of yum.conf. Rate in bytes/sec, allows an SI prefix (k, M, or G) to be appended. When empty, it will not be present in yum.conf.
+`throttle` setting in the main section of yum.conf. Rate in bytes/sec, allows an SI prefix (k, M, or G) to be appended. When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### metadata_expire (integer or string)
-`metadata_expire` setting in the main section of yum.conf. Time in seconds, allows a prefix of m, h, or d to specify minutes, hours, or days. Alternatively you can also specify the word never instead.
+`metadata_expire` setting in the main section of yum.conf. Time in seconds, allows a prefix of m, h, or d to specify minutes, hours, or days. Alternatively you can also specify the word never instead. When undef, it will not be present in yum.conf.
 
 
 - *Default*: '6h'
@@ -706,49 +706,49 @@ When empty, it will not be present in yum.conf.
 #### history_list_view (string)
 `history_list_view` setting in the main section of yum.conf.
 Valid values are: 'cmds', 'commands', 'default', 'single-user-commands', or 'users'.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### mdpolicy (string)
 `mdpolicy` setting in the main section of yum.conf.
 Valid values are: 'group:all', 'group:main', 'group:primary', 'group:small', or 'instant'
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### rpmverbosity (string)
 `rpmverbosity` setting in the main section of yum.conf.
 Valid values are: 'critical', 'debug', 'emergency', 'error', 'info', or 'warn'.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### http_caching (string)
 `http_caching` setting in the main section of yum.conf.
 Valid values are: 'all', 'none', or 'packages'
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### multilib_policy (string)
 `multilib_policy` setting in the main section of yum.conf.
 Valid values are: 'all' or 'best'.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 #### pkgpolicy (string)
 `pkgpolicy` setting in the main section of yum.conf.
 Valid values are: 'last' or 'newest'.
-When empty, it will not be present in yum.conf.
+When undef, it will not be present in yum.conf.
 
-- *Default*: ''
+- *Default*: undef
 
 ---
 
