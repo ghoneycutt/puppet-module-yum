@@ -13,6 +13,6 @@
     {"name":"puppetlabs/stdlib","version_requirement":">= 4.22.0 < 6.0.0"},
     {"name":"puppetlabs/firewall","version_requirement":">= 1.8.1 < 2.0.0"},
     {"name":"puppetlabs/concat","version_requirement":">= 2.2.0 < 3.0.0"},
-    {"name":"thrnio/ip","version_requirement":">= 1.0.0 < 2.0.0"}
+    {"name":"thrnio/ip","version_requirement":">= 1.0.1 < 2.0.0"}
   ]
 }
