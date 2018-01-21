@@ -881,171 +881,171 @@ Specify the path of the directory for yum repository files.
 
 ---
 #### enabled (boolean)
-`enabled` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+`enabled` setting in the repository file. True enables, false disables this feature. When undef, it will not be present.
 
 - *Default*: true
 
 ---
 #### enablegroups (boolean)
-`enablegroups` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+`enablegroups` setting in the repository file. True enables, false disables this feature. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### gpgcheck (boolean)
-`gpgcheck` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+`gpgcheck` setting in the repository file. True enables, false disables this feature. When undef, it will not be present.
 
 - *Default*: false
 
 ---
 #### keepalive (boolean)
-`keepalive` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+`keepalive` setting in the repository file. True enables, false disables this feature. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### repo_gpgcheck (boolean)
-`repo_gpgcheck` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+`repo_gpgcheck` setting in the repository file. True enables, false disables this feature. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### skip_if_unavailable (boolean)
-`skip_if_unavailable` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+`skip_if_unavailable` setting in the repository file. True enables, false disables this feature. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### ssl_check_cert_permissions (boolean)
-`ssl_check_cert_permissions` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+`ssl_check_cert_permissions` setting in the repository file. True enables, false disables this feature. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### sslverify (boolean)
-`sslverify` setting in the repository file. True enables, false disables this feature. When empty, it will not be present.
+`sslverify` setting in the repository file. True enables, false disables this feature. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### bandwidth (integer)
-`bandwidth` setting in the repository file. Takes any integer. When empty, it will not be present.
+`bandwidth` setting in the repository file. Takes any integer. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### cost (integer)
-`cost` setting in the repository file. Takes any integer. When empty, it will not be present.
+`cost` setting in the repository file. Takes any integer. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### mirrorlist_expire (integer)
-`mirrorlist_expire` setting in the repository file. Takes any integer. When empty, it will not be present.
+`mirrorlist_expire` setting in the repository file. Takes any integer. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### retries (integer)
-`retries` setting in the repository file. Takes any integer. When empty, it will not be present.
+`retries` setting in the repository file. Takes any integer. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### timeout (integer)
-`timeout` setting in the repository file. Takes any integer. When empty, it will not be present.
+`timeout` setting in the repository file. Takes any integer. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### description (string)
-`description` setting in the repository file. Defaults to the name of the defined type. When empty, it will not be present.
+`description` setting in the repository file. Defaults to the name of the defined type. When undef, it will not be present.
 
 - *Default*: "$name"
 
 ---
 #### password (string)
-`password` setting in the repository file. When empty, it will not be present.
+`password` setting in the repository file. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### proxy_password (string)
-`proxy_password` setting in the repository file. When empty, it will not be present.
+`proxy_password` setting in the repository file. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### proxy_username (string)
-`proxy_username` setting in the repository file. When empty, it will not be present.
+`proxy_username` setting in the repository file. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### repositoryid (string)
-`repositoryid` setting in the repository file. When empty, it will not be present.
+`repositoryid` setting in the repository file. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### username (string)
-`username` setting in the repository file. When empty, it will not be present.
+`username` setting in the repository file. When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### baseurl (array)
 `baseurl` setting in the repository file. Accepts HTTP/HTTPS/FTP/FILE URLs.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: []
 
 ---
 #### gpgcakey (string with URL)
 `gpgcakey` setting in the repository file. Accepts HTTP/HTTPS URLs.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### gpgkey (array)
 `gpgkey` setting in the repository file. Accepts HTTP/HTTPS/FTP/FILE URLs.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: []
 
 ---
 #### metalink (string with URL)
 `metalink` setting in the repository file. Accepts HTTP/HTTPS URLs.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### mirrorlist (string with URL)
 `mirrorlist` setting in the repository file. Accepts HTTP/HTTPS URLs.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### proxy (string with URL)
 `proxy` setting in the repository file. Accepts HTTP/HTTPS URLs and '_none_'.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### failovermethod (string with URL)
 `failovermethod` setting in the repository file. Valid values are: 'all', 'none', or 'packages'
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### http_caching (string)
 `http_caching` setting in the repository file. Valid values are: 'all', 'none', or 'packages'
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
@@ -1053,7 +1053,7 @@ When empty, it will not be present.
 #### throttle (integer, float, or string)
 `throttle` setting in the repository file.
 Rate in bytes/sec, allows a suffix of k, M, or G to be appended.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
@@ -1062,28 +1062,28 @@ When empty, it will not be present.
 `metadata_expire` setting in the repository file.
 Time in seconds, allows a suffix of m, h, or d to specify minutes, hours, or days.
 Alternatively you can also specify the word never instead.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### sslcacert (string)
 `sslcacert` setting in the repository file.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### sslclientcert (string)
 `sslclientcert` setting in the repository file.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 
 ---
 #### sslclientkey (string)
 `sslclientkey` setting in the repository file.
-When empty, it will not be present.
+When undef, it will not be present.
 
 - *Default*: ''
 

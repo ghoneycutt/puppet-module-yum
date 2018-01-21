@@ -92,16 +92,16 @@ describe 'yum::repo' do
   boolean_params = {
     # name of param                 # default
     'enabled'                      => true,
-    'enablegroups'                 => '',
+    'enablegroups'                 => :undef,
     'gpgcheck'                     => false,
-    'keepalive'                    => '',
-    'repo_gpgcheck'                => '',
-    'skip_if_unavailable'          => '',
-    'ssl_check_cert_permissions'   => '',
-    'sslverify'                    => '',
+    'keepalive'                    => :undef,
+    'repo_gpgcheck'                => :undef,
+    'skip_if_unavailable'          => :undef,
+    'ssl_check_cert_permissions'   => :undef,
+    'sslverify'                    => :undef,
   }
   boolean_params.each do |param, default|
-    [true, false,''].each do |value|
+    [true, false,:undef].each do |value|
       context "with #{param} set to valid #{value.class} <#{value}>" do
         let(:params) { { :"#{param}" => value } }
         if value == true
@@ -139,8 +139,8 @@ describe 'yum::repo' do
         it { should contain_file('rspec.repo').with_content(%r{^\[rspec\][\s\S]*#{param}=#{value}$}) }
       end
     end
-    context "with #{param} set to valid empty string" do
-        let(:params) { { :"#{param}" => '' } }
+    context "with #{param} set to valid undef" do
+      let(:params) { { :"#{param}" => :undef } }
       it { should contain_file('rspec.repo').without_content(%r{#{param}=}) }
     end
   end
@@ -171,8 +171,8 @@ describe 'yum::repo' do
         it { should contain_file('rspec.repo').with_content(%r{^\[rspec\][\s\S]*#{param}=#{Regexp.escape(value.to_s)}$}) }
       end
     end
-    context "with #{param} set to valid empty string" do
-      let(:params) { { :"#{param}" => '' } }
+    context "with #{param} set to valid undef" do
+      let(:params) { { :"#{param}" => :undef } }
       it { should contain_file('rspec.repo').without_content(%r{#{param}=}) }
     end
   end
@@ -182,10 +182,13 @@ describe 'yum::repo' do
     let(:params) { { :description => 'string' } }
     it { should contain_file('rspec.repo').with_content(%r{^\[rspec\][\s\S]*name=string}) }
   end
-  context 'with description set to valid empty string' do
-    let(:params) { { :description => '' } }
-    it { should contain_file('rspec.repo').without_content(%r{name=}) }
-  end
+
+  # /!\ need to skip this test
+  # found no way to set undef successfully from here
+  #context 'with description set to valid undef' do
+  #  let(:params) { { :description => :undef } }
+  #  it { should contain_file('rspec.repo').without_content(%r{name=}) }
+  #end
 
   # arrays with free content
   array_params = {
@@ -218,103 +221,101 @@ describe 'yum::repo' do
       it { should contain_file('rspec.repo').without_content(%r{#{param}=}) }
     end
   end
-
-
   # </parameters for repo file>
 
   describe 'variable type and content validations' do
     let(:mandatory_params) { mandatory_params }
 
     validations = {
+      'Array' => {
+        :name    => %w(exclude includepkgs),
+        :valid   => [%w(array)],
+        :invalid => ['string', { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects an Array', # Puppet 4 & 5
+      },
+      'Array[Variant[Stdlib::Httpurl,Pattern[]]]' => {
+        :name    => %w(baseurl gpgkey),
+        :valid   => [%w(http://plain.test), %w(https://secure.test), %w(https://port.test:242), %w(ftp://ftp.test), %w(file:///local.file)],
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => '(expects an Array value|expects a match for Variant\[Stdlib::HTTPUrl.*, Pattern\[\^\(file|ftp\):)', # Puppet 4 & 5
+      },
+      'Enum[] for ensure' => {
+        :name    => %w(ensure),
+        :valid   => ['present', 'absent'],
+        :invalid => [false, 'file'],
+        :message => 'expects a match for Enum\[\'absent\', \'present\'\]', # Puppet 4 & 5
+      },
+      'Optional[Boolean]' => {
+        :name    => %w(enabled enablegroups gpgcheck keepalive repo_gpgcheck skip_if_unavailable ssl_check_cert_permissions sslverify),
+        :valid   => [true, false, :undef],
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false'],
+        :message => 'expects a value of type Undef or Boolean', # Puppet 4 & 5
+      },
+      'Optional[Integer]' => {
+        :name    => %w(bandwidth cost mirrorlist_expire retries timeout),
+        :valid   => [1, 10, :undef],
+        :invalid => ['242', 2.42, %w(array), { 'ha' => 'sh' }, false],
+        :message => 'expects a value of type Undef or Integer', # Puppet 4 & 5
+      },
+      'Optional[String]' => {
+        :name    => %w(description password proxy_password proxy_username repositoryid username),
+        :valid   => ['string'],
+        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, true],
+        :message => 'expects a value of type Undef or String',  # Puppet 4 & 5
+      },
+      'Optional[Stdlib::Httpurl]' => {
+        :name    => %w(gpgcakey metalink mirrorlist),
+        :valid   => %w(http://plain.test https://secure.test https://port.test:242),
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects a match for Stdlib::HTTPUrl',  # Puppet 4 & 5
+      },
+      'Optional[Enum[]] for failovermethod' => {
+        :name    => %w(failovermethod),
+        :valid   => %w(priority roundrobin),
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, false],
+        :message => 'expects a(n undef value or a)? match for Enum', # Puppet (4) & 5
+      },
+      'Optional[Enum[]] for http_caching' => {
+        :name    => %w(http_caching),
+        :valid   => %w(all none packages),
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, false],
+        :message => 'expects a(n undef value or a)? match for Enum', # Puppet (4) & 5
+      },
+      'Optional[Enum[]] for proxy' => {
+        :name    => %w(proxy),
+        :valid   => %w(http://plain.test https://secure.test https://port.test:242 _none_),
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, false],
+        :message => 'expects a (match for Variant.|value of type Undef, )Stdlib::HTTPUrl.* Enum', # Puppet (4|5)
+      },
+      'Optional[Stdlib::Absolutepath]' => {
+        :name    => %w(sslcacert sslclientcert sslclientkey),
+        :valid   => ['/absolute/filepath', '/absolute/directory/'],
+        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects a (match for|match for Stdlib::Absolutepath =|Stdlib::Absolutepath =) Variant\[Stdlib::Windowspath.*Stdlib::Unixpath', # Puppet (4.x|5.0 & 5.1|5.x)
+      },
+      'Optional[Variant[Integer,Float,Pattern[]]] for throttle' => {
+        :name    => %w(throttle),
+        :valid   => [3, 2.42, '242k', '24.2M', '2.42G' ],
+        :invalid => ['string', %w(array), { 'ha' => 'sh' }, false],
+        :message => 'expects a value of type Undef, Integer, Float, or Pattern',  # Puppet 4 & 5
+      },
+      'Optional[Variant[Integer,Pattern[]]] for metadata_expire' => {
+        :name    => %w(metadata_expire),
+        :valid   => [3, '242m', '242h', '242d', 'never' ],
+        :invalid => [%w(array), { 'ha' => 'sh' }, 2.42, false],
+        :message => 'expects a value of type Undef, Integer, or Pattern',  # Puppet 4 & 5
+      },
       'Stdlib::Absolutepath' => {
         :name    => %w(yum_repos_d_path),
         :valid   => ['/absolute/filepath', '/absolute/directory/'],
         :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects a (match for|match for Stdlib::Absolutepath =|Stdlib::Absolutepath =) Variant\[Stdlib::Windowspath.*Stdlib::Unixpath', # Puppet (4.x|5.0 & 5.1|5.x)
       },
-      'Stdlib::Absolutepath (optional)' => {
-        :name    => %w(sslcacert sslclientcert sslclientkey),
-        :valid   => ['/absolute/filepath', '/absolute/directory/'],
-        :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Variant\[Enum\[\'\'\], (Stdlib::Windowspath.*Stdlib::Unixpath|Stdlib::Absolutepath)',  # Puppet (4|5)
-      },
       'Stdlib::Filemode' => {
         :name    => %w(repo_file_mode),
         :valid   => %w(0644 0755 0640 0740),
         :invalid => [ 2770, '0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects a match for Stdlib::Filemode', # Puppet 4 & 5
-      },
-      'Stdlib::Httpurl' => {
-        :name    => %w(gpgcakey metalink mirrorlist),
-        :valid   => %w(http://plain.test https://secure.test https://port.test:242),
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Variant\[Enum\[\'\'\], Stdlib::HTTPUrl',  # Puppet 4 & 5
-      },
-      'array' => {
-        :name    => %w(exclude includepkgs),
-        :valid   => [%w(array)],
-        :invalid => ['string', { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects an Array', # Puppet 4 & 5
-      },
-      'array with Stdlib::Httpurl/file/ftp' => {
-        :name    => %w(baseurl gpgkey),
-        :valid   => [%w(http://plain.test), %w(https://secure.test), %w(https://port.test:242), %w(ftp://ftp.test), %w(file:///local.file)],
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => '(expects an Array value|expects a match for Variant\[Stdlib::HTTPUrl.*, Pattern\[\^\(file|ftp\):)', # Puppet 4 & 5
-      },
-      'boolean or empty string' => {
-        :name    => %w(enabled enablegroups gpgcheck keepalive repo_gpgcheck skip_if_unavailable ssl_check_cert_permissions sslverify),
-        :valid   => [true, false],
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, 'false'],
-        :message => 'expects a match for Variant\[Enum\[\'\'\], Boolean\]', # Puppet 4 & 5
-      },
-      'integer or empty string' => {
-        :name    => %w(bandwidth cost mirrorlist_expire retries timeout),
-        :valid   => [242, ''],
-        :invalid => ['242', 2.42, %w(array), { 'ha' => 'sh' }, false, nil],
-        :message => 'expects a match for Variant\[Enum\[\'\'\], Integer\]', # Puppet 4 & 5
-      },
-      'present or absent' => {
-        :name    => %w(ensure),
-        :valid   => ['present', 'absent'],
-        :invalid => [false, 'file'],
-        :message => 'expects a match for Enum\[\'absent\', \'present\'\]', # Puppet 4 & 5
-      },
-      'specific for failovermethod' => {
-        :name    => %w(failovermethod),
-        :valid   => %w(priority roundrobin),
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, false],
-        :message => 'expects a match for Enum\[\'\', \'priority\', \'roundrobin\'\]', # Puppet 4 & 5
-      },
-      'specific for http_caching' => {
-        :name    => %w(http_caching),
-        :valid   => %w(all none packages),
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, false],
-        :message => 'expects a match for Enum\[\'\', \'all\', \'none\', \'packages\'\]', # Puppet 4 & 5
-      },
-      'specific for metadata_expire' => {
-        :name    => %w(metadata_expire),
-        :valid   => [3, '242m', '242h', '242d', 'never' ],
-        :invalid => [%w(array), { 'ha' => 'sh' }, 2.42, false],
-        :message => 'expects a match for Variant\[Enum\[\'\'\], Integer, Pattern',  # Puppet 4 & 5
-      },
-      'specific for proxy' => {
-        :name    => %w(proxy),
-        :valid   => %w(http://plain.test https://secure.test https://port.test:242 _none_),
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Variant\[Enum\[\'\', \'_none_\'\], Stdlib::HTTPUrl',  # Puppet 4 & 5
-      },
-      'specific for throttle' => {
-        :name    => %w(throttle),
-        :valid   => [3, 2.42, '242k', '24.2M', '2.42G' ],
-        :invalid => [%w(array), { 'ha' => 'sh' }, false],
-        :message => 'expects a match for Variant\[Enum\[\'\'\], Integer, Float, Pattern',  # Puppet 4 & 5
-      },
-      'string or empty string' => {
-        :name    => %w(description password proxy_password proxy_username repositoryid username),
-        :valid   => ['string'],
-        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, true],
-        :message => 'expects a match for Variant\[Enum\[\'\'\], String\]',  # Puppet 4 & 5
       },
     }
 
