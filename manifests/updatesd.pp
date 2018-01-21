@@ -20,11 +20,11 @@
 #  'manual', and 'mark'.
 #
 class yum::updatesd (
-  String $updatesd_package                                               = 'yum-updatesd',
-  Enum['absent', 'latest', 'present', 'purged'] $updatesd_package_ensure = 'absent',
-  String $updatesd_service                                               = 'yum-updatesd',
-  Enum['running', 'stopped'] $updatesd_service_ensure                    = 'stopped',
-  Enum['false', 'manual', 'mark', 'true'] $updatesd_service_enable       = 'false', # lint:ignore:quoted_booleans
+  String $updatesd_package                         = 'yum-updatesd',
+  String $updatesd_package_ensure                  = 'absent',
+  String $updatesd_service                         = 'yum-updatesd',
+  Stdlib::Ensure::Service $updatesd_service_ensure = 'stopped',
+  Variant[String,Boolean] $updatesd_service_enable = false,
 ) {
 
   package { 'yum_updatesd_package':

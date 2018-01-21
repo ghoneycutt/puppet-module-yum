@@ -57,29 +57,23 @@ describe 'yum::updatesd' do
     let(:mandatory_params) { {} }
 
     validations = {
-      'regex for package ensure' => {
-        :name    => %w(updatesd_package_ensure),
-        :valid   => %w(absent latest present purged),
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Enum\[\'absent\', \'latest\', \'present\', \'purged\'\]', # Puppet 4 & 5
-      },
-      'regex for service enable' => {
-        :name    => %w(updatesd_service_enable),
-        :valid   => %w(false manual mark true),
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Enum\[\'false\', \'manual\', \'mark\', \'true\'\]', # Puppet 4 & 5
-      },
-      'regex for service ensure' => {
+      'Stdlib::Ensure::Service' => {
         :name    => %w(updatesd_service_ensure),
         :valid   => %w(running stopped),
         :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Enum\[\'running\', \'stopped\'\]', # Puppet 4 & 5
+        :message => 'expects a match for Stdlib::Ensure::Service', # Puppet 4 & 5
       },
-      'string' => {
-        :name    => %w(updatesd_package updatesd_service),
+      'String' => {
+        :name    => %w(updatesd_package updatesd_service updatesd_package_ensure),
         :valid   => ['string'],
         :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, false],
         :message => 'expects a String', # Puppet 4 & 5
+      },
+      'Variant[String,Boolean]' => {
+        :name    => %w(updatesd_service_enable),
+        :valid   => ['false', 'manual', 'mark', 'true', true, false],
+        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42],
+        :message => 'expects a value of type String or Boolean', # Puppet 4 & 5
       },
     }
 
