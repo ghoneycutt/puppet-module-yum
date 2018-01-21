@@ -1,0 +1,5 @@
+---
+yum::rpm_gpg_keys:
+  'from_hiera_class':
+    'gpgkey':     '/etc/pki/rpm-gpg/RPM-GPG-KEY-HIERA-CLASS'
+    'gpgkey_url': 'http://yum.domain.tld/keys/RPM-GPG-KEY-HIERA-CLASS'

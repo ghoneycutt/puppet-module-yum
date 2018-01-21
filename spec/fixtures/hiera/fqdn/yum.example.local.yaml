@@ -1,7 +1,13 @@
 ---
 yum::repos:
   'from_hiera_fqdn':
-    'gpgkey_url_server': 'yum.rspec.local'
+    'baseurl':
+      - 'http://yum.rspec.local'
+
+yum::rpm_gpg_keys:
+  'from_hiera_fqdn':
+    'gpgkey':     '/etc/pki/rpm-gpg/RPM-GPG-KEY-HIERA-FQDN'
+    'gpgkey_url': 'http://yum.domain.tld/keys/RPM-GPG-KEY-HIERA-FQDN'
 
 yum::exclude:
   - from_hiera_fqdn
