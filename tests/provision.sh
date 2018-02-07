@@ -44,7 +44,7 @@ puppet resource file /etc/puppetlabs/code/environments/production/modules/yum en
 # setup module dependencies
 puppet module install puppetlabs/stdlib --version 4.24.0
 puppet module install puppetlabs/apache --version 2.3.0
-puppet module install thrnio/ip --version 1.0.0
+puppet module install thrnio/ip --version 1.0.1
 
 fqdn=$(hostname -f)
 if [[ $fqdn == 'yum-server.example.com' ]]; then
@@ -62,3 +62,7 @@ cat > /etc/hosts <<EOF
 192.168.59.11 el7-client el7-client.example.com
 192.168.59.12 el6-client el6-client.example.com
 EOF
+
+# Ensure packages that we install for testing are not present.
+puppet resource package cowsay ensure=absent
+puppet resource package jq ensure=absent
