@@ -20,7 +20,7 @@ Manage yum (client, server, and key management)
 
 # Compatibility
 
-This module is built for use with Puppet v4 on the following platforms
+This module is built for use with Puppet v5 on the following platforms
 and supports the Ruby version associated with each puppet agent release.
 See `.travis.yml` for an exact matrix.
 
