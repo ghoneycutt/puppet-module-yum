@@ -1,6 +1,5 @@
-# @summary Manage individual yum repo files in /etc/yum.repos.d
-#   This was used in favor of the yumrepo type, which cannot
-#   manage files in that directory.
+# @summary Manage individual yum repo files in /etc/yum.repos.d This was used
+# in favor of the yumrepo type, which cannot manage files in that directory.
 #
 # @example Using the define.
 #   yum::repo { 'redhat-base':

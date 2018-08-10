@@ -14,3 +14,15 @@ task :validate do
     sh "bash -n #{shell_script}"
   end
 end
+
+# Puppet Strings (Documentation generation from inline comments)
+# See: https://github.com/puppetlabs/puppet-strings#rake-tasks
+require 'puppet-strings/tasks'
+
+desc 'Alias for strings:generate'
+task :doc => ['strings:generate']
+
+desc 'Generate REFERENCE.md'
+task :reference do
+  sh 'puppet strings generate --format markdown'
+end
