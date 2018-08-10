@@ -8,6 +8,6 @@ fixtures:
       ref: '3.2.0'
     concat:
       repo: 'https://github.com/puppetlabs/puppetlabs-concat.git'
-      ref: '2.2.1'
+      ref: '4.2.1'
   symlinks:
     yum: "#{source_dir}"
