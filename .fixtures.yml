@@ -5,7 +5,7 @@ fixtures:
       ref: '4.25.0'
     apache:
       repo: 'https://github.com/puppetlabs/puppetlabs-apache.git'
-      ref: '2.3.0'
+      ref: '3.2.0'
     concat:
       repo: 'https://github.com/puppetlabs/puppetlabs-concat.git'
       ref: '2.2.1'

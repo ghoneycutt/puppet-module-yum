@@ -43,7 +43,7 @@ puppet resource file /etc/puppetlabs/code/environments/production/modules/yum en
 
 # setup module dependencies
 puppet module install puppetlabs/stdlib --version 4.25.0
-puppet module install puppetlabs/apache --version 2.3.0
+puppet module install puppetlabs/apache --version 3.2.0
 
 fqdn=$(hostname -f)
 if [[ $fqdn == 'yum-server.example.com' ]]; then
