@@ -2,15 +2,12 @@ fixtures:
   repositories:
     stdlib:
       repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
-      ref: '4.24.0'
+      ref: '4.25.0'
     apache:
       repo: 'https://github.com/puppetlabs/puppetlabs-apache.git'
       ref: '2.3.0'
     concat:
       repo: 'https://github.com/puppetlabs/puppetlabs-concat.git'
       ref: '2.2.1'
-    ip:
-      repo: 'https://github.com/thrnio/puppet-ip.git'
-      ref: 'v1.0.1'
   symlinks:
     yum: "#{source_dir}"

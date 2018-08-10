@@ -42,9 +42,8 @@ fi
 puppet resource file /etc/puppetlabs/code/environments/production/modules/yum ensure=link target=/vagrant
 
 # setup module dependencies
-puppet module install puppetlabs/stdlib --version 4.24.0
+puppet module install puppetlabs/stdlib --version 4.25.0
 puppet module install puppetlabs/apache --version 2.3.0
-puppet module install thrnio/ip --version 1.0.1
 
 fqdn=$(hostname -f)
 if [[ $fqdn == 'yum-server.example.com' ]]; then

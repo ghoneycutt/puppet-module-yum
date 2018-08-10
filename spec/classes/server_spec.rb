@@ -114,11 +114,11 @@ describe 'yum::server' do
     let(:mandatory_params) { {} }
 
     validations = {
-      'IP::Address::NoSubnet' => {
+      'IP::Address::Nosubnet' => {
         :name    => %w(http_listen_ip),
         :valid   => %w(127.0.0.1 194.232.104.150 3ffe:0505:0002::),
         :invalid => ['127.0.0.256', '23.43.9.22/64', %w(array), { 'ha' => 'sh' }, false],
-        :message => 'expects a( match for Variant\[| match for |n )IP::Address', # Puppet (4.x|5.0 & 5.1|5.x)
+        :message => 'expects a( match for Variant\[| match for |n )IP::Address|value, got', # Puppet (4.x|5.0 & 5.1|5.x)
       },
       'Stdlib::Absolutepath' => {
         :name    => %w(docroot),

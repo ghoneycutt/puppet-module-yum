@@ -29,13 +29,13 @@
 #   in Apache vhost configuration.
 #
 class yum::server (
-  String $contact_email                 = 'root@localhost',
-  Stdlib::Absolutepath $docroot         = '/opt/repos',
-  String $gpg_keys_path                 = 'keys', # gpg_keys_path is relative to $docroot, ${docroot}/${gpg_keys_path}
-  String $gpg_user_name                 = 'Root',
-  String $servername                    = 'yum',
-  Array[String, 1]  $serveraliases      = [ $::fqdn, $::hostname ],
-  IP::Address::NoSubnet $http_listen_ip = $::ipaddress,
+  String $contact_email                         = 'root@localhost',
+  Stdlib::Absolutepath $docroot                 = '/opt/repos',
+  String $gpg_keys_path                         = 'keys', # gpg_keys_path is relative to $docroot, ${docroot}/${gpg_keys_path}
+  String $gpg_user_name                         = 'Root',
+  String $servername                            = 'yum',
+  Array[String, 1]  $serveraliases              = [ $::fqdn, $::hostname ],
+  Stdlib::IP::Address::Nosubnet $http_listen_ip = $::ipaddress,
 ) {
 
   include ::apache
