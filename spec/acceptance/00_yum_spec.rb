@@ -17,11 +17,13 @@ describe 'yum class' do
 
       context 'should contain resources' do
 
-        pp = <<-EOS
-        include ::yum
-        EOS
+        it 'should work with no errors' do
+          pp = <<-EOS
+          include ::yum
+          EOS
 
-        apply_manifest(pp, :catch_failures => true)
+          apply_manifest(pp, :catch_failures => true)
+        end
 
         describe package('yum') do
           it { is_expected.to be_installed }
