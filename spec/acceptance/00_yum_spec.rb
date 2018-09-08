@@ -30,37 +30,27 @@ describe 'yum class' do
         end
 
         yum_conf = <<-END.gsub(/^\s+\|/, '')
+          |# This file is being maintained by Puppet.
+          |# DO NOT EDIT
+          |
           |[main]
           |cachedir=/var/cache/yum/$basearch/$releasever
-          |keepcache=0
+          |keepcache=1
           |debuglevel=2
           |logfile=/var/log/yum.log
+          |tolerant=0
           |exactarch=1
           |obsoletes=1
-          |gpgcheck=1
-          |plugins=1
-          |installonly_limit=5
-          |bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
-          |distroverpkg=centos-release
+          |gpgcheck=0
+          |plugins=0
           |
-          |
-          |#  This is the default, if you make this bigger yum won't see if the metadata
-          |# is newer on the remote and so you'll "gain" the bandwidth of not having to
-          |# download the new metadata and "pay" for it by yum not having correct
-          |# information.
-          |#  It is esp. important, to have correct metadata, for distributions like
-          |# Fedora which don't keep old packages around. If you don't like this checking
-          |# interupting your command line usage, it's much better to have something
-          |# manually check the metadata once an hour (yum-updatesd will do this).
-          |# metadata_expire=90m
-          |
-          |# PUT YOUR REPOS HERE OR IN separate files named file.repo
-          |# in /etc/yum.repos.d
+          |# Note: yum-RHN-plugin doesn't honor this.
+          |metadata_expire=6h
         END
 
         describe file('/etc/yum.conf') do
           it { is_expected.to be_file }
-          it { is_expected.to be_mode 0644 }
+          it { is_expected.to be_mode 644 }
           it { is_expected.to be_owned_by 'root' }
           it { is_expected.to be_grouped_into 'root' }
           its(:content) { is_expected.to match yum_conf }
@@ -68,14 +58,9 @@ describe 'yum class' do
 
         describe file('/etc/yum.repos.d') do
           it { is_expected.to be_directory }
-          it { is_expected.to be_mode 0755 }
+          it { is_expected.to be_mode 755 }
           it { is_expected.to be_owned_by 'root' }
           it { is_expected.to be_grouped_into 'root' }
-        end
-
-        describe service('yum') do
-          it { is_expected.to be_running }
-          it { is_expected.to be_enabled }
         end
       end
     end
