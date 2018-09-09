@@ -200,30 +200,37 @@ define yum::repo (
     Boolean => bool2str($enabled, '1', '0'),
     default => undef,
   }
+
   $enablegroups_string = $enablegroups ? {
     Boolean => bool2str($enablegroups, '1', '0'),
     default => undef,
   }
+
   $gpgcheck_string = $gpgcheck ? {
     Boolean => bool2str($gpgcheck, '1', '0'),
     default => undef,
   }
+
   $keepalive_string = $keepalive ? {
     Boolean => bool2str($keepalive, '1', '0'),
     default => undef,
   }
+
   $repo_gpgcheck_string = $repo_gpgcheck ? {
     Boolean => bool2str($repo_gpgcheck, '1', '0'),
     default => undef,
   }
+
   $skip_if_unavailable_string = $skip_if_unavailable ? {
     Boolean => bool2str($skip_if_unavailable, '1', '0'),
     default => undef,
   }
+
   $ssl_check_cert_permissions_string = $ssl_check_cert_permissions ? {
     Boolean => bool2str($ssl_check_cert_permissions, '1', '0'),
     default => undef,
   }
+
   $sslverify_string = $sslverify ? {
     Boolean => bool2str($sslverify, '1', '0'),
     default => undef,
@@ -245,5 +252,4 @@ define yum::repo (
     content => template('yum/repo.erb'),
     notify  => Exec['clean_yum_cache'],
   }
-
 }

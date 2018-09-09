@@ -576,98 +576,122 @@ class yum (
     Boolean => bool2str($alwaysprompt, '1', '0'),
     default => undef,
   }
+
   $assumeyes_string = $assumeyes ? {
     Boolean => bool2str($assumeyes, '1', '0'),
     default => undef,
   }
+
   $clean_requirements_on_remove_string = $clean_requirements_on_remove ? {
     Boolean => bool2str($clean_requirements_on_remove, '1', '0'),
     default => undef,
   }
+
   $color_string = $color ? {
     Boolean => bool2str($color, '1', '0'),
     default => undef,
   }
+
   $diskspacecheck_string = $diskspacecheck ? {
     Boolean => bool2str($diskspacecheck, '1', '0'),
     default => undef,
   }
+
   $enable_group_conditionals_string = $enable_group_conditionals ? {
     Boolean => bool2str($enable_group_conditionals, '1', '0'),
     default => undef,
   }
+
   $exactarch_string = $exactarch ? {
     Boolean => bool2str($exactarch, '1', '0'),
     default => undef,
   }
+
   $gpgcheck_string = $gpgcheck ? {
     Boolean => bool2str($gpgcheck, '1', '0'),
     default => undef,
   }
+
   $groupremove_leaf_only_string = $groupremove_leaf_only ? {
     Boolean => bool2str($groupremove_leaf_only, '1', '0'),
     default => undef,
   }
+
   $history_record_string = $history_record ? {
     Boolean => bool2str($history_record, '1', '0'),
     default => undef,
   }
+
   $keepalive_string = $keepalive ? {
     Boolean => bool2str($keepalive, '1', '0'),
     default => undef,
   }
+
   $keepcache_string = $keepcache ? {
     Boolean => bool2str($keepcache, '1', '0'),
     default => undef,
   }
+
   $localpkg_gpgcheck_string = $localpkg_gpgcheck ? {
     Boolean => bool2str($localpkg_gpgcheck, '1', '0'),
     default => undef,
   }
+
   $obsoletes_string = $obsoletes ? {
     Boolean => bool2str($obsoletes, '1', '0'),
     default => undef,
   }
+
   $overwrite_groups_string = $overwrite_groups ? {
     Boolean => bool2str($overwrite_groups, '1', '0'),
     default => undef,
   }
+
   $plugins_string = $plugins ? {
     Boolean => bool2str($plugins, '1', '0'),
     default => undef,
   }
+
   $protected_multilib_string = $protected_multilib ? {
     Boolean => bool2str($protected_multilib, '1', '0'),
     default => undef,
   }
+
   $repo_gpgcheck_string = $repo_gpgcheck ? {
     Boolean => bool2str($repo_gpgcheck, '1', '0'),
     default => undef,
   }
+
   $reset_nice_string = $reset_nice ? {
     Boolean => bool2str($reset_nice, '1', '0'),
     default => undef,
   }
+
   $showdupesfromrepos_string = $showdupesfromrepos ? {
     Boolean => bool2str($showdupesfromrepos, '1', '0'),
     default => undef,
   }
+
   $skip_broken_string = $skip_broken ? {
     Boolean => bool2str($skip_broken, '1', '0'),
     default => undef,
   }
+
   $ssl_check_cert_permissions_string = $ssl_check_cert_permissions ? {
     Boolean => bool2str($ssl_check_cert_permissions, '1', '0'),
     default => undef,
   }
+
   $sslverify_string = $sslverify ? {
     Boolean => bool2str($sslverify, '1', '0'),
     default => undef,
   }
+
   $tolerant_string = $tolerant ? {
     Boolean => bool2str($tolerant, '1', '0'),
     default => undef,
   }
+
   # </convert booleans to string values>
 
   $distroverpkg_string = $distroverpkg ? {
