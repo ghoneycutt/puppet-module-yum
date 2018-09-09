@@ -1,3 +1,6 @@
+RSpec.configure do |config|
+  config.mock_with :rspec
+end
 require 'puppetlabs_spec_helper/module_spec_helper'
 
 RSpec.configure do |config|
@@ -11,6 +14,14 @@ RSpec.configure do |config|
     Facter.clear_messages
   end
   config.default_facts = {
-    :environment => 'rp_env',
+    :environment     => 'testing',
+    :operatingsystem => 'RedHat',
+    :osfamily        => 'RedHat', # mandatory for Puppet service provider
+    :os => {
+      :release => {
+        :major  => '5',
+        :minor  => '10',
+      }
+    }
   }
 end
