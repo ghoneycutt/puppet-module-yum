@@ -16,15 +16,6 @@ describe 'yum::updatesd class' do
       end
 
       context 'should contain resources' do
-
-        it 'should work with no errors' do
-          pp = <<-EOS
-          include ::yum::updatesd
-          EOS
-
-          apply_manifest(pp, :catch_failures => true)
-        end
-
         describe package('yum-updatesd') do
           it { is_expected.to_not be_installed }
         end
