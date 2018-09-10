@@ -1,0 +1,2690 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: yum
+  
+    &mdash; Documentation by YARD 0.9.16
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::yum";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (y)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">yum</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: yum</h1>
+<div class="box_info">
+  
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/init.pp
+    </dd>
+  </dl>
+</div>
+
+  <h2>Summary</h2>
+  Manage yum (client, server, and key management)
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+  </div>
+</div>
+
+
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring the class</p>
+</div></p>
+      
+      <pre class="example code"><code>include ::yum</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/etc/yum.conf&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Set the path to the yum.conf file, representing a fully qualified name.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_owner</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Set owner access to the yum.conf file, representing a user.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Set group access to the yum.conf file, representing a group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_mode</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Filemode</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;0644&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Set access permissions for the yum.conf file, in numeric notation.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_repos</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Trigger if files in /etc/yum.repos.d should get managed by Puppet
+exclusivly. If set to true, all unmanged files in /etc/yum.repos.d (and
+below) will get removed.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repos_d_owner</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Set owner access to the /etc/yum.repos.d directory, representing a user.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repos_d_group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Set group access to the /etc/yum.repos.d directory, representing a group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repos_d_mode</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Filemode</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;0755&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Set access permissions for the /etc/yum.repos.d directory, in numeric
+notation.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repos_hiera_merge</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Trigger to merge all found instances of yum::repos in Hiera. This is useful
+for specifying repositories at different levels of the hierarchy and having
+them all included in the catalog.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rpm_gpg_keys_hiera_merge</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Trigger to merge all found instances of yum::rpm_gpg_keys in Hiera. This is
+useful for specifying repositories at different levels of the hierarchy and
+having them all included in the catalog.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repos</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of repos to pass to yum::repo. See yum::repo for more details.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rpm_gpg_keys</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of repos to pass to yum::rpm_gpg_keys. See yum::rpm_gpg_key for more
+details.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>exclude_hiera_merge</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Trigger to merge all found instances of yum::exclude in Hiera. This is
+useful for specifying repositories at different levels of the hierarchy and
+having them all included in the catalog.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_list_available_downgrade</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_list_available_downgrade setting in the main section of yum.conf.
+Valid values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_list_available_install</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_list_available_install setting in the main section of yum.conf. Valid
+values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_list_available_reinstall</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_list_available_reinstall setting in the main section of yum.conf.
+Valid values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_list_available_upgrade</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_list_available_upgrade setting in the main section of yum.conf. Valid
+values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_list_installed_extra</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_list_installed_extra setting in the main section of yum.conf. Valid
+values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_list_installed_newer</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_list_installed_newer setting in the main section of yum.conf. Valid
+values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_list_installed_older</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_list_installed_older setting in the main section of yum.conf. Valid
+values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_list_installed_reinstall</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_list_installed_reinstall setting in the main section of yum.conf.
+Valid values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_search_match</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_search_match setting in the main section of yum.conf. Valid values
+are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_update_installed</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_update_installed setting in the main section of yum.conf. Valid
+values are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_update_local</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_update_local setting in the main section of yum.conf. Valid values
+are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color_update_remote</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color_update_remote setting in the main section of yum.conf. Valid values
+are: &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;,
+&#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;,
+&#39;bg:white&#39;,  &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;,
+&#39;dim&#39;, &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;,
+&#39;fg:green&#39;, &#39;fg:magenta&#39;,  &#39;fg:red&#39;,
+&#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;,
+&#39;underline&#39;, When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>commands</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>commands setting in the main section of yum.conf. When empty, it will not
+be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>exclude</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>exclude setting in the main section of yum.conf. When empty, it will not be
+present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>group_package_types</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>group_package_types setting in the main section of yum.conf. Valid values
+are: , &#39;default&#39;, &#39;mandatory&#39;, and &#39;optional&#39;. When
+empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>history_record_packages</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>history_record_packages setting in the main section of yum.conf. When
+empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>installonlypkgs</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>installonlypkgs setting in the main section of yum.conf. When empty, it
+will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>kernelpkgnames</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>kernelpkgnames setting in the main section of yum.conf. When empty, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>protected_packages</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>protected_packages setting in the main section of yum.conf. When empty, it
+will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tsflags</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>tsflags setting in the main section of yum.conf. Valid values are: ,
+&#39;justdb&#39;, &#39;nocontexts&#39;, &#39;nodocs&#39;,
+&#39;noscripts&#39;, &#39;notriggers&#39;, &#39;repackage&#39;, and
+&#39;test&#39; When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>reposdir</span>
+      
+      
+        <span class='type'>(<tt>Array[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>reposdir setting in the main section of yum.conf. Takes a list of one or
+more absolute paths. When empty, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>distroverpkg</span>
+      
+      
+        <span class='type'>(<tt>Optional[Variant[Boolean,String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>distroverpkg setting in the main section of yum.conf. Will use the format
+distroverpk=$::operatingsystem-release (downcase) if true. Alternatively
+you can also specify a free string text instead. When undef, it will not be
+present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>alwaysprompt</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>alwaysprompt setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>assumeyes</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>assumeyes setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>clean_requirements_on_remove</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>clean_requirements_on_remove setting in the main section of yum.conf. True
+enables, false disables this feature. When clean, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>color</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color setting in the main section of yum.conf. True enables, false disables
+this feature. When clean, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>diskspacecheck</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>diskspacecheck setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>enable_group_conditionals</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>enable_group_conditionals setting in the main section of yum.conf. True
+enables, false disables this feature. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>exactarch</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>exactarch setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>gpgcheck</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>gpgcheck setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>groupremove_leaf_only</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>groupremove_leaf_only setting in the main section of yum.conf. True
+enables, false disables this feature. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>history_record</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>history_record setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keepalive</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>keepalive setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keepcache</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>keepcache setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>localpkg_gpgcheck</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>localpkg_gpgcheck setting in the main section of yum.conf. True enables,
+false disables this feature. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>obsoletes</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>obsoletes setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>overwrite_groups</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>overwrite_groups setting in the main section of yum.conf. True enables,
+false disables this feature. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plugins</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>plugins setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>protected_multilib</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>protected_multilib setting in the main section of yum.conf. True enables,
+false disables this feature. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repo_gpgcheck</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>repo_gpgcheck setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>reset_nice</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>reset_nice setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>showdupesfromrepos</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>showdupesfromrepos setting in the main section of yum.conf. True enables,
+false disables this feature. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>skip_broken</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>skip_broken setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_check_cert_permissions</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>ssl_check_cert_permissions setting in the main section of yum.conf. True
+enables, false disables this feature. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>sslverify</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sslverify setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tolerant</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>tolerant setting in the main section of yum.conf. True enables, false
+disables this feature. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>debuglevel</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0, 10]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>2</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>debuglevel setting in the main section of yum.conf. Takes any integer
+between 0 and 10. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>errorlevel</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0, 10]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>errorlevel setting in the main section of yum.conf. Takes any integer
+between 0 and 10. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bandwidth</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>bandwidth setting in the main section of yum.conf. Takes any integer. When
+undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>installonly_limit</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>installonly_limit setting in the main section of yum.conf. Takes any
+integer. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>mirrorlist_expire</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mirrorlist_expire setting in the main section of yum.conf. Takes any
+integer. When undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>recent</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>recent setting in the main section of yum.conf. Takes any integer. When
+undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>retries</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>retries setting in the main section of yum.conf. Takes any integer. When
+undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>timeout</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>timeout setting in the main section of yum.conf. Takes any integer. When
+undef, it will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cachedir</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/var/cache/yum/$basearch/$releasever&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>cachedir setting in the main section of yum.conf. When undef, it will not
+be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>installroot</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>installroot setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>logfile</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/var/log/yum.log&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>logfile setting in the main section of yum.conf. When undef, it will not be
+present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>persistdir</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>persistdir setting in the main section of yum.conf. When undef, it will not
+be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pluginconfpath</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>pluginconfpath setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pluginpath</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>pluginpath setting in the main section of yum.conf. When undef, it will not
+be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>sslcacert</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sslcacert setting in the main section of yum.conf. When undef, it will not
+be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>sslclientcert</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sslclientcert setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>sslclientkey</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sslclientkey setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bugtracker_url</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Httpurl]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>bugtracker_url setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>proxy</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Httpurl]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>proxy setting in the main section of yum.conf. When undef, it will not be
+present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>password</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>password setting in the main section of yum.conf. When undef, it will not
+be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>proxy_password</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>proxy_password setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>proxy_username</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>proxy_username setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>syslog_device</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>syslog_device setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>syslog_facility</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>syslog_facility setting in the main section of yum.conf. When undef, it
+will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>syslog_ident</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>syslog_ident setting in the main section of yum.conf. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>username</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>username setting in the main section of yum.conf. When undef, it will not
+be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>throttle</span>
+      
+      
+        <span class='type'>(<tt>Optional[Variant[Integer,Float,Pattern[/^\d+(.\d+|)(k|M|G)*$/]]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>throttle setting in the main section of yum.conf. Rate in bytes/sec, allows
+a suffix of k, M, or G to be appended. When undef, it will not be present
+in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>metadata_expire</span>
+      
+      
+        <span class='type'>(<tt>Optional[Variant[Integer,Pattern[/^(\d+(m|h|d)*|never|)$/]]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;6h&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>metadata_expire setting in the main section of yum.conf. Time in seconds,
+allows a suffix of m, h, or d to specify minutes, hours, or days.
+Alternatively you can also specify the word never instead. When undef, it
+will not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>history_list_view</span>
+      
+      
+        <span class='type'>(<tt>Optional[Enum['cmds','commands','default','single-user-commands','users']]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>history_list_view setting in the main section of yum.conf. Valid values
+are: &#39;cmds&#39;, &#39;commands&#39;, &#39;default&#39;,
+&#39;single-user-commands&#39;, or &#39;users&#39;. When undef, it will not
+be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>mdpolicy</span>
+      
+      
+        <span class='type'>(<tt>Optional[Enum['group:all','group:main','group:primary','group:small','instant']]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mdpolicy setting in the main section of yum.conf. Valid values are:
+&#39;group:all&#39;, &#39;group:main&#39;, &#39;group:primary&#39;,
+&#39;group:small&#39;, or &#39;instant&#39;. When undef, it will not be
+present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rpmverbosity</span>
+      
+      
+        <span class='type'>(<tt>Optional[Enum['critical','debug','emergency','error','info','warn']]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>rpmverbosity setting in the main section of yum.conf. Valid values are:
+&#39;critical&#39;, &#39;debug&#39;, &#39;emergency&#39;, &#39;error&#39;,
+&#39;info&#39;, or &#39;warn&#39;. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>http_caching</span>
+      
+      
+        <span class='type'>(<tt>Optional[Enum['all','none','packages']]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>http_caching setting in the main section of yum.conf. Valid values are:
+&#39;all&#39;, &#39;none&#39;, or &#39;packages&#39;. When undef, it will
+not be present in yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>multilib_policy</span>
+      
+      
+        <span class='type'>(<tt>Optional[Enum['all','best']]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>multilib_policy setting in the main section of yum.conf. Valid values are:
+&#39;all&#39; or &#39;best&#39;. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pkgpolicy</span>
+      
+      
+        <span class='type'>(<tt>Optional[Enum['last', 'newest']]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>pkgpolicy setting in the main section of yum.conf. Valid values are:
+&#39;last&#39; or &#39;newest&#39;. When undef, it will not be present in
+yum.conf.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 416</span>
+
+class yum (
+  Boolean $exclude_hiera_merge                    = false,
+  Boolean $manage_repos                           = false,
+  Boolean $repos_hiera_merge                      = true,
+  Boolean $rpm_gpg_keys_hiera_merge               = true,
+  Stdlib::Absolutepath $config_path               = &#39;/etc/yum.conf&#39;,
+  Stdlib::Filemode $config_mode                   = &#39;0644&#39;,
+  Stdlib::Filemode $repos_d_mode                  = &#39;0755&#39;,
+  String $config_group                            = &#39;root&#39;,
+  String $config_owner                            = &#39;root&#39;,
+  String $repos_d_group                           = &#39;root&#39;,
+  String $repos_d_owner                           = &#39;root&#39;,
+  Optional[Hash] $repos                           = undef,
+  Optional[Hash] $rpm_gpg_keys                    = undef,
+  # parameters for yum.conf
+  Array $color_list_available_downgrade           = [],
+  Array $color_list_available_install             = [],
+  Array $color_list_available_reinstall           = [],
+  Array $color_list_available_upgrade             = [],
+  Array $color_list_installed_extra               = [],
+  Array $color_list_installed_newer               = [],
+  Array $color_list_installed_older               = [],
+  Array $color_list_installed_reinstall           = [],
+  Array $color_search_match                       = [],
+  Array $color_update_installed                   = [],
+  Array $color_update_local                       = [],
+  Array $color_update_remote                      = [],
+  Array $commands                                 = [],
+  Array $exclude                                  = [],
+  Array $group_package_types                      = [],
+  Array $history_record_packages                  = [],
+  Array $installonlypkgs                          = [],
+  Array $kernelpkgnames                           = [],
+  Array $protected_packages                       = [],
+  Array $tsflags                                  = [],
+  Array[Stdlib::Absolutepath] $reposdir           = [],
+  Optional[Variant[Boolean,String]] $distroverpkg = undef,
+  Optional[Boolean] $alwaysprompt                 = undef,
+  Optional[Boolean] $assumeyes                    = undef,
+  Optional[Boolean] $clean_requirements_on_remove = undef,
+  Optional[Boolean] $color                        = undef,
+  Optional[Boolean] $diskspacecheck               = undef,
+  Optional[Boolean] $enable_group_conditionals    = undef,
+  Optional[Boolean] $exactarch                    = true,
+  Optional[Boolean] $gpgcheck                     = false,
+  Optional[Boolean] $groupremove_leaf_only        = undef,
+  Optional[Boolean] $history_record               = undef,
+  Optional[Boolean] $keepalive                    = undef,
+  Optional[Boolean] $keepcache                    = true,
+  Optional[Boolean] $localpkg_gpgcheck            = undef,
+  Optional[Boolean] $obsoletes                    = true,
+  Optional[Boolean] $overwrite_groups             = undef,
+  Optional[Boolean] $plugins                      = false,
+  Optional[Boolean] $protected_multilib           = undef,
+  Optional[Boolean] $repo_gpgcheck                = undef,
+  Optional[Boolean] $reset_nice                   = undef,
+  Optional[Boolean] $showdupesfromrepos           = undef,
+  Optional[Boolean] $skip_broken                  = undef,
+  Optional[Boolean] $ssl_check_cert_permissions   = undef,
+  Optional[Boolean] $sslverify                    = undef,
+  Optional[Boolean] $tolerant                     = false,
+  Optional[Integer[0, 10]] $debuglevel            = 2,
+  Optional[Integer[0, 10]] $errorlevel            = undef,
+  Optional[Integer] $bandwidth                    = undef,
+  Optional[Integer] $installonly_limit            = undef,
+  Optional[Integer] $mirrorlist_expire            = undef,
+  Optional[Integer] $recent                       = undef,
+  Optional[Integer] $retries                      = undef,
+  Optional[Integer] $timeout                      = undef,
+  Optional[Stdlib::Absolutepath] $cachedir        = &#39;/var/cache/yum/$basearch/$releasever&#39;,
+  Optional[Stdlib::Absolutepath] $installroot     = undef,
+  Optional[Stdlib::Absolutepath] $logfile         = &#39;/var/log/yum.log&#39;,
+  Optional[Stdlib::Absolutepath] $persistdir      = undef,
+  Optional[Stdlib::Absolutepath] $pluginconfpath  = undef,
+  Optional[Stdlib::Absolutepath] $pluginpath      = undef,
+  Optional[Stdlib::Absolutepath] $sslcacert       = undef,
+  Optional[Stdlib::Absolutepath] $sslclientcert   = undef,
+  Optional[Stdlib::Absolutepath] $sslclientkey    = undef,
+  Optional[Stdlib::Httpurl] $bugtracker_url       = undef,
+  Optional[Stdlib::Httpurl] $proxy                = undef,
+  Optional[String] $password                      = undef,
+  Optional[String] $proxy_password                = undef,
+  Optional[String] $proxy_username                = undef,
+  Optional[String] $syslog_device                 = undef,
+  Optional[String] $syslog_facility               = undef,
+  Optional[String] $syslog_ident                  = undef,
+  Optional[String] $username                      = undef,
+  Optional[Variant[Integer,Float,Pattern[/^\d+(.\d+|)(k|M|G)*$/]]] $throttle                    = undef,
+  Optional[Variant[Integer,Pattern[/^(\d+(m|h|d)*|never|)$/]]] $metadata_expire                 = &#39;6h&#39;,
+  Optional[Enum[&#39;cmds&#39;,&#39;commands&#39;,&#39;default&#39;,&#39;single-user-commands&#39;,&#39;users&#39;]] $history_list_view = undef,
+  Optional[Enum[&#39;group:all&#39;,&#39;group:main&#39;,&#39;group:primary&#39;,&#39;group:small&#39;,&#39;instant&#39;]] $mdpolicy    = undef,
+  Optional[Enum[&#39;critical&#39;,&#39;debug&#39;,&#39;emergency&#39;,&#39;error&#39;,&#39;info&#39;,&#39;warn&#39;]] $rpmverbosity            = undef,
+  Optional[Enum[&#39;all&#39;,&#39;none&#39;,&#39;packages&#39;]] $http_caching                                         = undef,
+  Optional[Enum[&#39;all&#39;,&#39;best&#39;]] $multilib_policy                                                 = undef,
+  Optional[Enum[&#39;last&#39;, &#39;newest&#39;]] $pkgpolicy                                                   = undef,
+) {
+
+  $_valid_colors = [
+    &#39;bg:black&#39;, &#39;bg:blue&#39;, &#39;bg:cyan&#39;, &#39;bg:green&#39;, &#39;bg:magenta&#39;, &#39;bg:red&#39;, &#39;bg:white&#39;, &#39;bg:yellow&#39;, &#39;blink&#39;, &#39;bold&#39;, &#39;dim&#39;,
+    &#39;fg:black&#39;, &#39;fg:blue&#39;, &#39;fg:cyan&#39;, &#39;fg:green&#39;, &#39;fg:magenta&#39;, &#39;fg:red&#39;, &#39;fg:white&#39;, &#39;fg:yellow&#39;, &#39;reverse&#39;, &#39;underline&#39;,
+  ]
+
+  if $color_list_available_downgrade - $_valid_colors != [] {
+    fail(&quot;yum::color_list_available_downgrade contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_list_available_install - $_valid_colors != [] {
+    fail(&quot;yum::color_list_available_install contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_list_available_reinstall - $_valid_colors != [] {
+    fail(&quot;yum::color_list_available_reinstall contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_list_available_upgrade - $_valid_colors != [] {
+    fail(&quot;yum::color_list_available_upgrade contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_list_installed_extra - $_valid_colors != [] {
+    fail(&quot;yum::color_list_installed_extra contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_list_installed_newer - $_valid_colors != [] {
+    fail(&quot;yum::color_list_installed_newer contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_list_installed_older - $_valid_colors != [] {
+    fail(&quot;yum::color_list_installed_older contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_list_installed_reinstall - $_valid_colors != [] {
+    fail(&quot;yum::color_list_installed_reinstall contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_search_match - $_valid_colors != [] {
+    fail(&quot;yum::color_search_match contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_update_installed - $_valid_colors != [] {
+    fail(&quot;yum::color_update_installed contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_update_local - $_valid_colors != [] {
+    fail(&quot;yum::color_update_local contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $color_update_remote - $_valid_colors != [] {
+    fail(&quot;yum::color_update_remote contains an invalid value. Valid values are &lt;${_valid_colors}&gt;.&quot;)
+  }
+
+  if $group_package_types - [&#39;optional&#39;, &#39;default&#39;, &#39;mandatory&#39;] != [] {
+    fail(&#39;yum::group_package_types contains an invalid value. Valid values are &lt;optional&gt;, &lt;default&gt;, and &lt;mandatory&gt;.&#39;)
+  }
+
+  if $tsflags - [&#39;justdb&#39;, &#39;nocontexts&#39;, &#39;nodocs&#39;, &#39;noscripts&#39;, &#39;notriggers&#39;, &#39;repackage&#39;, &#39;test&#39;] != [] {
+    fail(&#39;yum::tsflags contains an invalid value. Valid values are &lt;justdb&gt;, &lt;nocontexts&gt;, &lt;nodocs&gt;, &lt;noscripts&gt;, &lt;notriggers&gt;, &lt;repackage&gt;, and &lt;test&gt;.&#39;)
+  }
+
+  # &lt;convert booleans to string values&gt;
+  $alwaysprompt_string = $alwaysprompt ? {
+    Boolean =&gt; bool2str($alwaysprompt, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $assumeyes_string = $assumeyes ? {
+    Boolean =&gt; bool2str($assumeyes, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $clean_requirements_on_remove_string = $clean_requirements_on_remove ? {
+    Boolean =&gt; bool2str($clean_requirements_on_remove, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $color_string = $color ? {
+    Boolean =&gt; bool2str($color, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $diskspacecheck_string = $diskspacecheck ? {
+    Boolean =&gt; bool2str($diskspacecheck, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $enable_group_conditionals_string = $enable_group_conditionals ? {
+    Boolean =&gt; bool2str($enable_group_conditionals, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $exactarch_string = $exactarch ? {
+    Boolean =&gt; bool2str($exactarch, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $gpgcheck_string = $gpgcheck ? {
+    Boolean =&gt; bool2str($gpgcheck, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $groupremove_leaf_only_string = $groupremove_leaf_only ? {
+    Boolean =&gt; bool2str($groupremove_leaf_only, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $history_record_string = $history_record ? {
+    Boolean =&gt; bool2str($history_record, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $keepalive_string = $keepalive ? {
+    Boolean =&gt; bool2str($keepalive, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $keepcache_string = $keepcache ? {
+    Boolean =&gt; bool2str($keepcache, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $localpkg_gpgcheck_string = $localpkg_gpgcheck ? {
+    Boolean =&gt; bool2str($localpkg_gpgcheck, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $obsoletes_string = $obsoletes ? {
+    Boolean =&gt; bool2str($obsoletes, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $overwrite_groups_string = $overwrite_groups ? {
+    Boolean =&gt; bool2str($overwrite_groups, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $plugins_string = $plugins ? {
+    Boolean =&gt; bool2str($plugins, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $protected_multilib_string = $protected_multilib ? {
+    Boolean =&gt; bool2str($protected_multilib, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $repo_gpgcheck_string = $repo_gpgcheck ? {
+    Boolean =&gt; bool2str($repo_gpgcheck, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $reset_nice_string = $reset_nice ? {
+    Boolean =&gt; bool2str($reset_nice, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $showdupesfromrepos_string = $showdupesfromrepos ? {
+    Boolean =&gt; bool2str($showdupesfromrepos, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $skip_broken_string = $skip_broken ? {
+    Boolean =&gt; bool2str($skip_broken, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $ssl_check_cert_permissions_string = $ssl_check_cert_permissions ? {
+    Boolean =&gt; bool2str($ssl_check_cert_permissions, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $sslverify_string = $sslverify ? {
+    Boolean =&gt; bool2str($sslverify, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  $tolerant_string = $tolerant ? {
+    Boolean =&gt; bool2str($tolerant, &#39;1&#39;, &#39;0&#39;),
+    default =&gt; undef,
+  }
+
+  # &lt;/convert booleans to string values&gt;
+
+  $distroverpkg_string = $distroverpkg ? {
+    true    =&gt; &quot;${::operatingsystem.downcase}-release&quot;,
+    String  =&gt; $distroverpkg,
+    default =&gt; undef,
+  }
+
+  case $exclude_hiera_merge {
+    true:    { $exclude_real = lookup(&#39;yum::exclude&#39;, Array[String], unique ) }
+    default: { $exclude_real = $exclude }
+  }
+
+  if $repos != undef {
+    case $repos_hiera_merge {
+      true:    { $repos_real = lookup(&#39;yum::repos&#39;, Hash, hash ) }
+      default: { $repos_real = $repos }
+    }
+
+    $repos_real.each |$key,$value| {
+      ::yum::repo { $key:
+        * =&gt; $value,
+      }
+    }
+  }
+
+  if $rpm_gpg_keys != undef {
+    case $rpm_gpg_keys_hiera_merge {
+      true:    { $rpm_gpg_keys_real = lookup(&#39;yum::rpm_gpg_keys&#39;, Hash, hash ) }
+      default: { $rpm_gpg_keys_real = $rpm_gpg_keys }
+    }
+
+    $rpm_gpg_keys_real.each |$key,$value| {
+      ::yum::rpm_gpg_key { $key:
+        * =&gt; $value,
+      }
+    }
+  }
+
+  include ::yum::updatesd
+
+  package { &#39;yum&#39;:
+    ensure =&gt; installed,
+  }
+
+  file { &#39;yum_config&#39;:
+    ensure  =&gt; file,
+    path    =&gt; $config_path,
+    content =&gt; template(&#39;yum/yum.conf.erb&#39;),
+    owner   =&gt; $config_owner,
+    group   =&gt; $config_group,
+    mode    =&gt; $config_mode,
+    require =&gt; Package[&#39;yum&#39;],
+  }
+
+  file { &#39;/etc/yum.repos.d&#39;:
+    ensure  =&gt; directory,
+    purge   =&gt; $manage_repos,
+    recurse =&gt; $manage_repos,
+    owner   =&gt; $repos_d_owner,
+    group   =&gt; $repos_d_group,
+    mode    =&gt; $repos_d_mode,
+    require =&gt; File[&#39;yum_config&#39;],
+    notify  =&gt; Exec[&#39;clean_yum_cache&#39;],
+  }
+
+  exec { &#39;clean_yum_cache&#39;:
+    command     =&gt; &#39;yum clean all&#39;,
+    path        =&gt; &#39;/bin:/usr/bin:/sbin:/usr/sbin&#39;,
+    refreshonly =&gt; true,
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>
