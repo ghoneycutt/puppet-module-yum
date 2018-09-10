@@ -3,16 +3,13 @@
 #### Table of Contents
 
 1. [Module Description](#module-description)
-2. [Compatibility](#compatibility)
-3. [Examples](#examples)
-4. [Class Descriptions](#class-descriptions)
-    * [yum](#class-yum)
-    * [yum::server](#class-yumserver)
-    * [yum::updatesd](#class-yumupdatesd)
-5. [Define Descriptions](#define-descriptions)
-    * [yum::repo](#defined-type-yumrepo)
-    * [yum::rpm_gpg_key](#defined-type-yumrpm_gpg_key)
-
+1. [Setup - The basics of getting started with yum](#setup)
+    * [What yum affects](#what-yum-affects)
+    * [Beginning with yum](#beginning-with-yum)
+1. [Usage - Configuration options and additional functionality](#usage)
+1. [Limitations - OS compatibility, etc.](#limitations)
+1. [Examples](#examples)
+1. [Development - Guide for contributing to the module](#development)
 
 # Module description
 
@@ -26,7 +23,33 @@ repositories.
 This module has the ability to create a yum server to serve up yum
 repositories to agents using Apache.
 
-# Compatibility
+## Setup
+
+### What yum affects
+
+See the description.
+
+### Beginning with yum
+
+Declare the main `::yum` class. See profile examples below.
+
+## Usage
+
+See examples below.
+
+### Minimum usage
+
+```puppet
+include '::yum'
+```
+
+### Parameters to configure classes and defined types.
+
+Please consult the `REFERENCE.md` file for all parameters or the
+puppet-strings generated documentation at
+[http://ghoneycutt.github.io/puppet-module-yum/](http://ghoneycutt.github.io/puppet-module-yum/).
+
+# Limitations
 
 This module is built for use with Puppet v5 on the following platforms
 and supports the Ruby version associated with each puppet agent release.
@@ -34,6 +57,11 @@ See `.travis.yml` for an exact matrix.
 
  * EL 6
  * EL 7
+
+## Development
+
+See `CONTRIBUTING.md` for information related to the development of this
+module.
 
 # Examples
 
