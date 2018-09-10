@@ -1,12 +1,17 @@
 # Change Log
 
-## [Unreleased](https://github.com/ghoneycutt/puppet-module-yum/tree/HEAD)
+## [v2.0.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v2.0.0)
 
-[Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v1.4.0...HEAD)
+[Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v1.4.0...v2.0.0)
+
+**Closed issues:**
+
+- Drop support for Puppet v3 [\#23](https://github.com/ghoneycutt/puppet-module-yum/issues/23)
 
 **Merged pull requests:**
 
 - WIP - add beaker tests [\#26](https://github.com/ghoneycutt/puppet-module-yum/pull/26) ([ghoneycutt](https://github.com/ghoneycutt))
+- V2 [\#25](https://github.com/ghoneycutt/puppet-module-yum/pull/25) ([ghoneycutt](https://github.com/ghoneycutt))
 
 ## [v1.4.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v1.4.0) (2017-09-28)
 [Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v1.3.0...v1.4.0)
