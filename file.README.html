@@ -64,25 +64,22 @@
 <ol><li>
 <p><a href="#label-Module+description">Module Description</a></p>
 </li><li>
-<p><a href="#label-Compatibility">Compatibility</a></p>
+<p><a href="#label-Setup">Setup - The basics of getting started with yum</a></p>
+<ul><li>
+<p><a href="#label-What+yum+affects">What yum affects</a></p>
+</li><li>
+<p><a href="#label-Beginning+with+yum">Beginning with yum</a></p>
+</li></ul>
+</li><li>
+<p><a href="#label-Usage">Usage - Configuration options and additional
+functionality</a></p>
+</li><li>
+<p><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></p>
 </li><li>
 <p><a href="#label-Examples">Examples</a></p>
 </li><li>
-<p><a href="#label-Class+descriptions">Class Descriptions</a></p>
-<ul><li>
-<p><a href="#label-Class+yum">yum</a></p>
-</li><li>
-<p><a href="#label-Class+yumserver">yum::server</a></p>
-</li><li>
-<p><a href="#label-Class+yumupdatesd">yum::updatesd</a></p>
-</li></ul>
-</li><li>
-<p><a href="#label-Define+descriptions">Define Descriptions</a></p>
-<ul><li>
-<p><a href="#label-Defined+type+yumrepo">yum::repo</a></p>
-</li><li>
-<p><a href="#label-Defined+type+yumrpm_gpg_key">yum::rpm_gpg_key</a></p>
-</li></ul>
+<p><a href="#label-Development">Development - Guide for contributing to the
+module</a></p>
 </li></ol>
 
 <h1 id="label-Module+description">Module description</h1>
@@ -97,7 +94,32 @@ for repositories.</p>
 <p>This module has the ability to create a yum server to serve up yum
 repositories to agents using Apache.</p>
 
-<h1 id="label-Compatibility">Compatibility</h1>
+<h2 id="label-Setup">Setup</h2>
+
+<h3 id="label-What+yum+affects">What yum affects</h3>
+
+<p>See the description.</p>
+
+<h3 id="label-Beginning+with+yum">Beginning with yum</h3>
+
+<p>Declare the main <code>::yum</code> class. See profile examples below.</p>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>See examples below.</p>
+
+<h3 id="label-Minimum+usage">Minimum usage</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include'>include</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>::yum</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<h3 id="label-Parameters+to+configure+classes+and+defined+types.">Parameters to configure classes and defined types.</h3>
+
+<p>Please consult the <code>REFERENCE.md</code> file for all parameters or the
+puppet-strings generated documentation at <a
+href="http://ghoneycutt.github.io/puppet-module-yum/">ghoneycutt.github.io/puppet-module-yum/</a>.</p>
+
+<h1 id="label-Limitations">Limitations</h1>
 
 <p>This module is built for use with Puppet v5 on the following platforms and
 supports the Ruby version associated with each puppet agent release. See
@@ -107,6 +129,11 @@ supports the Ruby version associated with each puppet agent release. See
 </li><li>
 <p>EL 7</p>
 </li></ul>
+
+<h2 id="label-Development">Development</h2>
+
+<p>See <code>CONTRIBUTING.md</code> for information related to the development
+of this module.</p>
 
 <h1 id="label-Examples">Examples</h1>
 
