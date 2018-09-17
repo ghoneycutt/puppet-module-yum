@@ -13,6 +13,8 @@ UNSUPPORTED_PLATFORMS = ['Suse','AIX','Solaris']
 RSpec.configure do |c|
   # Readable test descriptions
   c.formatter = :documentation
+  c.add_setting :yum_full, default: false
+  c.yum_full = (ENV['BEAKER_yum_full'] == 'yes' || ENV['BEAKER_yum_full'] == 'true')
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module dependencies

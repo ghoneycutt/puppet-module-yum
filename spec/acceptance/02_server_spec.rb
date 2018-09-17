@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'yum::server class' do
+describe 'yum::server class', unless: RSpec.configuration.yum_full do
   context 'yum::server' do
     context 'with default values for all parameters' do
       context 'it should be idempotent' do
