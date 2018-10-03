@@ -121,9 +121,9 @@ href="http://ghoneycutt.github.io/puppet-module-yum/">ghoneycutt.github.io/puppe
 
 <h1 id="label-Limitations">Limitations</h1>
 
-<p>This module is built for use with Puppet v5 on the following platforms and
-supports the Ruby version associated with each puppet agent release. See
-<code>.travis.yml</code> for an exact matrix.</p>
+<p>This module is built for use with Puppet versions 5 and 6 on the following
+platforms and supports the Ruby version associated with each puppet agent
+release. See <code>.travis.yml</code> for an exact matrix.</p>
 <ul><li>
 <p>EL 6</p>
 </li><li>
@@ -142,14 +142,16 @@ of this module.</p>
 <pre class="code ruby"><code class="ruby">yum::repo { &#39;example_plain&#39;:
   gpgkey  =&gt; &#39;http://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_PLAIN&#39;,
   baseurl =&gt; &#39;http://yum.test.local/customrepo/5/10/$basearch&#39;,
-}</code></pre>
+}
+</code></pre>
 
 <p>Using Hiera:</p>
 
 <pre class="code ruby"><code class="ruby">yum::repos:
   example_plain:
     gpgkey:   &#39;http://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_PLAIN&#39;
-    baseurl:  &#39;http://yum.test.local/customrepo/5/10/$basearch&#39;</code></pre>
+    baseurl:  &#39;http://yum.test.local/customrepo/5/10/$basearch&#39;
+</code></pre>
 
 <h2 id="label-Create+secured+repository+and+import+GPG+key+into+local+store-3A">Create secured repository and import GPG key into local store:</h2>
 
@@ -164,7 +166,8 @@ of this module.</p>
 yum::rpm_gpg_key { &#39;example_secure&#39;:
   gpgkey     =&gt; &#39;/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE_SECURE&#39;,
   gpgkey_url =&gt; &#39;https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE&#39;,
-}</code></pre>
+}
+</code></pre>
 
 <p>Using Hiera:</p>
 
@@ -178,15 +181,18 @@ yum::rpm_gpg_key { &#39;example_secure&#39;:
 yum::rpm_gpg_keys:
   example_secure:
     gpgkey:     &#39;/etc/pki/rpm-gpg/RPM-GPG-KEY-EXAMPLE_SECURE&#39;
-    gpgkey_url: &#39;https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE&#39;</code></pre>
+    gpgkey_url: &#39;https://yum.test.local/keys/RPM-GPG-KEY-EXAMPLE_SECURE&#39;
+</code></pre>
 
 <h2 id="label-Profile+for+a+yum+server">Profile for a yum server</h2>
 
-<pre class="code ruby"><code class="ruby">include ::yum::server</code></pre>
+<pre class="code ruby"><code class="ruby">include ::yum::server
+</code></pre>
 
 <h2 id="label-Profile+for+all+EL+systems">Profile for all EL systems</h2>
 
-<pre class="code ruby"><code class="ruby">include ::yum</code></pre>
+<pre class="code ruby"><code class="ruby">include ::yum
+</code></pre>
 
 <h2 id="label-Design+patterns">Design patterns</h2>
 
@@ -204,7 +210,8 @@ appropriate profiles.</p>
 
 @yum::repo { &#39;app_bar&#39;:
   baseurl =&gt; &#39;http://yum.test.local/app_bar/7/$basearch&#39;,
-}</code></pre>
+}
+</code></pre>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># profile::foo
 </span>
