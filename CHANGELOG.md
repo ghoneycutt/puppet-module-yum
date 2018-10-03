@@ -1,7 +1,16 @@
 # Change Log
 
-## [v2.0.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v2.0.0)
+## [v2.1.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v2.1.0)
 
+[Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v2.0.0...v2.1.0)
+
+**Merged pull requests:**
+
+- Support Puppet 6 [\#30](https://github.com/ghoneycutt/puppet-module-yum/pull/30) ([ghoneycutt](https://github.com/ghoneycutt))
+- Expand acceptance tests to verify yum::server and yum::repo interactions [\#29](https://github.com/ghoneycutt/puppet-module-yum/pull/29) ([treydock](https://github.com/treydock))
+- Follow documentation template [\#28](https://github.com/ghoneycutt/puppet-module-yum/pull/28) ([ghoneycutt](https://github.com/ghoneycutt))
+
+## [v2.0.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v2.0.0) (2018-09-10)
 [Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v1.4.0...v2.0.0)
 
 **Closed issues:**
