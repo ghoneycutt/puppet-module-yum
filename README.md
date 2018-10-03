@@ -51,9 +51,9 @@ puppet-strings generated documentation at
 
 # Limitations
 
-This module is built for use with Puppet v5 on the following platforms
-and supports the Ruby version associated with each puppet agent release.
-See `.travis.yml` for an exact matrix.
+This module is built for use with Puppet versions 5 and 6 on the
+following platforms and supports the Ruby version associated with each
+puppet agent release.  See `.travis.yml` for an exact matrix.
 
  * EL 6
  * EL 7
