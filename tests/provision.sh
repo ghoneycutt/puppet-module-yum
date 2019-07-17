@@ -42,9 +42,9 @@ fi
 puppet resource file /etc/puppetlabs/code/environments/production/modules/yum ensure=link target=/vagrant
 
 # setup module dependencies
-puppet module install puppetlabs/concat --version 4.2.1
-puppet module install puppetlabs/stdlib --version 4.25.1
-puppet module install puppetlabs/apache --version 3.2.0
+puppet module install puppetlabs/concat --version 6.0.0
+puppet module install puppetlabs/stdlib --version 6.0.0
+puppet module install puppetlabs/apache --version 5.0.0
 
 fqdn=$(hostname -f)
 if [[ $fqdn == 'yum-server.example.com' ]]; then
