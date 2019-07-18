@@ -311,13 +311,12 @@ describe 'yum::repo' do
         :invalid => ['../invalid', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects a (match for|match for Stdlib::Absolutepath =|Stdlib::Absolutepath =) Variant\[Stdlib::Windowspath.*Stdlib::Unixpath', # Puppet (4.x|5.0 & 5.1|5.x)
       },
-# TODO: Puppet 6 uses Puppet::PreformattedError instad of Puppet::Error sometimes for type checking.
-#      'Stdlib::Filemode' => {
-#        :name    => %w(repo_file_mode),
-#        :valid   => %w(0644 0755 0640 0740),
-#        :invalid => [ 2770, '0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-#        :message => 'expects a match for Stdlib::Filemode|expect', # Puppet 4 & 5
-#      },
+      'Stdlib::Filemode' => {
+        :name    => %w(repo_file_mode),
+        :valid   => %w(0644 0755 0640 0740 755),
+        :invalid => [ 2770, '0844', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :message => 'expects a match for Stdlib::Filemode|expect', # Puppet 4 & 5
+      },
     }
 
     validations.sort.each do |type, var|
