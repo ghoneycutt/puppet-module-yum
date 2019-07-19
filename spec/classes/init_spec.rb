@@ -650,8 +650,8 @@ describe 'yum' do
       },
       'Stdlib::Filemode' => {
         :name    => %w(config_mode repos_d_mode),
-        :valid   => %w(0644 0755 0640 0740),
-        :invalid => [ 2770, '0844', '755', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        :valid   => %w(0644 0755 0640 0740 755),
+        :invalid => [ 2770, '0844', '00644', 'string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
         :message => 'expects a match for Stdlib::Filemode',  # Puppet 4 & 5
       },
       'String' => {
