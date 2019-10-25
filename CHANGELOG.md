@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.3.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v2.3.0) (2019-10-25)
+[Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v2.2.0...v2.3.0)
+
+**Merged pull requests:**
+
+- Minimum changes required to use PDK [\#34](https://github.com/ghoneycutt/puppet-module-yum/pull/34) ([ghoneycutt](https://github.com/ghoneycutt))
+- \(ci\) Test with correct versions of ruby [\#33](https://github.com/ghoneycutt/puppet-module-yum/pull/33) ([ghoneycutt](https://github.com/ghoneycutt))
+
 ## [v2.2.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v2.2.0) (2019-07-19)
 [Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v2.1.0...v2.2.0)
 
@@ -7,6 +15,7 @@
 
 - Use latest versions of dependencies \(continued\) [\#32](https://github.com/ghoneycutt/puppet-module-yum/pull/32) ([treydock](https://github.com/treydock))
 - Use latest versions of dependencies [\#31](https://github.com/ghoneycutt/puppet-module-yum/pull/31) ([ghoneycutt](https://github.com/ghoneycutt))
+- Use upstream apache module [\#7](https://github.com/ghoneycutt/puppet-module-yum/pull/7) ([Phil-Friderici](https://github.com/Phil-Friderici))
 
 ## [v2.1.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v2.1.0) (2018-10-03)
 [Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v2.0.0...v2.1.0)
@@ -85,7 +94,6 @@
 **Merged pull requests:**
 
 - Fix compatibility with Puppet 4.0 to 4.3 [\#9](https://github.com/ghoneycutt/puppet-module-yum/pull/9) ([Phil-Friderici](https://github.com/Phil-Friderici))
-- Use upstream apache module [\#7](https://github.com/ghoneycutt/puppet-module-yum/pull/7) ([Phil-Friderici](https://github.com/Phil-Friderici))
 
 ## [v0.4.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v0.4.0) (2016-09-08)
 [Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v0.3.0...v0.4.0)
@@ -93,7 +101,6 @@
 **Merged pull requests:**
 
 - Mirrorlist rebased [\#8](https://github.com/ghoneycutt/puppet-module-yum/pull/8) ([Phil-Friderici](https://github.com/Phil-Friderici))
-- modernize testing harness and support some extra options in yum.conf [\#3](https://github.com/ghoneycutt/puppet-module-yum/pull/3) ([ghoneycutt](https://github.com/ghoneycutt))
 
 ## [v0.3.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v0.3.0) (2016-09-07)
 [Full Changelog](https://github.com/ghoneycutt/puppet-module-yum/compare/v0.2.0...v0.3.0)
@@ -101,6 +108,7 @@
 **Merged pull requests:**
 
 - Add specs tests \(finished\) [\#5](https://github.com/ghoneycutt/puppet-module-yum/pull/5) ([Phil-Friderici](https://github.com/Phil-Friderici))
+- modernize testing harness and support some extra options in yum.conf [\#3](https://github.com/ghoneycutt/puppet-module-yum/pull/3) ([ghoneycutt](https://github.com/ghoneycutt))
 
 ## [v0.2.0](https://github.com/ghoneycutt/puppet-module-yum/tree/v0.2.0) (2015-02-13)
 
