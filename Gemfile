@@ -9,6 +9,9 @@ end
 gem 'rake'
 gem 'metadata-json-lint',                               :require => false
 gem 'rspec-puppet',                                     :require => false
+gem 'rubocop',                                          :require => false
+gem 'rubocop-i18n',                                     :require => false
+gem 'rubocop-rspec',                                    :require => false
 gem 'puppetlabs_spec_helper',                           :require => false
 gem 'puppet-lint',                                      :require => false
 gem 'puppet-lint-absolute_classname-check',             :require => false
