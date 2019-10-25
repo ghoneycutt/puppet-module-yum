@@ -1,0 +1,40 @@
+---
+appveyor.yml:
+  delete: true
+
+.gitlab-ci.yml:
+  delete: true
+
+spec/default_facts.yml:
+  unmanaged: true
+
+.gitattributes:
+  unmanaged: true
+
+.vscode/extensions.json:
+  unmanaged: true
+
+hiera.yaml:
+  unmanaged: true
+
+data/common.yaml:
+  unmanaged: true
+
+spec/spec_helper.rb:
+  unmanaged: true
+
+.rubocop.yml:
+  unmanaged: true
+  selected_profile: off
+
+Gemfile:
+  unmanaged: true
+
+.travis.yml:
+  unmanaged: true
+
+Rakefile:
+  unmanaged: true
+
+.puppet-lint.rc:
+  unmanaged: true

@@ -7,14 +7,19 @@
   "source": "https://github.com/ghoneycutt/puppet-module-yum.git",
   "project_page": "https://github.com/ghoneycutt/puppet-module-yum",
   "issues_url": "https://github.com/ghoneycutt/puppet-module-yum/issues",
-  "description": "Puppet module to manage yum (client, server, and key management)",
-  "requirements": [
-    { "name": "puppet", "version_requirement": ">= 5.5.8 < 7.0.0" }
-  ],
   "dependencies": [
-    {"name":"puppetlabs/apache","version_requirement":">= 5.0.0 < 6.0.0"},
-    {"name":"puppetlabs/stdlib","version_requirement":">= 5.2.0 < 7.0.0"},
-    {"name":"puppetlabs/concat","version_requirement":">= 6.0.0 < 7.0.0"}
+    {
+      "name": "puppetlabs/apache",
+      "version_requirement": ">= 5.0.0 < 6.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 5.2.0 < 7.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 6.0.0 < 7.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
@@ -45,5 +50,15 @@
         "7"
       ]
     }
-  ]
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 5.5.8 < 7.0.0"
+    }
+  ],
+  "description": "Puppet module to manage yum (client, server, and key management)",
+  "pdk-version": "1.14.0",
+  "template-url": "pdk-default#1.14.0",
+  "template-ref": "1.14.0-0-g1bf3a4e"
 }

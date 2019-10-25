@@ -245,19 +245,6 @@ describe 'yum' do
     end
   end
 
-  describe 'with hiera providing invalid data for the exclude parameter' do
-    let(:facts) do
-      mandatory_facts.merge({
-        :fqdn => 'yum.example.local',
-        :test => 'yum__exclude_hash',
-      })
-    end
-
-    it 'should fail' do
-      expect { should contain_class(subject) }.to raise_error(Puppet::Error, %r{Lookup of key.*failed}) # error message could need more precision
-    end
-  end
-
   # <parameters for yum.conf>
   # tests for general booleans
   boolean_params = {
