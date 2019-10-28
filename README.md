@@ -40,7 +40,7 @@ See examples below.
 ### Minimum usage
 
 ```puppet
-include '::yum'
+include 'yum'
 ```
 
 ### Parameters to configure classes and defined types.
@@ -120,13 +120,13 @@ yum::rpm_gpg_keys:
 ## Profile for a yum server
 
 ```puppet
-include ::yum::server
+include yum::server
 ```
 
 ## Profile for all EL systems
 
 ```puppet
-include ::yum
+include yum
 ```
 
 ## Design patterns
@@ -140,6 +140,8 @@ appropriate profiles.
 ```puppet
 # profile::yumrepos
 
+include yum
+
 @yum::repo { 'app_foo':
   baseurl => 'http://yum.test.local/app_foo/7/$basearch',
 }
@@ -152,5 +154,7 @@ appropriate profiles.
 ```puppet
 # profile::foo
 
-realize Yum::repo['app_foo']
+include profile::yumrepos
+
+realize Yum::Repo['app_foo']
 ```
