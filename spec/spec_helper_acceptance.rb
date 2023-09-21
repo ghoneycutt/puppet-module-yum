@@ -7,7 +7,7 @@ run_puppet_install_helper
 install_module_dependencies
 install_module
 
-UNSUPPORTED_PLATFORMS = ['Suse','AIX','Solaris']
+UNSUPPORTED_PLATFORMS = ['Suse', 'AIX', 'Solaris'].freeze
 
 RSpec.configure do |c|
   # Readable test descriptions

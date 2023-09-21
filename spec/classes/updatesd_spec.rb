@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'yum::updatesd' do
   mandatory_facts = {
-    :fqdn => 'no-hiera-data.example.local',
-    :test => 'no-hiera-data',
+    fqdn: 'no-hiera-data.example.local',
+    test: 'no-hiera-data',
   }
   mandatory_params = {}
   let(:facts) { mandatory_facts }
@@ -11,44 +11,53 @@ describe 'yum::updatesd' do
 
   context 'with defaults for all parameters' do
     it do
-      should contain_package('yum_updatesd_package').with({
-        'ensure' => 'absent',
-        'name'   => 'yum-updatesd',
-      })
+      is_expected.to contain_package('yum_updatesd_package').with(
+        {
+          'ensure' => 'absent',
+          'name'   => 'yum-updatesd',
+        },
+      )
     end
     it do
-      should contain_service('yum_updatesd_service').with({
-        'ensure' => 'stopped',
-        'name'   => 'yum-updatesd',
-        'enable' => 'false',
-        'before' => 'Package[yum_updatesd_package]',
-      })
+      is_expected.to contain_service('yum_updatesd_service').with(
+        {
+          'ensure' => 'stopped',
+          'name'   => 'yum-updatesd',
+          'enable' => 'false',
+          'before' => 'Package[yum_updatesd_package]',
+        },
+      )
     end
   end
 
   context 'with updatesd_package set to valid string <spec-test>' do
-    let(:params) { mandatory_params.merge({ :updatesd_package => 'spec-test' }) }
-    it { should contain_package('yum_updatesd_package').with_name('spec-test') }
+    let(:params) { mandatory_params.merge({ updatesd_package: 'spec-test' }) }
+
+    it { is_expected.to contain_package('yum_updatesd_package').with_name('spec-test') }
   end
 
   context 'with updatesd_package_ensure set to valid string <present>' do
-    let(:params) { mandatory_params.merge({ :updatesd_package_ensure => 'present' }) }
-    it { should contain_package('yum_updatesd_package').with_ensure('present') }
+    let(:params) { mandatory_params.merge({ updatesd_package_ensure: 'present' }) }
+
+    it { is_expected.to contain_package('yum_updatesd_package').with_ensure('present') }
   end
 
   context 'with updatesd_service set to valid string <spec-test>' do
-    let(:params) { mandatory_params.merge({ :updatesd_service => 'spec-test' }) }
-    it { should contain_service('yum_updatesd_service').with_name('spec-test') }
+    let(:params) { mandatory_params.merge({ updatesd_service: 'spec-test' }) }
+
+    it { is_expected.to contain_service('yum_updatesd_service').with_name('spec-test') }
   end
 
   context 'with updatesd_service_ensure set to valid string <running>' do
-    let(:params) { mandatory_params.merge({ :updatesd_service_ensure => 'running' }) }
-    it { should contain_service('yum_updatesd_service').with_ensure('running') }
+    let(:params) { mandatory_params.merge({ updatesd_service_ensure: 'running' }) }
+
+    it { is_expected.to contain_service('yum_updatesd_service').with_ensure('running') }
   end
 
   context 'with updatesd_service_enable set to valid string <true>' do
-    let(:params) { mandatory_params.merge({ :updatesd_service_enable => 'true' }) }
-    it { should contain_service('yum_updatesd_service').with_enable('true') }
+    let(:params) { mandatory_params.merge({ updatesd_service_enable: 'true' }) }
+
+    it { is_expected.to contain_service('yum_updatesd_service').with_enable('true') }
   end
 
   describe 'variable type and content validations' do
@@ -58,22 +67,22 @@ describe 'yum::updatesd' do
 
     validations = {
       'Stdlib::Ensure::Service' => {
-        :name    => %w(updatesd_service_ensure),
-        :valid   => %w(running stopped),
-        :invalid => ['string', %w(array), { 'ha' => 'sh' }, 3, 2.42, false, nil],
-        :message => 'expects a match for Stdlib::Ensure::Service', # Puppet 4 & 5
+        name:    ['updatesd_service_ensure'],
+        valid:   ['running', 'stopped'],
+        invalid: ['string', ['array'], { 'ha' => 'sh' }, 3, 2.42, false, nil],
+        message: 'expects a match for Stdlib::Ensure::Service', # Puppet 4 & 5
       },
       'String' => {
-        :name    => %w(updatesd_package updatesd_service updatesd_package_ensure),
-        :valid   => ['string'],
-        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42, false],
-        :message => 'expects a String', # Puppet 4 & 5
+        name:    ['updatesd_package', 'updatesd_service', 'updatesd_package_ensure'],
+        valid:   ['string'],
+        invalid: [['array'], { 'ha' => 'sh' }, 3, 2.42, false],
+        message: 'expects a String', # Puppet 4 & 5
       },
       'Variant[String,Boolean]' => {
-        :name    => %w(updatesd_service_enable),
-        :valid   => ['false', 'manual', 'mark', 'true', true, false],
-        :invalid => [%w(array), { 'ha' => 'sh' }, 3, 2.42],
-        :message => 'expects a value of type String or Boolean', # Puppet 4 & 5
+        name:    ['updatesd_service_enable'],
+        valid:   ['false', 'manual', 'mark', 'true', true, false],
+        invalid: [['array'], { 'ha' => 'sh' }, 3, 2.42],
+        message: 'expects a value of type String or Boolean', # Puppet 4 & 5
       },
     }
 
@@ -82,16 +91,18 @@ describe 'yum::updatesd' do
         var[:params] = {} if var[:params].nil?
         var[:valid].each do |valid|
           context "when #{var_name} (#{type}) is set to valid #{valid} (as #{valid.class})" do
-            let(:params) { [mandatory_params, var[:params], { :"#{var_name}" => valid, }].reduce(:merge) }
-            it { should compile }
+            let(:params) { [mandatory_params, var[:params], { "#{var_name}": valid, }].reduce(:merge) }
+
+            it { is_expected.to compile }
           end
         end
 
         var[:invalid].each do |invalid|
           context "when #{var_name} (#{type}) is set to invalid #{invalid} (as #{invalid.class})" do
-            let(:params) { [mandatory_params, var[:params], { :"#{var_name}" => invalid, }].reduce(:merge) }
-            it 'should fail' do
-              expect { should contain_class(subject) }.to raise_error(Puppet::Error, /#{var[:message]}/)
+            let(:params) { [mandatory_params, var[:params], { "#{var_name}": invalid, }].reduce(:merge) }
+
+            it 'fails' do
+              expect { is_expected.to contain_class(:subject) }.to raise_error(Puppet::Error, %r{#{var[:message]}})
             end
           end
         end

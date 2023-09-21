@@ -4,14 +4,14 @@ describe 'yum class', unless: RSpec.configuration.yum_full do
   context 'yum' do
     context 'with default values for all parameters' do
       context 'it should be idempotent' do
-        it 'should work with no errors' do
+        it 'works with no errors' do
           pp = <<-EOS
           include ::yum
           EOS
 
           # Run it twice and test for idempotency
-          apply_manifest(pp, :catch_failures => true)
-          apply_manifest(pp, :catch_changes  => true)
+          apply_manifest(pp, catch_failures: true)
+          apply_manifest(pp, catch_changes: true)
         end
       end
 
@@ -20,7 +20,7 @@ describe 'yum class', unless: RSpec.configuration.yum_full do
           it { is_expected.to be_installed }
         end
 
-        yum_conf = <<-END.gsub(/^\s+\|/, '')
+        yum_conf = <<-END.gsub(%r{^\s+\|}, '')
           |# This file is being maintained by Puppet.
           |# DO NOT EDIT
           |
