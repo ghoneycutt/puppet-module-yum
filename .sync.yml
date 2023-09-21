@@ -13,3 +13,6 @@ hiera.yaml:
 
 data/common.yaml:
   unmanaged: true
+
+spec/spec_helper.rb:
+  hiera_config: 'spec/fixtures/hiera/hiera.yaml'
