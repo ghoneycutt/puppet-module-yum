@@ -1,1 +1,1 @@
-include ::yum
+include yum

@@ -1,4 +1,4 @@
-include ::yum
+include yum
 
 yum::repo { 'test':
   description => 'Test yum-server serving up yum repos',

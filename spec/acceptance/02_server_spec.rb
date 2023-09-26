@@ -4,14 +4,14 @@ describe 'yum::server class', unless: RSpec.configuration.yum_full do
   context 'yum::server' do
     context 'with default values for all parameters' do
       context 'it should be idempotent' do
-        it 'should work with no errors' do
+        it 'works with no errors' do
           pp = <<-EOS
           include ::yum::server
           EOS
 
           # Run it twice and test for idempotency
-          apply_manifest(pp, :catch_failures => true)
-          apply_manifest(pp, :catch_changes  => true)
+          apply_manifest(pp, catch_failures: true)
+          apply_manifest(pp, catch_changes: true)
         end
       end
 

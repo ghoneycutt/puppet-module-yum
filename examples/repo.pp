@@ -1,4 +1,4 @@
-include ::yum
+include yum
 
 yum::rpm_gpg_key { "RPM-GPG-KEY-EPEL-${facts['os']['release']['major']}":
   gpgkey_url => "http://yum-server/keys/RPM-GPG-KEY-EPEL-${facts['os']['release']['major']}",
