@@ -1,4 +1,4 @@
-class { '::yum::server':
+class { 'yum::server':
   http_listen_ip => $facts['networking']['interfaces']['eth1']['ip'],
 }
 

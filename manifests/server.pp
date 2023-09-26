@@ -34,11 +34,10 @@ class yum::server (
   String $gpg_keys_path                         = 'keys', # gpg_keys_path is relative to $docroot, ${docroot}/${gpg_keys_path}
   String $gpg_user_name                         = 'Root',
   String $servername                            = 'yum',
-  Array[String, 1]  $serveraliases              = [ $::fqdn, $::hostname ],
-  Stdlib::IP::Address::Nosubnet $http_listen_ip = $::ipaddress,
+  Array[String, 1] $serveraliases               = [$facts['networking']['fqdn'], $facts['networking']['hostname']],
+  Stdlib::IP::Address::Nosubnet $http_listen_ip = $facts['networking']['ip'],
 ) {
-
-  include ::apache
+  include apache
 
   package { 'createrepo':
     ensure => installed,

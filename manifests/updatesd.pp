@@ -26,7 +26,6 @@ class yum::updatesd (
   Stdlib::Ensure::Service $updatesd_service_ensure = 'stopped',
   Variant[String,Boolean] $updatesd_service_enable = false,
 ) {
-
   package { 'yum_updatesd_package':
     ensure => $updatesd_package_ensure,
     name   => $updatesd_package,

@@ -4,6 +4,15 @@ describe 'yum::updatesd' do
   mandatory_facts = {
     fqdn: 'no-hiera-data.example.local',
     test: 'no-hiera-data',
+    networking: {
+      fqdn: 'no-hiera-data.example.local',
+    },
+    os: {
+      name: 'RedHat',
+      release: {
+        full: '7',
+      }
+    }
   }
   mandatory_params = {}
   let(:facts) { mandatory_facts }
@@ -80,7 +89,7 @@ describe 'yum::updatesd' do
       },
       'Variant[String,Boolean]' => {
         name:    ['updatesd_service_enable'],
-        valid:   ['false', 'manual', 'mark', 'true', true, false],
+        valid:   ['false', 'true', true, false], # 'manual' & 'mask' needs specific features to be set
         invalid: [['array'], { 'ha' => 'sh' }, 3, 2.42],
         message: 'expects a value of type String or Boolean', # Puppet 4 & 5
       },

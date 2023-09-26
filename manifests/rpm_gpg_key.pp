@@ -19,7 +19,6 @@ define yum::rpm_gpg_key (
   String $wget_path = '/bin:/usr/bin:/sbin:/usr/sbin',
   String $rpm_path  = '/bin:/usr/bin:/sbin:/usr/sbin',
 ) {
-
   # wget -O in the yum_wget_gpgkey_for_${name}_repo exec will leave an empty
   # file if it does not download one, which causes problems. This exec will
   # remove the key if it exists, but is empty.

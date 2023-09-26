@@ -355,7 +355,7 @@ describe 'yum' do
         let(:params) { { "#{param}": value } }
 
         it 'fails' do
-          expect { is_expected.to contain_class(:subject) }.to raise_error(Puppet::Error, %r{expects a value of type Undef or Integer\[\d+, \d+\]})
+          expect { is_expected.to contain_class(:subject) }.to raise_error(Puppet::Error, %r{Integer\[0, 10\]})
         end
       end
     end
@@ -548,7 +548,7 @@ describe 'yum' do
         message: '(expects a Stdlib::Absolutepath|expects an Array value)', # Puppet 4 & 5
       },
       'Boolean' => {
-        name:    ['manage_repos', 'repos_hiera_merge', 'rpm_gpg_keys_hiera_merge'],
+        name:    ['manage_repos', 'repos_hiera_merge', 'rpm_gpg_keys_hiera_merge', 'exactarch', 'gpgcheck', 'keepcache', 'obsoletes', 'plugins', 'tolerant'],
         valid:   [true, false],
         invalid: ['string', ['array'], { 'ha' => 'sh' }, 3, 2.42, 'false', nil],
         message: 'expects a Boolean value', # Puppet 4 & 5
@@ -560,6 +560,12 @@ describe 'yum' do
         invalid: ['string', ['array'], { 'ha' => 'sh' }, 3, 2.42, 'false', nil],
         message: 'expects a Boolean value', # Puppet 4 & 5
       },
+      'Integer[0, 10]' => {
+        name:    ['debuglevel'],
+        valid:   [1, 10, :undef],
+        invalid: ['242', 2.42, ['array'], { 'ha' => 'sh' }, false],
+        message: '(expects an Integer|Integer\[0, 10\])',
+      },
       'Optional[Boolean,String]' => {
         name:    ['distroverpkg'],
         valid:   [true, false, :undef, 'string'],
@@ -567,10 +573,9 @@ describe 'yum' do
         message: 'expects a value of type Undef, Boolean, or String', # Puppet 4 & 5
       },
       'Optional[Boolean]' => {
-        name:    ['exactarch', 'gpgcheck', 'keepcache', 'obsoletes', 'plugins', 'tolerant', 'alwaysprompt', 'assumeyes', 'clean_requirements_on_remove',
-                  'color', 'diskspacecheck', 'enable_group_conditionals', 'groupremove_leaf_only', 'history_record', 'keepalive', 'localpkg_gpgcheck',
-                  'overwrite_groups', 'protected_multilib', 'repo_gpgcheck', 'reset_nice', 'showdupesfromrepos', 'skip_broken', 'ssl_check_cert_permissions',
-                  'sslverify'],
+        name:    ['alwaysprompt', 'assumeyes', 'clean_requirements_on_remove', 'color', 'diskspacecheck', 'enable_group_conditionals',
+                  'groupremove_leaf_only', 'history_record', 'keepalive', 'localpkg_gpgcheck', 'overwrite_groups', 'protected_multilib',
+                  'repo_gpgcheck', 'reset_nice', 'showdupesfromrepos', 'skip_broken', 'ssl_check_cert_permissions', 'sslverify'],
         valid:   [true, false, :undef],
         invalid: ['string', ['array'], { 'ha' => 'sh' }, 3, 2.42, 'false'],
         message: 'expects a value of type Undef or Boolean', # Puppet 4 & 5
@@ -619,13 +624,13 @@ describe 'yum' do
         message: 'expects a value of type Undef or Hash', # Puppet 4 & 5
       },
       'Optional[Integer]' => {
-        name:    ['bandwidth', 'debuglevel', 'errorlevel', 'installonly_limit', 'mirrorlist_expire', 'recent', 'retries', 'timeout'],
+        name:    ['bandwidth', 'errorlevel', 'installonly_limit', 'mirrorlist_expire', 'recent', 'retries', 'timeout'],
         valid:   [1, 10, :undef],
         invalid: ['242', 2.42, ['array'], { 'ha' => 'sh' }, false],
         message: 'expects a value of type Undef or Integer', # Puppet 4 & 5
       },
       'Optional[Integer] (range 0..10 checked)' => {
-        name:    ['debuglevel', 'errorlevel'],
+        name:    ['errorlevel'],
         valid:   [], # tested above
         invalid: [-1, 11],
         message: 'expects a value of type Undef or Integer\[\d+, \d+\]', # Puppet 4 & 5
@@ -658,7 +663,7 @@ describe 'yum' do
         name:    ['metadata_expire'],
         valid:   [3, '242m', '242h', '242d', 'never' ],
         invalid: [['array'], { 'ha' => 'sh' }, 2.42, false],
-        message: 'expects a value of type Undef, Integer, or Pattern', # Puppet 4 & 5
+        message: 'expects a value of type Integer or Pattern', # Puppet 4 & 5
       },
       'Stdlib::Absolutepath' => {
         name:    ['config_path'],

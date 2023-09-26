@@ -8,6 +8,15 @@ describe 'yum::server' do
     osfamily: 'RedHat',
     operatingsystemrelease: '7.0.1406',
     operatingsystem: 'RedHat',
+    os: {
+      family: 'RedHat',
+      name:   'RedHat',
+    },
+    networking: {
+      fqdn:     'no-hiera-data.example.local',
+      hostname: 'no-hiera-data',
+      ip:       '10.0.0.242',
+    },
   }
   mandatory_params = {}
   let(:facts) { mandatory_facts }

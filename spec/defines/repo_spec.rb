@@ -253,6 +253,12 @@ describe 'yum::repo' do
         invalid: ['string', ['array'], { 'ha' => 'sh' }, 3, 2.42, false, nil],
         message: '(expects an Array value|expects a match for Variant\[Stdlib::HTTPUrl.*, Pattern\[\^\(file|ftp\):)', # Puppet 4 & 5
       },
+      'Boolean' => {
+        name:    ['enabled', 'gpgcheck'],
+        valid:   [true, false, :undef],
+        invalid: ['string', ['array'], { 'ha' => 'sh' }, 3, 2.42, 'false'],
+        message: 'expects a Boolean', # Puppet 4 & 5
+      },
       'Enum[] for ensure' => {
         name:    ['ensure'],
         valid:   ['present', 'absent'],
@@ -260,7 +266,7 @@ describe 'yum::repo' do
         message: 'expects a match for Enum\[\'absent\', \'present\'\]', # Puppet 4 & 5
       },
       'Optional[Boolean]' => {
-        name:    ['enabled', 'enablegroups', 'gpgcheck', 'keepalive', 'repo_gpgcheck', 'skip_if_unavailable', 'ssl_check_cert_permissions', 'sslverify'],
+        name:    ['enablegroups', 'keepalive', 'repo_gpgcheck', 'skip_if_unavailable', 'ssl_check_cert_permissions', 'sslverify'],
         valid:   [true, false, :undef],
         invalid: ['string', ['array'], { 'ha' => 'sh' }, 3, 2.42, 'false'],
         message: 'expects a value of type Undef or Boolean', # Puppet 4 & 5

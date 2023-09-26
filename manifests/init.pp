@@ -456,16 +456,16 @@ class yum (
   Optional[Boolean] $color                        = undef,
   Optional[Boolean] $diskspacecheck               = undef,
   Optional[Boolean] $enable_group_conditionals    = undef,
-  Optional[Boolean] $exactarch                    = true,
-  Optional[Boolean] $gpgcheck                     = false,
+  Boolean           $exactarch                    = true,
+  Boolean           $gpgcheck                     = false,
   Optional[Boolean] $groupremove_leaf_only        = undef,
   Optional[Boolean] $history_record               = undef,
   Optional[Boolean] $keepalive                    = undef,
-  Optional[Boolean] $keepcache                    = true,
+  Boolean           $keepcache                    = true,
   Optional[Boolean] $localpkg_gpgcheck            = undef,
-  Optional[Boolean] $obsoletes                    = true,
+  Boolean           $obsoletes                    = true,
   Optional[Boolean] $overwrite_groups             = undef,
-  Optional[Boolean] $plugins                      = false,
+  Boolean           $plugins                      = false,
   Optional[Boolean] $protected_multilib           = undef,
   Optional[Boolean] $repo_gpgcheck                = undef,
   Optional[Boolean] $reset_nice                   = undef,
@@ -473,8 +473,8 @@ class yum (
   Optional[Boolean] $skip_broken                  = undef,
   Optional[Boolean] $ssl_check_cert_permissions   = undef,
   Optional[Boolean] $sslverify                    = undef,
-  Optional[Boolean] $tolerant                     = false,
-  Optional[Integer[0, 10]] $debuglevel            = 2,
+  Boolean           $tolerant                     = false,
+  Integer[0, 10]    $debuglevel                   = 2,
   Optional[Integer[0, 10]] $errorlevel            = undef,
   Optional[Integer] $bandwidth                    = undef,
   Optional[Integer] $installonly_limit            = undef,
@@ -482,9 +482,9 @@ class yum (
   Optional[Integer] $recent                       = undef,
   Optional[Integer] $retries                      = undef,
   Optional[Integer] $timeout                      = undef,
-  Optional[Stdlib::Absolutepath] $cachedir        = '/var/cache/yum/$basearch/$releasever',
+  Stdlib::Absolutepath $cachedir                  = '/var/cache/yum/$basearch/$releasever',
   Optional[Stdlib::Absolutepath] $installroot     = undef,
-  Optional[Stdlib::Absolutepath] $logfile         = '/var/log/yum.log',
+  Stdlib::Absolutepath $logfile                   = '/var/log/yum.log',
   Optional[Stdlib::Absolutepath] $persistdir      = undef,
   Optional[Stdlib::Absolutepath] $pluginconfpath  = undef,
   Optional[Stdlib::Absolutepath] $pluginpath      = undef,
@@ -501,7 +501,7 @@ class yum (
   Optional[String] $syslog_ident                  = undef,
   Optional[String] $username                      = undef,
   Optional[Variant[Integer,Float,Pattern[/^\d+(.\d+|)(k|M|G)*$/]]] $throttle                    = undef,
-  Optional[Variant[Integer,Pattern[/^(\d+(m|h|d)*|never|)$/]]] $metadata_expire                 = '6h',
+  Variant[Integer,Pattern[/^(\d+(m|h|d)*|never|)$/]] $metadata_expire                           = '6h',
   Optional[Enum['cmds','commands','default','single-user-commands','users']] $history_list_view = undef,
   Optional[Enum['group:all','group:main','group:primary','group:small','instant']] $mdpolicy    = undef,
   Optional[Enum['critical','debug','emergency','error','info','warn']] $rpmverbosity            = undef,
@@ -509,7 +509,6 @@ class yum (
   Optional[Enum['all','best']] $multilib_policy                                                 = undef,
   Optional[Enum['last', 'newest']] $pkgpolicy                                                   = undef,
 ) {
-
   $_valid_colors = [
     'bg:black', 'bg:blue', 'bg:cyan', 'bg:green', 'bg:magenta', 'bg:red', 'bg:white', 'bg:yellow', 'blink', 'bold', 'dim',
     'fg:black', 'fg:blue', 'fg:cyan', 'fg:green', 'fg:magenta', 'fg:red', 'fg:white', 'fg:yellow', 'reverse', 'underline',
@@ -568,7 +567,7 @@ class yum (
   }
 
   if $tsflags - ['justdb', 'nocontexts', 'nodocs', 'noscripts', 'notriggers', 'repackage', 'test'] != [] {
-    fail('yum::tsflags contains an invalid value. Valid values are <justdb>, <nocontexts>, <nodocs>, <noscripts>, <notriggers>, <repackage>, and <test>.')
+    fail('yum::tsflags contains an invalid value. Valid values are <justdb>, <nocontexts>, <nodocs>, <noscripts>, <notriggers>, <repackage>, and <test>.') #lint:ignore:140chars
   }
 
   # <convert booleans to string values>
@@ -695,7 +694,7 @@ class yum (
   # </convert booleans to string values>
 
   $distroverpkg_string = $distroverpkg ? {
-    true    => "${::operatingsystem.downcase}-release",
+    true    => "${facts['os']['name'].downcase}-release",
     String  => $distroverpkg,
     default => undef,
   }
@@ -731,7 +730,7 @@ class yum (
     }
   }
 
-  include ::yum::updatesd
+  include yum::updatesd
 
   package { 'yum':
     ensure => installed,

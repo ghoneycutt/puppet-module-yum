@@ -162,9 +162,9 @@ define yum::repo (
   # parameters for repo file
   Array $exclude                                = [],
   Array $includepkgs                            = [],
-  Optional[Boolean] $enabled                    = true,
+  Boolean           $enabled                    = true,
   Optional[Boolean] $enablegroups               = undef,
-  Optional[Boolean] $gpgcheck                   = false,
+  Boolean           $gpgcheck                   = false,
   Optional[Boolean] $keepalive                  = undef,
   Optional[Boolean] $repo_gpgcheck              = undef,
   Optional[Boolean] $skip_if_unavailable        = undef,
@@ -195,7 +195,6 @@ define yum::repo (
   Optional[Variant[Integer,Float,Pattern[/^\d+(.\d+|)(k|M|G)*$/]]] $throttle    = undef,
   Optional[Variant[Integer,Pattern[/^(\d+(m|h|d)*|never|)$/]]] $metadata_expire = undef,
 ) {
-
   $enabled_string = $enabled ? {
     Boolean => bool2str($enabled, '1', '0'),
     default => undef,

@@ -1,1 +1,1 @@
-include ::yum::updatesd
+include yum::updatesd
